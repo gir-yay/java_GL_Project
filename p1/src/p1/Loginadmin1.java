@@ -1,12 +1,17 @@
-
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package p1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -19,8 +24,8 @@ public class Loginadmin1 extends javax.swing.JFrame {
      */
     public Loginadmin1() {
         initComponents();
-        txtemailadmin.setBackground(new java.awt.Color(0,0,0,1));
-        txtpassword.setBackground(new java.awt.Color(0,0,0,1));
+        txtemailadmin.setBackground(new java.awt.Color(0, 0, 0, 1));
+        txtpassword.setBackground(new java.awt.Color(0, 0, 0, 1));
     }
 
     /**
@@ -161,7 +166,7 @@ public class Loginadmin1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 //eye of password
     private void disableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_disableMouseClicked
-        txtpassword.setEchoChar((char)0);
+        txtpassword.setEchoChar((char) 0);
         disable.setVisible(false);
         disable.setEnabled(false);
         show.setEnabled(true);
@@ -169,7 +174,7 @@ public class Loginadmin1 extends javax.swing.JFrame {
     }//GEN-LAST:event_disableMouseClicked
 
     private void showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseClicked
-        txtpassword.setEchoChar((char)8226);
+        txtpassword.setEchoChar((char) 8226);
         disable.setVisible(true);
         disable.setEnabled(true);
         show.setEnabled(false);
@@ -177,20 +182,66 @@ public class Loginadmin1 extends javax.swing.JFrame {
     }//GEN-LAST:event_showMouseClicked
 // l'événement d'ouverture de la fenêtre 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        for (double i = 0.0; i <=1.0; i = i+0.1){
-            String val = i+ "";//La conversion
+        for (double i = 0.0; i <= 1.0; i = i + 0.1) {
+            String val = i + "";//La conversion
             float f = Float.valueOf(val); //La conversion
             this.setOpacity(f); //Applique la valeur convertie f comme opacité à la fenêtre en utilisant la méthode setOpacity
-            try{
+            try {
                 Thread.sleep(50);// la transition d'opacité se produire sur une période de 0,5 seconde &le thread de l'interface utilisateur est mis en pause pendant le délai spécifié
-            }catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        //System.out.println("Bouton clicked ");
+        String email, password, query, passdb = null;
+        String Surl, Suser, Spass;
+        Surl = "jdbc:mysql://localhost:3306/gl";
+        Suser = "root";
+        Spass = "";
+        int notFound = 0;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+            Statement st = con.createStatement();
+
+            if ("".equals(txtemailadmin.getText())) {
+                JOptionPane.showMessageDialog(new JFrame(), "Email requerid !!!", "Error", JOptionPane.ERROR_MESSAGE);
+
+            } else if ("".equals(txtpassword.getText())) {
+                JOptionPane.showMessageDialog(new JFrame(), "Password requerid !!!", "Error", JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                email = txtemailadmin.getText();
+                password = txtpassword.getText();
+                System.out.println("Password:" + password);
+                System.out.println("Email " + email);
+
+                query = "SELECT * FROM admin WHERE email = '" + email + "';";
+                ResultSet rs = st.executeQuery(query);
+
+                while (rs.next()) {
+                    passdb = rs.getString("Password");
+                    notFound = 1;
+                }
+                if (notFound == 1 && password.equals(passdb)) {
+                    System.out.println("Login suces");
+                    //Now we need to switch to the next frame 
+
+                } else {
+                    JOptionPane.showMessageDialog(new JFrame(), "Incorrect Email or Password !!!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("error" + e.getMessage());
+
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
