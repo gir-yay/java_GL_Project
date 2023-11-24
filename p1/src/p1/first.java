@@ -17,13 +17,15 @@ public class first extends javax.swing.JFrame {
         initComponents();
     }
     private Loginstudent1 loginStudentInstance;
-
+    private Loginadmin1 loginAdminInstance;
     // ... other code ...
 
     public void setLoginStudentInstance(Loginstudent1 loginStudentInstance) {
         this.loginStudentInstance = loginStudentInstance;
     }
-    
+     public void setLoginAdminInstance(Loginadmin1 loginAdminInstance) {
+        this.loginAdminInstance = loginAdminInstance;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
