@@ -8,6 +8,14 @@
  */
 package p1;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
+
 /**
  *
  * @author ME1
@@ -131,6 +139,11 @@ public class Loginstudent1 extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(25, 118, 211));
         jButton1.setText("Continuer");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 341, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -191,6 +204,53 @@ public class Loginstudent1 extends javax.swing.JFrame {
     // Close the current instance (Loginstudent1)
     this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //Sur click du bouton continuer on va vérifier si les champs sont vides ou pas
+        String email, CIN, query, CINdb = null;
+        Integer CNE = null;
+        Integer CNEdb = null;
+        String Surl, Suser, Spass;
+        Surl = "jdbc:mysql://localhost:3306/gl";
+        Suser = "root";
+        Spass = "";
+        int notFound = 0;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            java.sql.Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+            Statement st = con.createStatement();
+            //check if the fields are empty
+            if ("".equals(txtcin.getText())){
+                JOptionPane.showMessageDialog(null, "Veuillez remplir le champ CIN");
+            }else if ("".equals(txtapogee.getText())){
+                JOptionPane.showMessageDialog(null, "Veuillez remplir le champ Numéro apogée");
+            }else if ("".equals(txtemailstudent.getText())){
+                JOptionPane.showMessageDialog(null, "Veuillez remplir le champ Email institutionnelle");
+            }else{
+                CIN=txtcin.getText();
+                email=txtemailstudent.getText();
+                CNE=Integer.parseInt(txtapogee.getText());
+                query="SELECT * FROM student WHERE CIN='"+CIN+"';";
+                ResultSet rs = st.executeQuery(query);
+                
+                while(rs.next()){
+                    CINdb=rs.getString("CIN");
+                    CNEdb=rs.getInt("CNE");
+                }
+                if (CIN.equals(CINdb) && CNE.equals(CNEdb)){
+                        notFound=1;
+                        System.out.println("CIN: "+CINdb+" CNE: "+CNEdb);
+                        System.out.println("user found");
+                    }else{
+                        notFound=0;
+                        JOptionPane.showMessageDialog(null, "Veuillez vérifier vos informations");
+                    }
+            }
+        }catch(Exception e){
+            System.out.println("Erreur de connexion"+e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
