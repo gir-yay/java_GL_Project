@@ -16,6 +16,14 @@ public class first extends javax.swing.JFrame {
     public first() {
         initComponents();
     }
+    private Loginstudent1 loginStudentInstance;
+
+    // ... other code ...
+
+    public void setLoginStudentInstance(Loginstudent1 loginStudentInstance) {
+        this.loginStudentInstance = loginStudentInstance;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
