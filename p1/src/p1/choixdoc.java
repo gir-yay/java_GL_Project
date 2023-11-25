@@ -9,12 +9,19 @@ package p1;
  * @author szaoi
  */
 public class choixdoc extends javax.swing.JFrame {
-
+    private Integer CNE;
     /**
      * Creates new form choixdoc
+     * 
      */
-    public choixdoc() {
+    public choixdoc( Integer CNE) {
+        this.CNE = CNE;
         initComponents();
+        System.out.println("This : "+CNE);
+    }
+
+    private choixdoc() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**

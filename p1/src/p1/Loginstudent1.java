@@ -249,8 +249,10 @@ public class Loginstudent1 extends javax.swing.JFrame {
                 }
                 if (CIN.equals(CINdb) && CNE.equals(CNEdb)){
                         notFound=1;
-                        System.out.println("CIN: "+CINdb+" CNE: "+CNEdb);
-                        System.out.println("user found");
+                        //switch to choixdoc.java
+                        choixdoc jf4 =new choixdoc(CNE);
+                        jf4.show();
+                        dispose();
                     }else{
                         notFound=0;
                         JOptionPane.showMessageDialog(null, "Veuillez vérifier vos informations");
