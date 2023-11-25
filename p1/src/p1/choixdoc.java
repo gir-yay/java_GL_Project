@@ -180,6 +180,14 @@ public class choixdoc extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        // Depend of the document selected, switch to the frame of the document
+        String choice=txtdoc.getText();
+        if ("Convention de stage".equals(choice)) {
+            // go to stagedoc frame
+            stagedoc jf3= new stagedoc(CNE);
+            jf3.show();
+            dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
