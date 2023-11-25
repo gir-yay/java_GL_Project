@@ -211,10 +211,12 @@ public class Reclamation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        // close the current instance and open the first screen
-        first firstScreen = new first();
-        firstScreen.setVisible(true);
+        // close the current instance and go back to the choice of document
+        choixdoc choicedoc = new choixdoc(CNE);
+        choicedoc.setVisible(true);
         this.dispose();
+
+        
 
     }//GEN-LAST:event_jLabel4MouseClicked
 

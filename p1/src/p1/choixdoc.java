@@ -12,7 +12,7 @@ import javax.swing.JFrame;
  */
 public class choixdoc extends javax.swing.JFrame {
 
-    private Integer CNE;
+    public Integer CNE;
 
     /**
      * Creates new form choixdoc
