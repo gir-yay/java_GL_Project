@@ -211,14 +211,11 @@ public class Reclamation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        choixdoc firstScreen = new choixdoc(CNE);
-        
-       firstScreen.setReclamationInstance(this);
-       
-       firstScreen.setVisible(true);
-    
-     // Close the current instance 
-            this.dispose();
+        // close the current instance and open the first screen
+        first firstScreen = new first();
+        firstScreen.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -256,6 +253,15 @@ public class Reclamation extends javax.swing.JFrame {
                 query = "INSERT INTO reclamation (user_id, doctype, msg) VALUES ('" + user_id + "', '" + doctype + "', '" + msg + "')";
                 st.execute(query);
                 JOptionPane.showMessageDialog(null, "Reclamtion summit");
+                // Close the current instance and open the first screen
+                first firstScreen = new first();
+                firstScreen.setVisible(true);
+                this.dispose();
+                
+
+
+
+
             }
             
             
