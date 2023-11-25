@@ -37,7 +37,7 @@ public class Reclamation extends javax.swing.JFrame {
         }
     });
        
-        jTextField4.setFocusable(false);
+        //jTextField4.setFocusable(false);
       
     }
 
