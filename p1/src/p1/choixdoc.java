@@ -19,24 +19,7 @@ public class choixdoc extends javax.swing.JFrame {
     public choixdoc(Integer CNE) {
         this.CNE = CNE;
         initComponents();
-<<<<<<< HEAD
         System.out.println("This : " + CNE);
-=======
-<<<<<<< Updated upstream
-        System.out.println("This : "+CNE);
->>>>>>> d85c4ede4b212fd07a0538b773d9d60e51ed465c
-    }
-
-    private choixdoc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-=======
-        ReclamationInstance = new Reclamation();
-        
-    }
-    private Reclamation ReclamationInstance;
-    public void setReclamationInstance(Reclamation ReclamationInstance) {
-        this.ReclamationInstance = ReclamationInstance;
->>>>>>> Stashed changes
     }
 
     /**
@@ -155,6 +138,11 @@ public class choixdoc extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        //switch to reclamation frame and send the id of the user
+        Reclamation jf5= new Reclamation(CNE);
+        jf5.show();
+        dispose();
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -162,8 +150,7 @@ public class choixdoc extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        ReclamationInstance.setVisible(true);
-        this.setVisible(false);
+        
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
@@ -196,7 +183,7 @@ public class choixdoc extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new choixdoc().setVisible(true);
+                //new choixdoc().setVisible(true);
             }
         });
     }
@@ -213,4 +200,8 @@ public class choixdoc extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtdoc;
     // End of variables declaration//GEN-END:variables
+
+    void setReclamationInstance(Reclamation aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

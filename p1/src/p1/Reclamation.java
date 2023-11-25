@@ -4,6 +4,13 @@
  */
 package p1;
 
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Hp
@@ -13,14 +20,17 @@ public class Reclamation extends javax.swing.JFrame {
     /**
      * Creates new form Reclamation
      */
-    public Reclamation() {
+    private Integer CNE;
+    public Reclamation(Integer CNE) {
         initComponents();
+        this.CNE = CNE;
+        System.out.println("This : " + CNE);
         this.setLocationRelativeTo(null);
-        msgReclam.addKeyListener(new java.awt.event.KeyAdapter() {
+        msgre.addKeyListener(new java.awt.event.KeyAdapter() {
         public void keyTyped(java.awt.event.KeyEvent evt) {
             if (evt.getKeyChar() == '\n') {
                 // Si la touche "Enter" est pressée, ajoutez un saut de ligne
-                msgReclam.append("\n");
+                msgre.append("\n");
                 evt.consume(); // Consommez l'événement pour éviter que le "Enter" ne soit ajouté au texte
             }
         }
@@ -43,14 +53,14 @@ public class Reclamation extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        dctype = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        msgReclam = new javax.swing.JTextArea();
+        msgre = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,13 +100,13 @@ public class Reclamation extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(25, 118, 211));
 
-        jTextField2.setBackground(new java.awt.Color(25, 118, 211));
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setBorder(null);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        dctype.setBackground(new java.awt.Color(25, 118, 211));
+        dctype.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        dctype.setForeground(new java.awt.Color(255, 255, 255));
+        dctype.setBorder(null);
+        dctype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                dctypeActionPerformed(evt);
             }
         });
 
@@ -114,6 +124,11 @@ public class Reclamation extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(25, 118, 211));
         jButton1.setText("Envoyer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -125,13 +140,13 @@ public class Reclamation extends javax.swing.JFrame {
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        msgReclam.setBackground(new java.awt.Color(25, 118, 211));
-        msgReclam.setColumns(20);
-        msgReclam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        msgReclam.setForeground(new java.awt.Color(255, 255, 255));
-        msgReclam.setRows(5);
-        msgReclam.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
-        jScrollPane1.setViewportView(msgReclam);
+        msgre.setBackground(new java.awt.Color(25, 118, 211));
+        msgre.setColumns(20);
+        msgre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        msgre.setForeground(new java.awt.Color(255, 255, 255));
+        msgre.setRows(5);
+        msgre.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        jScrollPane1.setViewportView(msgre);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -141,7 +156,7 @@ public class Reclamation extends javax.swing.JFrame {
                 .addGap(0, 72, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                        .addComponent(dctype, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                         .addComponent(jSeparator1)
                         .addComponent(jLabel3)
                         .addComponent(jLabel2))
@@ -165,7 +180,7 @@ public class Reclamation extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dctype, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
@@ -196,7 +211,7 @@ public class Reclamation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        choixdoc firstScreen = new choixdoc();
+        choixdoc firstScreen = new choixdoc(CNE);
         
        firstScreen.setReclamationInstance(this);
        
@@ -210,9 +225,46 @@ public class Reclamation extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void dctypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dctypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_dctypeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //send the Document type and message to the admin 
+        String Surl, Suser, Spass,doctype,msg,query;
+        Integer user_id=null;
+        Surl = "jdbc:mysql://localhost:3306/gl";
+        Suser = "root";
+        Spass = "";
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+             java.sql.Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+            Statement st = con.createStatement();
+            //check if the field are not empty 
+            if ("".equals(dctype.getText())) {
+                JOptionPane.showMessageDialog(null, "Veuillez remplir le Document type");
+            }else if("".equals(msgre.getText())){
+                JOptionPane.showMessageDialog(null, "Veuillez remplir le champ du message");
+            }else{
+                doctype=dctype.getText();
+                msg=msgre.getText();
+                user_id=CNE;
+                
+                //System.out.println("Le user :"+user_id+" DCtype: "+doctype+" msg:"+msg);
+                query = "INSERT INTO reclamation (user_id, doctype, msg) VALUES ('" + user_id + "', '" + doctype + "', '" + msg + "')";
+                st.execute(query);
+                JOptionPane.showMessageDialog(null, "Reclamtion summit");
+            }
+            
+            
+            
+        } catch (Exception e ) {
+            System.out.println("Erreur de connexion" + e.getMessage());
+        }
+           
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     /**
@@ -245,12 +297,13 @@ public class Reclamation extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Reclamation().setVisible(true);
+                //new Reclamation().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField dctype;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -260,8 +313,7 @@ public class Reclamation extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextArea msgReclam;
+    private javax.swing.JTextArea msgre;
     // End of variables declaration//GEN-END:variables
 }
