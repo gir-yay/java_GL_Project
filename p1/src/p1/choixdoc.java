@@ -17,11 +17,20 @@ public class choixdoc extends javax.swing.JFrame {
     public choixdoc( Integer CNE) {
         this.CNE = CNE;
         initComponents();
+<<<<<<< Updated upstream
         System.out.println("This : "+CNE);
     }
 
     private choixdoc() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+=======
+        ReclamationInstance = new Reclamation();
+        
+    }
+    private Reclamation ReclamationInstance;
+    public void setReclamationInstance(Reclamation ReclamationInstance) {
+        this.ReclamationInstance = ReclamationInstance;
+>>>>>>> Stashed changes
     }
 
     /**
@@ -94,6 +103,11 @@ public class choixdoc extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Réclamation");
         jButton2.setBorder(null);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -137,6 +151,11 @@ public class choixdoc extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        ReclamationInstance.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments

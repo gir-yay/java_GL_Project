@@ -180,7 +180,7 @@ public class Loginstudent1 extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 420, 440));
 
-        setSize(new java.awt.Dimension(916, 438));
+        setSize(new java.awt.Dimension(917, 438));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
