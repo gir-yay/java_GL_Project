@@ -9,15 +9,17 @@ package p1;
  * @author szaoi
  */
 public class choixdoc extends javax.swing.JFrame {
+
     private Integer CNE;
+
     /**
      * Creates new form choixdoc
-     * 
+     *
      */
-    public choixdoc( Integer CNE) {
+    public choixdoc(Integer CNE) {
         this.CNE = CNE;
         initComponents();
-        System.out.println("This : "+CNE);
+        System.out.println("This : " + CNE);
     }
 
     private choixdoc() {
@@ -42,6 +44,7 @@ public class choixdoc extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -109,6 +112,9 @@ public class choixdoc extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/doc.png"))); // NOI18N
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/left-arrow.png"))); // NOI18N
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 500));
 
         setSize(new java.awt.Dimension(964, 507));
@@ -117,11 +123,10 @@ public class choixdoc extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        
-        
+
         //get selected value from comboboc
         String selectedValue = jComboBox1.getSelectedItem().toString();
-        
+
         // set this selected value into textfiled
         txtdoc.setText(selectedValue);
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -180,6 +185,7 @@ public class choixdoc extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtdoc;

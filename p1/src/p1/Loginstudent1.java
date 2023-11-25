@@ -1,6 +1,3 @@
-
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,9 +24,9 @@ public class Loginstudent1 extends javax.swing.JFrame {
      */
     public Loginstudent1() {
         initComponents();
-        txtcin.setBackground(new java.awt.Color(0,0,0,1));
-        txtapogee.setBackground(new java.awt.Color(0,0,0,1));
-        txtemailstudent.setBackground(new java.awt.Color(0,0,0,1));
+        txtcin.setBackground(new java.awt.Color(0, 0, 0, 1));
+        txtapogee.setBackground(new java.awt.Color(0, 0, 0, 1));
+        txtemailstudent.setBackground(new java.awt.Color(0, 0, 0, 1));
     }
 
     /**
@@ -189,29 +186,29 @@ public class Loginstudent1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        for (double i = 0.0; i <=1.0; i = i+0.1){
-            String val = i+ "";
+        for (double i = 0.0; i <= 1.0; i = i + 0.1) {
+            String val = i + "";
             float f = Float.valueOf(val);
             this.setOpacity(f);
-            try{
+            try {
                 Thread.sleep(50);
-            }catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
     }//GEN-LAST:event_formWindowOpened
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-       first firstScreen = new first();
+        first firstScreen = new first();
 
-    // Set the reference to the current instance (Loginstudent1)
-    firstScreen.setLoginStudentInstance(this);
+        // Set the reference to the current instance (Loginstudent1)
+        firstScreen.setLoginStudentInstance(this);
 
-    // Show the first screen
-    firstScreen.setVisible(true);
+        // Show the first screen
+        firstScreen.setVisible(true);
 
-    // Close the current instance (Loginstudent1)
-    this.dispose();
+        // Close the current instance (Loginstudent1)
+        this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -225,46 +222,46 @@ public class Loginstudent1 extends javax.swing.JFrame {
         Suser = "root";
         Spass = "";
         int notFound = 0;
-        try{
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             java.sql.Connection con = DriverManager.getConnection(Surl, Suser, Spass);
             Statement st = con.createStatement();
             //check if the fields are empty
-            if ("".equals(txtcin.getText())){
+            if ("".equals(txtcin.getText())) {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir le champ CIN");
-            }else if ("".equals(txtapogee.getText())){
+            } else if ("".equals(txtapogee.getText())) {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir le champ Numéro apogée");
-            }else if ("".equals(txtemailstudent.getText())){
+            } else if ("".equals(txtemailstudent.getText())) {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir le champ Email institutionnelle");
-            }else{
-                CIN=txtcin.getText();
-                email=txtemailstudent.getText();
-                CNE=Integer.parseInt(txtapogee.getText());
-                query="SELECT * FROM student WHERE CIN='"+CIN+"';";
+            } else {
+                CIN = txtcin.getText();
+                email = txtemailstudent.getText();
+                CNE = Integer.parseInt(txtapogee.getText());
+                query = "SELECT * FROM student WHERE CIN='" + CIN + "';";
                 ResultSet rs = st.executeQuery(query);
-                
-                while(rs.next()){
-                    CINdb=rs.getString("CIN");
-                    CNEdb=rs.getInt("CNE");
+
+                while (rs.next()) {
+                    CINdb = rs.getString("CIN");
+                    CNEdb = rs.getInt("CNE");
                 }
-                if (CIN.equals(CINdb) && CNE.equals(CNEdb)){
-                        notFound=1;
-                        //switch to choixdoc.java
-                        choixdoc jf4 =new choixdoc(CNE);
-                        jf4.show();
-                        dispose();
-                    }else{
-                        notFound=0;
-                        JOptionPane.showMessageDialog(null, "Veuillez vérifier vos informations");
-                    }
+                if (CIN.equals(CINdb) && CNE.equals(CNEdb)) {
+                    notFound = 1;
+                    //switch to choixdoc.java and send the CNE with it 
+                    choixdoc jf4 = new choixdoc(CNE);
+                    jf4.show();
+                    dispose();
+                } else {
+                    notFound = 0;
+                    JOptionPane.showMessageDialog(null, "Veuillez vérifier vos informations");
+                }
             }
-        }catch(Exception e){
-            System.out.println("Erreur de connexion"+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Erreur de connexion" + e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-       this.setState(JFrame.ICONIFIED);
+        this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabel13MouseClicked
 
     /**
