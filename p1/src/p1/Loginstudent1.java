@@ -217,6 +217,7 @@ public class Loginstudent1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Sur click du bouton continuer on va vérifier si les champs sont vides ou pas
         String email, CIN, query, CINdb = null;
+        String emaildb=null;
         Integer CNE = null;
         Integer CNEdb = null;
         String Surl, Suser, Spass;
@@ -245,8 +246,9 @@ public class Loginstudent1 extends javax.swing.JFrame {
                 while (rs.next()) {
                     CINdb = rs.getString("CIN");
                     CNEdb = rs.getInt("CNE");
+                    emaildb = rs.getString("email");
                 }
-                if (CIN.equals(CINdb) && CNE.equals(CNEdb)) {
+                if (CIN.equals(CINdb) && CNE.equals(CNEdb)&& email.equals(emaildb)) {
                     notFound = 1;
                     //switch to choixdoc.java and send the CNE with it 
                     choixdoc jf4 = new choixdoc(CNE);

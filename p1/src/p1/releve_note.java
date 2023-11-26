@@ -3,7 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package p1;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Hp
@@ -13,9 +19,10 @@ public class releve_note extends javax.swing.JFrame {
     /**
      * Creates new form releve_note
      */
-    public releve_note() {
+    public releve_note(Integer CNE) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.CNE=CNE;
     }
     
     /**
@@ -69,6 +76,11 @@ public class releve_note extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Soumettre");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(25, 118, 211));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -202,6 +214,48 @@ public class releve_note extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String Surl, Suser, Spass;
+        Surl = "jdbc:mysql://localhost:3306/gl";
+        Suser = "root";
+        Spass = "";
+        String query;
+        // check if the user did make a choice
+        if("".equals(jComboBox1.getSelectedItem()) && "".equals(jComboBox3.getSelectedItem())){
+            JOptionPane.showMessageDialog(null,"Merci de saisir les informations");
+        }else{
+            try {
+                
+                String semestre=jComboBox1.getSelectedItem().toString();
+                String niveau=jComboBox3.getSelectedItem().toString();
+                // Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+                // // insert query into r_n_d tale values (semeste , niveau , CNE )
+                // query = "INSERT INTO r_n_d (semeste, niveau, CNE) VALUES (?, ?, ?)";
+                // PreparedStatement ps = con.prepareStatement(query);
+                // ps.setString(1, semestre);
+                // ps.setString(2, niveau);
+                // ps.setInt(3, CNE);
+                // ps.executeUpdate();
+                System.out.println("The semestre is "+semestre);
+                System.out.println("The niveau is "+niveau);
+                System.out.println("The CNE"+CNE);
+
+                // con.close();
+
+            } catch (Exception e) {
+                System.out.println("Error:" + e);
+            }
+            // Demande has accepted 
+            JOptionPane.showMessageDialog(null, "Great , Demande accepte ");
+            // go to the home page after clicking ok in the message
+            choixdoc choicedoc = new choixdoc(CNE);
+            choicedoc.setVisible(true);
+            this.dispose();
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -232,7 +286,7 @@ public class releve_note extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new releve_note().setVisible(true);
+                new releve_note(0).setVisible(true);
             }
         });
     }

@@ -181,14 +181,15 @@ public class choixdoc extends javax.swing.JFrame {
        String selectedItem = jComboBox1.getSelectedItem().toString();
        switch (selectedItem) {
         case "Attestation de réussite":
-            Attestation_reuss attestationReussite = new Attestation_reuss();
+            Attestation_reuss attestationReussite = new Attestation_reuss(CNE);
             attestationReussite.setVisible(true);
             break;
         
         case "Relevé de notes":
-            releve_note  ReleveNotes= new releve_note();
+            releve_note  ReleveNotes= new releve_note(CNE);
             ReleveNotes.setVisible(true);
             break;
+        
     }
     }//GEN-LAST:event_jButton1ActionPerformed
 
