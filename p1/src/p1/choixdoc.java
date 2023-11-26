@@ -6,6 +6,7 @@ package p1;
 import javax.swing.JFrame;
 
 
+
 /**
  *
  * @author szaoi
@@ -23,6 +24,7 @@ public class choixdoc extends javax.swing.JFrame {
         initComponents();
         System.out.println("This : " + CNE);
     }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -170,13 +172,24 @@ public class choixdoc extends javax.swing.JFrame {
         // TODO add your handling code here:
         //switch to reclamation frame and send the id of the user
         Reclamation jf5= new Reclamation(CNE);
-        jf5.show();
+        jf5.setVisible(true);
         dispose();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       String selectedItem = jComboBox1.getSelectedItem().toString();
+       switch (selectedItem) {
+        case "Attestation de réussite":
+            Attestation_reuss attestationReussite = new Attestation_reuss();
+            attestationReussite.setVisible(true);
+            break;
+        
+        case "Relevé de notes":
+            releve_note  ReleveNotes= new releve_note();
+            ReleveNotes.setVisible(true);
+            break;
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -187,7 +200,7 @@ public class choixdoc extends javax.swing.JFrame {
         // TODO add your handling code here:
         // switch to first frame
         first jf1= new first();
-        jf1.show();
+        jf1.setVisible(true);
         dispose();
         
 
@@ -234,10 +247,11 @@ public class choixdoc extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new choixdoc().setVisible(true);
+                
             }
         });
-    }
+        
+      }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
