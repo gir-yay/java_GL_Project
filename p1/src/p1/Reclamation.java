@@ -251,8 +251,8 @@ public class Reclamation extends javax.swing.JFrame {
                 msg=msgre.getText();
                 user_id=CNE;
                 
-                //System.out.println("Le user :"+user_id+" DCtype: "+doctype+" msg:"+msg);
-                query = "INSERT INTO reclamation (user_id, doctype, msg) VALUES ('" + user_id + "', '" + doctype + "', '" + msg + "')";
+                System.out.println("Le user :"+user_id+" DCtype: "+doctype+" msg:"+msg);
+                query = "INSERT INTO reclamation (user_id, dctype, msg) VALUES ('" + user_id + "', '" + doctype + "', '" + msg + "')";
                 st.execute(query);
                 JOptionPane.showMessageDialog(null, "Reclamtion summit");
                 // Close the current instance and open the first screen

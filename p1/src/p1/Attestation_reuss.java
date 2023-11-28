@@ -248,12 +248,12 @@ public class Attestation_reuss extends javax.swing.JFrame {
         } else {
             // Put the demande in the db
             try {
-                // Connection con = DriverManager.getConnection(Surl, Suser, Spass);
-                // query = "INSERT INTO `attestation_reuss`(`CNE`, `niveau`) VALUES (?, ?)";
-                // PreparedStatement ps = con.prepareStatement(query);
-                // ps.setInt(1, CNE);
-                // ps.setString(2, niveaus);
-                // ps.executeUpdate();
+                Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+                query = "INSERT INTO `demande_ar`(`user_id`, `niveau`) VALUES (?, ?)";
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setInt(1, CNE);
+                ps.setString(2, niveaus);
+                ps.executeUpdate();
                 System.out.println("working the CNE is:" + CNE);
                 System.out.println("working the niveau is:" + niveaus);
                 // con.close();

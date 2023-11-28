@@ -241,11 +241,11 @@ public class Loginadmin1 extends javax.swing.JFrame {
                 System.out.println("Password:" + password);
                 System.out.println("Email " + email);
 
-                query = "SELECT * FROM admin WHERE email = '" + email + "';";
+                query = "SELECT * FROM admins WHERE email = '" + email + "';";
                 ResultSet rs = st.executeQuery(query);
 
                 while (rs.next()) {
-                    passdb = rs.getString("Password");
+                    passdb = rs.getString("password");
                     notFound = 1;
                 }
                 if (notFound == 1 && password.equals(passdb)) {

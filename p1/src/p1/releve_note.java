@@ -65,6 +65,11 @@ public class releve_note extends javax.swing.JFrame {
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semestre 1", "Semestre  2", "Semestre  3", "Semestre  4" }));
         jComboBox1.setBorder(null);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Choisissez le semestre:");
@@ -229,14 +234,13 @@ public class releve_note extends javax.swing.JFrame {
                 
                 String semestre=jComboBox1.getSelectedItem().toString();
                 String niveau=jComboBox3.getSelectedItem().toString();
-                // Connection con = DriverManager.getConnection(Surl, Suser, Spass);
-                // // insert query into r_n_d tale values (semeste , niveau , CNE )
-                // query = "INSERT INTO r_n_d (semeste, niveau, CNE) VALUES (?, ?, ?)";
-                // PreparedStatement ps = con.prepareStatement(query);
-                // ps.setString(1, semestre);
-                // ps.setString(2, niveau);
-                // ps.setInt(3, CNE);
-                // ps.executeUpdate();
+                Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+                 query = "INSERT INTO demande_rn (semestre, niveau, user_id) VALUES (?, ?, ?)";
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setString(1, semestre);
+                ps.setString(2, niveau);
+                ps.setInt(3, CNE);
+                ps.executeUpdate();
                 System.out.println("The semestre is "+semestre);
                 System.out.println("The niveau is "+niveau);
                 System.out.println("The CNE"+CNE);
@@ -255,6 +259,10 @@ public class releve_note extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
