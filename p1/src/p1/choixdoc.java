@@ -189,6 +189,11 @@ public class choixdoc extends javax.swing.JFrame {
             releve_note  ReleveNotes= new releve_note(CNE);
             ReleveNotes.setVisible(true);
             break;
+        case "Convention de stage":
+            stageDoc stage = new stageDoc(CNE);
+            stage.setVisible(true);
+            
+            break;
         
     }
     }//GEN-LAST:event_jButton1ActionPerformed

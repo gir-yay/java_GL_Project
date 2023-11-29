@@ -235,7 +235,7 @@ public class releve_note extends javax.swing.JFrame {
                 String semestre=jComboBox1.getSelectedItem().toString();
                 String niveau=jComboBox3.getSelectedItem().toString();
                 Connection con = DriverManager.getConnection(Surl, Suser, Spass);
-                 query = "INSERT INTO demande_rn (semestre, niveau, user_id) VALUES (?, ?, ?)";
+                query = "INSERT INTO demande_rn (semestre, niveau, user_id) VALUES (?, ?, ?)";
                 PreparedStatement ps = con.prepareStatement(query);
                 ps.setString(1, semestre);
                 ps.setString(2, niveau);
