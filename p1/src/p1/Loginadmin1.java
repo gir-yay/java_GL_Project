@@ -253,7 +253,7 @@ public class Loginadmin1 extends javax.swing.JFrame {
                     passdb = rs.getString("password");
                     notFound = 1;
                     if (password.equals(passdb)) {
-                        admin_id = rs.getInt("id");
+                       
                         Dashbrd admin = new Dashbrd(admin_id);
                         admin.show();
                         this.dispose();
