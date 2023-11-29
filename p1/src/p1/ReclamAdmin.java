@@ -16,6 +16,10 @@ public class ReclamAdmin extends javax.swing.JFrame {
     public ReclamAdmin() {
         initComponents();
     }
+     private Dashbrd ReclamAdminInstance;
+    public void setReclamAdminInstance(Dashbrd ReclamAdminInstance) {
+        this.ReclamAdminInstance = ReclamAdminInstance;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

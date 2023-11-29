@@ -13,8 +13,13 @@ public class Historique extends javax.swing.JFrame {
     /**
      * Creates new form Historique
      */
+   
     public Historique() {
         initComponents();
+    }
+     private Dashbrd DashboardInstance;
+    public void setDashboardInstance(Dashbrd DashboardInstance) {
+        this.DashboardInstance = DashboardInstance;
     }
 
     /**
