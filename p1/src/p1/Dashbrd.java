@@ -9,12 +9,14 @@ package p1;
  * @author pc
  */
 public class Dashbrd extends javax.swing.JFrame {
+    public Integer admin_id;
 
     /**
      * Creates new form Dashbrd
      */
-    public Dashbrd() {
+    public Dashbrd(Integer admin_id) {
         initComponents();
+        this.admin_id = admin_id;
     }
 
     /**
@@ -355,6 +357,15 @@ public class Dashbrd extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        // open the Reclamationadmin page
+        ReclamAdmin reclamAdmin = new ReclamAdmin();
+        reclamAdmin.setVisible(true);
+        reclamAdmin.pack();
+        reclamAdmin.setLocationRelativeTo(null);
+        reclamAdmin.setDefaultCloseOperation(Dashbrd.EXIT_ON_CLOSE);
+        this.dispose();
+
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -391,7 +402,7 @@ public class Dashbrd extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashbrd().setVisible(true);
+                new Dashbrd(0).setVisible(true);
             }
         });
     }

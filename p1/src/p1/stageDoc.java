@@ -37,7 +37,7 @@ public class stageDoc extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel12 = new javax.swing.JLabel();
@@ -237,7 +237,7 @@ public class stageDoc extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_TextTele_entreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
         String Surl, Suser, Spass,doctype,msg,query;
         Surl = "jdbc:mysql://localhost:3306/gl";
