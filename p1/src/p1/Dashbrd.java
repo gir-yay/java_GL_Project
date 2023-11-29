@@ -4,6 +4,13 @@
  */
 package p1;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author pc
@@ -14,10 +21,64 @@ public class Dashbrd extends javax.swing.JFrame {
     /**
      * Creates new form Dashbrd
      */
-    public Dashbrd(Integer admin_id) {
+    public Dashbrd() {
         initComponents();
-        this.admin_id = admin_id;
         this.setLocationRelativeTo(null);
+    }
+
+    // add a function to count the number of demands
+    public Integer countDemands() {
+        // count the number of demands by adding the nubres on each table 
+        Integer nb_ReleveN=0 ,nb_AttestaionR=0;
+        String Surl, Suser, Spass;
+        Surl = "jdbc:mysql://localhost:3306/gl";
+        Suser = "root";
+        Spass = "";
+        try{
+            Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM demande_rn");
+            rs.next();
+            nb_ReleveN = rs.getInt(1);
+            System.out.println("nb_ReleveN = " + nb_ReleveN);
+            ResultSet rs2 = st.executeQuery("SELECT COUNT(*) FROM demande_ar ");
+            rs2.next();
+            nb_AttestaionR = rs2.getInt(1);
+            System.out.println("nb_AttestaionR = " + nb_AttestaionR);
+            con.close();
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+
+        }
+        return nb_ReleveN + nb_AttestaionR;
+    }
+    // calcul des commandes non traitées
+     public Integer countNtDemands() {
+        // count the number of demands by adding the nubres on each table 
+        Integer nb_ReleveN=0 ,nb_AttestaionR=0;
+        String Surl, Suser, Spass;
+        Surl = "jdbc:mysql://localhost:3306/gl";
+        Suser = "root";
+        Spass = "";
+        try{
+            Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM demande_rn where traité = '0'");
+            rs.next();
+            nb_ReleveN = rs.getInt(1);
+            System.out.println("nb_ReleveN = " + nb_ReleveN);
+            ResultSet rs2 = st.executeQuery("SELECT COUNT(*) FROM demande_ar where traité = '0'");
+            rs2.next();
+            nb_AttestaionR = rs2.getInt(1);
+            System.out.println("nb_AttestaionR = " + nb_AttestaionR);
+            con.close();
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+
+        }
+        return nb_ReleveN + nb_AttestaionR;
     }
 
     /**
@@ -104,7 +165,8 @@ public class Dashbrd extends javax.swing.JFrame {
         jLabel2.setText("Nombre total des demandes");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel5.setText("137");
+        Integer nb_demandes = countDemands();
+        jLabel5.setText(nb_demandes.toString());
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -136,7 +198,7 @@ public class Dashbrd extends javax.swing.JFrame {
         jLabel4.setText("Demandes non traitées");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel7.setText("33");
+        jLabel7.setText(countNtDemands().toString());
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -170,7 +232,8 @@ public class Dashbrd extends javax.swing.JFrame {
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("87");
+        Integer nb_demandes_t = countDemands()-countNtDemands();
+        jLabel6.setText(nb_demandes_t.toString());
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -426,7 +489,7 @@ public class Dashbrd extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashbrd(0).setVisible(true);
+                new Dashbrd().setVisible(true);
             }
         });
     }

@@ -244,7 +244,6 @@ public class Loginadmin1 extends javax.swing.JFrame {
             } else {
                 email = txtemailadmin.getText();
                 password = txtpassword.getText();
-                Integer admin_id = null;
                 System.out.println("Password:" + password);
                 System.out.println("Email " + email);
                 query = "SELECT * FROM admins WHERE email='" + email + "'";
@@ -254,7 +253,7 @@ public class Loginadmin1 extends javax.swing.JFrame {
                     notFound = 1;
                     if (password.equals(passdb)) {
                        
-                        Dashbrd admin = new Dashbrd(admin_id);
+                        Dashbrd admin = new Dashbrd();
                         admin.show();
                         this.dispose();
                     } else {

@@ -4,6 +4,14 @@
  */
 package p1;
 
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pc
@@ -21,6 +29,26 @@ public class ReclamAdmin extends javax.swing.JFrame {
         this.ReclamAdminInstance = ReclamAdminInstance;
     }
 
+   public void fillTable() {
+    try {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
+        // check the number of rows in the table
+        java.sql.Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM reclamation");
+        Integer rowCount = 0;
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Clear the table before adding rows
+
+        while (rs.next()) {
+            rowCount++;
+            model.addRow(new Object[]{rs.getString("ID"), rs.getString("user_id"), rs.getString("dctype"), rs.getString("msg")});
+            jTable2.repaint();
+        }
+        System.out.println("Total number of rows in the table : " + rowCount);
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,18 +84,20 @@ public class ReclamAdmin extends javax.swing.JFrame {
         });
 
         jScrollPane3.setViewportView(jTextPane1);
-
+      
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nom Prenom", "Email", "Type de document", "Date", "Motif"
+                "ID","user_id", "dctype", "msg"
             }
+            
         ));
+        
+        // fill the table
+        fillTable();
+    
         jScrollPane2.setViewportView(jTable2);
 
         jPanel6.setBackground(new java.awt.Color(245, 250, 255));
