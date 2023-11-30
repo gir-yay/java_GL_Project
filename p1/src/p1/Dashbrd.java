@@ -315,6 +315,13 @@ public void fill(){
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
+                ReclamAdmin r = new ReclamAdmin();
+                r.show();
+                r.setLocationRelativeTo(null);
+                r.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                dispose();
+
+
             }
         });
 
@@ -384,6 +391,7 @@ public void fill(){
             }
         ));
         fill();
+                
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
