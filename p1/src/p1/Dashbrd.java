@@ -30,6 +30,7 @@ public class Dashbrd extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    
 
     // add a function to count the number of demands
     public Integer countDemands() {
@@ -414,6 +415,11 @@ public void fill(){
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Refuser");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -466,7 +472,7 @@ public void fill(){
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton3)
                             .addComponent(jButton4)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -517,6 +523,18 @@ public void fill(){
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       String refusalReason = JOptionPane.showInputDialog(this, "Entrez le motif de refus :");
+
+        String toEmail = "adresse-email-etudiant@domaine.com";
+        String subject = "Refus de demande";
+        String message = "Votre demande a été refusée avec le motif suivant : \n\n" + refusalReason;
+        
+        //sendEmail(toEmail, subject, message);
+        
+        
+       }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
