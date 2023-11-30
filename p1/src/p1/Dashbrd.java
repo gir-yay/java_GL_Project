@@ -95,7 +95,7 @@ public void fill(){
 
         while (rs.next()) {
             System.out.println("Row from database: " + rs.getInt("id") + ", " + rs.getString("Nom_complet") + ", " + rs.getString("email") + ", Attestation de réussite"); // Debug print
-            model.addRow(new Object[]{rs.getInt("id"), rs.getString("Nom_complet"),rs.getInt("student.CNE"), rs.getString("email"), "Attestation de réussite"});
+            model.addRow(new Object[]{ rs.getString("Nom_complet"),rs.getInt("student.CNE"), rs.getString("email"), "Date","Attestation de réussite"});
         }
         jTable2.revalidate();
         jTable2.repaint();
@@ -113,7 +113,7 @@ public void fill(){
 
         while (rs.next()) {
             System.out.println("Row from database: " + rs.getInt("id") + ", " + rs.getString("Nom_complet") + ", " + rs.getString("email") + ", Relevé de notes"); // Debug print
-            model.addRow(new Object[]{rs.getInt("id"), rs.getString("Nom_complet"),rs.getInt("student.CNE"), rs.getString("email"), "Relevé de notes"});
+            model.addRow(new Object[]{ rs.getString("Nom_complet"),rs.getInt("student.CNE"), rs.getString("email"),"Date", "Relevé de notes"});
         }
         jTable2.revalidate();
         jTable2.repaint();
@@ -208,7 +208,7 @@ public void fill(){
         jLabel2.setText("Nombre total des demandes");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel5.setText("137");
+        jLabel5.setText(countDemands().toString());
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -240,7 +240,7 @@ public void fill(){
         jLabel4.setText("Demandes non traitées");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel7.setText("33");
+        jLabel7.setText(countNtDemands().toString());
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -274,7 +274,8 @@ public void fill(){
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("87");
+        Integer dm_tr=countDemands()-countNtDemands();
+        jLabel6.setText(dm_tr.toString());
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -376,15 +377,13 @@ public void fill(){
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Nom Prenom", "Email", "Type de document", "Date", "Decision"
+                "Nom Prenom","CNE", "Email", "Type de document", "Date", "Decision"
             }
         ));
+        fill();
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

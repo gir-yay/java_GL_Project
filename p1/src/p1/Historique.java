@@ -21,6 +21,15 @@ public class Historique extends javax.swing.JFrame {
     public void setDashboardInstance(Dashbrd DashboardInstance) {
         this.DashboardInstance = DashboardInstance;
     }
+    public void fill() {
+        // a function to add traited demand to the table
+        
+
+
+
+
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
