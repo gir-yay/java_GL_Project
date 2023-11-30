@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -414,6 +417,10 @@ public class Dashbrd extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String recherche = jTextPane1.getText();
+        TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(jTable2.getModel());
+        jTable2.setRowSorter(rowSorter);
+        rowSorter.setRowFilter(RowFilter.regexFilter(recherche));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

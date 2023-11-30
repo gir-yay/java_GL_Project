@@ -237,7 +237,7 @@ public class ReclamAdmin extends javax.swing.JFrame {
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(jTable2.getModel());
         jTable2.setRowSorter(rowSorter);
         rowSorter.setRowFilter(RowFilter.regexFilter(recherche));
-        
+
     }// GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
