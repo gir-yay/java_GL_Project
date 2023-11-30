@@ -126,9 +126,10 @@ public class Historique extends javax.swing.JFrame {
                         { null, null, null, null, null },
                         { null, null, null, null, null }
                 },
-                new String[] {
-                        "ID", "Nom Prenom", "Email", "Type de document", "Date"
-                }));
+                new String [] {
+                    "Nom Prenom","CNE", "Email",  "Date","Type de document", 
+                }
+        ));
         fill();
 
         jScrollPane2.setViewportView(jTable2);
