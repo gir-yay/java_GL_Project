@@ -7,10 +7,12 @@ package p1;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -83,6 +85,46 @@ public class Dashbrd extends javax.swing.JFrame {
         }
         return nb_ReleveN + nb_AttestaionR;
     }
+public void fill(){
+    try {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
+        java.sql.Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT demande_ar.id,student.Nom_complet,student.email,student.CNE FROM demande_ar INNER JOIN student ON demande_ar.user_id = student.CNE where traité = '0';");
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Clear the table before adding rows
+
+        while (rs.next()) {
+            System.out.println("Row from database: " + rs.getInt("id") + ", " + rs.getString("Nom_complet") + ", " + rs.getString("email") + ", Attestation de réussite"); // Debug print
+            model.addRow(new Object[]{rs.getInt("id"), rs.getString("Nom_complet"),rs.getInt("student.CNE"), rs.getString("email"), "Attestation de réussite"});
+        }
+        jTable2.revalidate();
+        jTable2.repaint();
+
+        System.out.println("Table should be updated now.");
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    // now the second table demande_rn
+    try {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
+        java.sql.Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT demande_rn.id,student.Nom_complet,student.email,student.CNE FROM demande_rn INNER JOIN student ON demande_rn.user_id = student.CNE where traité = '0';");
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+        while (rs.next()) {
+            System.out.println("Row from database: " + rs.getInt("id") + ", " + rs.getString("Nom_complet") + ", " + rs.getString("email") + ", Relevé de notes"); // Debug print
+            model.addRow(new Object[]{rs.getInt("id"), rs.getString("Nom_complet"),rs.getInt("student.CNE"), rs.getString("email"), "Relevé de notes"});
+        }
+        jTable2.revalidate();
+        jTable2.repaint();
+
+        System.out.println("Table should be updated now.");
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } catch (Exception e) {
+        // TODO: handle exception
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -336,15 +378,14 @@ public class Dashbrd extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "Nom Prenom", "Email", "Type de document", "Date", "Decision"
+                "ID", "Nom Prenom","CNE", "Email", "Type de document"
             }
         ));
+        fill();
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
