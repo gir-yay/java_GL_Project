@@ -167,7 +167,11 @@
                       </Group>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   </Group>
+<<<<<<< HEAD
 >>>>>>> b68a9c19d2a35f6565dc0c9f13ba71f974854441
+=======
+>>>>>>> ac25391533a8e66d0fa7047f967a4fc107e6f459
+>>>>>>> 620c8192d3f7a487780c606e6f9d48886de49251
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
@@ -581,7 +585,11 @@
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
+<<<<<<< HEAD
 >>>>>>> b68a9c19d2a35f6565dc0c9f13ba71f974854441
+=======
+>>>>>>> ac25391533a8e66d0fa7047f967a4fc107e6f459
+>>>>>>> 620c8192d3f7a487780c606e6f9d48886de49251
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -590,7 +598,11 @@
             <Property name="text" type="java.lang.String" value="Accepter"/>
 =======
             <Property name="text" type="java.lang.String" value="Telecharger"/>
+<<<<<<< HEAD
 >>>>>>> b68a9c19d2a35f6565dc0c9f13ba71f974854441
+=======
+>>>>>>> ac25391533a8e66d0fa7047f967a4fc107e6f459
+>>>>>>> 620c8192d3f7a487780c606e6f9d48886de49251
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
@@ -632,7 +644,11 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
           </Events>
         </Component>
+<<<<<<< HEAD
 >>>>>>> b68a9c19d2a35f6565dc0c9f13ba71f974854441
+=======
+>>>>>>> ac25391533a8e66d0fa7047f967a4fc107e6f459
+>>>>>>> 620c8192d3f7a487780c606e6f9d48886de49251
       </SubComponents>
     </Container>
   </SubComponents>
