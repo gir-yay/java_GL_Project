@@ -162,7 +162,115 @@ public class Dashbrd extends javax.swing.JFrame {
                 }
         }
         // Attestation de réussite
+        public void AR_gen(Integer id_d){
+                String nom = "", cin = "", email = "",niveau="",niveau_doc="";
+                Integer cne = null;
+                System.out.println("id_d = " + id_d);
+
+                try {
+                        // get the data from the database using the id
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
+                        java.sql.Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(
+                                        "SELECT student.Nom_complet,student.CNE,student.CIN,student.email,student.niveau,demande_ar.niveau AS niveau_d FROM demande_ar INNER JOIN student ON demande_ar.user_id = student.CNE where demande_ar.id = '"
+                                                        + id_d + "';");
+                        // get the data from the result set
+                        rs.next();
+                        nom = rs.getString("Nom_complet");
+                        cne = rs.getInt("CNE");
+                        cin = rs.getString("CIN");
+                        email = rs.getString("email");
+                        niveau = rs.getString("niveau");
+                        niveau_doc=rs.getString("niveau_d");
+
+                        // if the demanded niveau isnot the same as the niveau of the student
+                        if(!niveau.equals(niveau_doc)){
+                                JOptionPane.showMessageDialog(null, "Erreur : Niveau de la demande n'est pas le même que le niveau de l'étudiant");
+                        }
+                        else{
+                                // close the connection
+                                con.close();
+                                System.out.println("nom = " + nom);
+                                System.out.println("cne = " + cne);
+                                System.out.println("cin = " + cin);
+                                System.out.println("email = " + email);
+                                System.out.println("niveau = " + niveau);
+                                try {
+                                        PDDocument doc = new PDDocument();
+                                        PDPage page = new PDPage();
+                                        doc.addPage(page);
         
+                                        PDPageContentStream contentStream = new PDPageContentStream(doc, page);
+                                        // add the logo of the school in the top left
+                                        PDImageXObject pdImage = PDImageXObject.createFromFile("C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png", doc);
+                                        // resize the image 100 100 
+                                        contentStream.drawImage(pdImage, 25, 625,150,150);
+        
+                                        // add the text
+                                        contentStream.beginText();
+                                        contentStream.newLineAtOffset(150, 700);
+                                        // use a old font
+                                        PDType0Font font = PDType0Font.load(doc, new File("C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
+                                        PDType0Font font2 = PDType0Font.load(doc, new File("C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
+                                        contentStream.setFont(font2, 15);
+                                        // add the name to the center 
+                                        contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
+                                        contentStream.newLineAtOffset(100, -50);
+                                        contentStream.showText("Attestation de réussite");
+                                        contentStream.newLineAtOffset(-200, -100);
+                                        contentStream.setFont(font, 15);
+                                        contentStream.showText(
+                                                        "Le directeur de l'école national des sciences appliquées de tetouan atteste que :");
+                                        contentStream.newLineAtOffset(10, -20);
+                                        contentStream.showText("Nom : " );
+                                        // add the name of the student en gras
+                                        contentStream.setFont(font2, 15);
+                                        contentStream.showText(nom);
+                                        contentStream.setFont(font, 15);
+                                        contentStream.newLineAtOffset(0, -20);
+                                        contentStream.showText("Apoogée : ");
+                                        contentStream.setFont(font2, 15);
+                                        contentStream.showText(cne.toString());
+                                        // a ete declare admis en :
+                                        contentStream.setFont(font, 15);
+                                        contentStream.newLineAtOffset(0, -20);
+                                        contentStream.showText("A été déclaré admis en : ");
+                                        contentStream.setFont(font2, 15);
+                                        contentStream.showText(niveau);
+                                        contentStream.setFont(font, 15);
+                                        contentStream.newLineAtOffset(0, -20);
+                                        contentStream.showText("Pour l'année universitaire : ");
+                                        contentStream.setFont(font2, 15);
+                                        contentStream.showText("2023/2024");
+                                        contentStream.setFont(font, 15);
+                                        contentStream.newLineAtOffset(0, -420);
+                                        contentStream.setNonStrokingColor(Color.DARK_GRAY);
+                                        contentStream.showText("Adresse : M'HANNECH || B.P.2222 Tétouan");
+                                        contentStream.newLineAtOffset(0, -20);
+                                        contentStream.showText("Tél : 0539968802,FAX:0539994624");
+                                        contentStream.endText();
+
+                                        contentStream.close();
+
+                                        doc.save("C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation_de_réussite "+ cne.toString() + ".pdf");
+                                        doc.close();
+                                        System.out.println("PDF created");
+                        // close the connection
+                        con.close();
+                        System.out.println("nom = " + nom);
+                        System.out.println("cne = " + cne);
+                        System.out.println("cin = " + cin);
+                        System.out.println("email = " + email);
+                } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                }
+                        }
+                } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                }
+                
+                
+        }
 
         // calcul des commandes non traitées
         public Integer countNtDemands() {
@@ -557,7 +665,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                         System.out.println("type = " + type);
                                         // switch case to know which fonction to call
                                         switch (type) {
-                                                case "Attestation de réussite":
+                                                case "Attestation de scolarité":
                                                         // call the function to accept the demand
                                                         System.out.println("Attestation de scolarité");
                                                         try {
@@ -566,6 +674,11 @@ public class Dashbrd extends javax.swing.JFrame {
                                                                 // TODO Auto-generated catch block
                                                                 e.printStackTrace();
                                                         }
+                                                        break;
+                                                case "Attestation de réussite":
+                                                        // call the function to accept the demand
+                                                        AR_gen(id_column);
+                                                        System.out.println("Attestation de réussite");
                                                         break;
                                                 case "Relevé de notes":
                                                         // call the function to accept the demand
