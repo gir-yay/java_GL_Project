@@ -76,7 +76,7 @@ CREATE TABLE `demande_rn` (
 --
 
 INSERT INTO `demande_rn` (`id`, `user_id`, `semestre`, `niveau`) VALUES
-(1, 123, 'Semestre  2', 'Cycle d\'ingénieur');
+(1, 123, 'Semestre  2', 'Cycle d''ingénieur');
 
 -- --------------------------------------------------------
 
