@@ -70,7 +70,6 @@ public class Dashbrd extends javax.swing.JFrame {
                 }
                 return nb_ReleveN + nb_AttestaionR;
         }
-
         // Genere le pdf du Attestation de scolarité
         public void AS_gen(Integer id_d) throws FileNotFoundException {
                 String nom = "", cin = "", email = "";
@@ -108,14 +107,14 @@ public class Dashbrd extends javax.swing.JFrame {
                         // add the logo of the school in the top left
                         PDImageXObject pdImage = PDImageXObject.createFromFile("C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png", doc);
                         // resize the image 100 100 
-                        contentStream.drawImage(pdImage, 25, 700,100,100);
+                        contentStream.drawImage(pdImage, 25, 625,150,150);
 
                         // add the text
                         contentStream.beginText();
                         contentStream.newLineAtOffset(150, 700);
                         // use a old font
-                        PDType0Font font = PDType0Font.load(doc, new File("C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Roboto-Light.ttf"));
-                        PDType0Font font2 = PDType0Font.load(doc, new File("C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Roboto-Bold.ttf"));
+                        PDType0Font font = PDType0Font.load(doc, new File("C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
+                        PDType0Font font2 = PDType0Font.load(doc, new File("C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
                         contentStream.setFont(font2, 15);
                         // add the name to the center 
                         contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
@@ -162,6 +161,8 @@ public class Dashbrd extends javax.swing.JFrame {
                         System.out.println("Error: " + e.getMessage());
                 }
         }
+        // Attestation de réussite
+        
 
         // calcul des commandes non traitées
         public Integer countNtDemands() {
