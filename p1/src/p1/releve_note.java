@@ -39,10 +39,8 @@ public class releve_note extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -67,22 +65,18 @@ public class releve_note extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 55, 463, 57));
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semestre 1", "Semestre  2", "Semestre  3", "Semestre  4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "     1°année préparatoire", "     2°année préparatoire", "     1°année du cycle d'ingénieur", "     2°année du cycle d'ingénieur", "     3°année du cycle d'ingénieur", "     4°année du cycle d'ingénieur", "     5°année du cycle d'ingénieur" }));
         jComboBox1.setBorder(null);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(399, 190, 257, 61));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, 257, 61));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("Choisissez le semestre:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 195, 318, 47));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setText("Choisissez votre cycle d'étude:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 298, 328, 47));
+        jLabel2.setText("Choisissez votre niveau d'étude:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 360, 47));
 
         jButton1.setBackground(new java.awt.Color(25, 118, 211));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -105,11 +99,6 @@ public class releve_note extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(644, 402, 129, 55));
-
-        jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cycle préparatoire", "Cycle d'ingénieur" }));
-        jComboBox3.setBorder(null);
-        jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(399, 293, 257, 61));
 
         jLabel6.setText("__");
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,23 +157,21 @@ public class releve_note extends javax.swing.JFrame {
         Spass = "";
         String query;
         // check if the user did make a choice
-        if("".equals(jComboBox1.getSelectedItem()) && "".equals(jComboBox3.getSelectedItem())){
+        if("".equals(jComboBox1.getSelectedItem())){
             JOptionPane.showMessageDialog(null,"Merci de saisir les informations");
         }else{
             try {
                 
-                String semestre=jComboBox1.getSelectedItem().toString();
-                String niveau=jComboBox3.getSelectedItem().toString();
+                
+                String niveau=jComboBox1.getSelectedItem().toString();
                 Connection con = DriverManager.getConnection(Surl, Suser, Spass);
-                query = "INSERT INTO demande_rn (semestre, niveau, user_id) VALUES (?, ?, ?)";
+                query = "INSERT INTO demande_rn (niveau, user_id) VALUES (?, ?)";
                 PreparedStatement ps = con.prepareStatement(query);
-                ps.setString(1, semestre);
-                ps.setString(2, niveau);
-                ps.setInt(3, CNE);
+                ps.setString(1, niveau);
+                ps.setInt(2, CNE);
                 ps.executeUpdate();
-                System.out.println("The semestre is "+semestre);
-                System.out.println("The niveau is "+niveau);
-                System.out.println("The CNE"+CNE);
+                System.out.println("Le niveau est " + niveau);
+                System.out.println("Le CNE est " + CNE);
 
                 // con.close();
 
@@ -192,7 +179,7 @@ public class releve_note extends javax.swing.JFrame {
                 System.out.println("Error:" + e);
             }
             // Demande has accepted 
-            JOptionPane.showMessageDialog(null, "Great , Demande accepte ");
+            JOptionPane.showMessageDialog(null, "Demande acceptée ");
             // go to the home page after clicking ok in the message
             choixdoc choicedoc = new choixdoc(CNE);
             choicedoc.setVisible(true);
@@ -244,10 +231,8 @@ public class releve_note extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
