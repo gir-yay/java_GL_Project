@@ -327,6 +327,8 @@ public class Dashbrd extends javax.swing.JFrame {
                 }
                 return nb_ReleveN + nb_AttestaionR;
         }
+        // Creation de l'attestaion de stage
+        
 
         public void fill() {
                 try {

@@ -37,7 +37,8 @@ public class stageDoc extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel12 = new javax.swing.JLabel();
@@ -237,45 +238,50 @@ public class stageDoc extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_TextTele_entreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        String Surl, Suser, Spass,doctype,msg,query;
+        String Surl, Suser, Spass, doctype, msg, query;
         Surl = "jdbc:mysql://localhost:3306/gl";
         Suser = "root";
         Spass = "";
         // check if all the fields are filled
-        if(TextNom_entre.getText().equals("") || TextSecteur.getText().equals("") || TextEmail_entre.getText().equals("") || TextTele_entre.getText().equals("") || TextEncadr_entre.getText().equals("") || TextEmail_encadr.getText().equals("") || TextEncadr_ensa.getText().equals("") || Textdebut_stage.getText().equals("") || Textfin_stage.getText().equals("") || jTextArea1.getText().equals("")){
+        if (TextNom_entre.getText().equals("") || TextSecteur.getText().equals("")
+                || TextEmail_entre.getText().equals("") || TextTele_entre.getText().equals("")
+                || TextEncadr_entre.getText().equals("") || TextEmail_encadr.getText().equals("")
+                || TextEncadr_ensa.getText().equals("") || Textdebut_stage.getText().equals("")
+                || Textfin_stage.getText().equals("") || jTextArea1.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-        }
-        else{
+        } else {
             // date string to date using parsing
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate debut = LocalDate.parse(Textdebut_stage.getText(), formatter);
             LocalDate fin = LocalDate.parse(Textfin_stage.getText(), formatter);
             // check if the date is valid
-            if(debut.isAfter(fin)){
+            if (debut.isAfter(fin)) {
                 JOptionPane.showMessageDialog(null, "Veuillez vérifier les dates");
-            }else{
-                //every things is good we can insert the data
-                try{
-                // Connection con = DriverManager.getConnection(Surl, Suser, Spass);
-                // query="INSERT INTO `stage`('user_id',`nom_entreprise`, `secteur`, `email_entreprise`, `tel_entreprise`, `encadrant_entreprise`, `email_encadrant`, `encadrant_ensa`, `debut_stage`, `fin_stage`, `sujet_stage`,) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-                // PreparedStatement ps = con.prepareStatement(query);
-                // ps.setInt(1, CNE);
-                // ps.setString(2, TextNom_entre.getText());
-                // ps.setString(3, TextSecteur.getText());
-                // ps.setString(4, TextEmail_entre.getText());
-                // ps.setString(5, TextTele_entre.getText());
-                // ps.setString(6, TextEncadr_entre.getText());
-                // ps.setString(7, TextEmail_encadr.getText());
-                // ps.setString(8, TextEncadr_ensa.getText());
-                // ps.setDate(9, debut);
-                // ps.setDate(10, fin);
-                // ps.setString(11, jTextArea1.getText());
-                // ps.executeUpdate();
-                System.out.println("done");
-                JOptionPane.showMessageDialog(null, "Stage ajouté avec succés");
-                }catch(Exception e){
+            } else {
+                // every things is good we can insert the data
+                try {
+                    java.sql.Date sqlDebut = java.sql.Date.valueOf(debut);
+                    java.sql.Date sqlFin = java.sql.Date.valueOf(fin);
+                    Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+                    query = "INSERT INTO `stage`( `user_id`, `nom_entreprise`, `secteur`, `email_entreprise`, `tel_entreprise`, `encadrant_entreprise`, `email_encadrant`, `encadrant_ensa`, `debut_stage`, `fin_stage`, `sujet_stage`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                    PreparedStatement ps = con.prepareStatement(query);
+                    ps.setInt(1, CNE);
+                    ps.setString(2, TextNom_entre.getText());
+                    ps.setString(3, TextSecteur.getText());
+                    ps.setString(4, TextEmail_entre.getText());
+                    ps.setString(5, TextTele_entre.getText());
+                    ps.setString(6, TextEncadr_entre.getText());
+                    ps.setString(7, TextEmail_encadr.getText());
+                    ps.setString(8, TextEncadr_ensa.getText());
+                    ps.setDate(9, sqlDebut);
+                    ps.setDate(10, sqlFin); 
+                    ps.setString(11, jTextArea1.getText());
+                    ps.executeUpdate();
+                    System.out.println("done");
+                    JOptionPane.showMessageDialog(null, "Stage ajouté avec succés");
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e);
                 }
 

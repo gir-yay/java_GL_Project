@@ -75,14 +75,12 @@
               <Font name="Segoe UI" size="18" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="7">
+              <StringArray count="5">
                 <StringItem index="0" value="     1&#xb0;ann&#xe9;e pr&#xe9;paratoire"/>
                 <StringItem index="1" value="     2&#xb0;ann&#xe9;e pr&#xe9;paratoire"/>
                 <StringItem index="2" value="     1&#xb0;ann&#xe9;e du cycle d&apos;ing&#xe9;nieur"/>
                 <StringItem index="3" value="     2&#xb0;ann&#xe9;e du cycle d&apos;ing&#xe9;nieur"/>
                 <StringItem index="4" value="     3&#xb0;ann&#xe9;e du cycle d&apos;ing&#xe9;nieur"/>
-                <StringItem index="5" value="     4&#xb0;ann&#xe9;e du cycle d&apos;ing&#xe9;nieur"/>
-                <StringItem index="6" value="     5&#xb0;ann&#xe9;e du cycle d&apos;ing&#xe9;nieur"/>
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
