@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -108,46 +110,46 @@ public class Dashbrd extends javax.swing.JFrame {
                                         "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png",
                                         doc);
                         // resize the image 100 100
-                        contentStream.drawImage(pdImage, 25, 625, 150, 150);
+                        contentStream.drawImage(pdImage, 25, 625, 120, 120);
 
                         // add the text
                         contentStream.beginText();
-                        contentStream.newLineAtOffset(150, 700);
+                        contentStream.newLineAtOffset(120, 700);
                         // use a old font
                         PDType0Font font = PDType0Font.load(doc,
                                         new File("C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
                         PDType0Font font2 = PDType0Font.load(doc,
                                         new File("C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
-                        contentStream.setFont(font2, 15);
+                        contentStream.setFont(font2, 12);
                         // add the name to the center
                         contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
                         contentStream.newLineAtOffset(100, -50);
                         contentStream.showText("Attestation de scolarité");
                         contentStream.newLineAtOffset(-200, -100);
-                        contentStream.setFont(font, 15);
+                        contentStream.setFont(font, 12);
                         contentStream.showText(
                                         "Le directeur de l'école national des sciences appliquées de tetouan certifie que :");
                         contentStream.newLineAtOffset(10, -20);
                         contentStream.showText("Nom : ");
                         // add the name of the student en gras
-                        contentStream.setFont(font2, 15);
+                        contentStream.setFont(font2, 12);
                         contentStream.showText(nom);
-                        contentStream.setFont(font, 15);
+                        contentStream.setFont(font, 12);
                         contentStream.newLineAtOffset(0, -20);
                         contentStream.showText("Apoogée : ");
-                        contentStream.setFont(font2, 15);
+                        contentStream.setFont(font2, 12);
                         contentStream.showText(cne.toString());
-                        contentStream.setFont(font, 15);
+                        contentStream.setFont(font, 12);
                         contentStream.newLineAtOffset(0, -20);
                         contentStream.showText("CIN : ");
-                        contentStream.setFont(font2, 15);
+                        contentStream.setFont(font2, 12);
                         contentStream.showText(cin);
                         contentStream.newLineAtOffset(0, -20);
-                        contentStream.setFont(font, 15);
+                        contentStream.setFont(font, 12);
                         contentStream.showText("Est regulierement inscrit pour l'année : ");
-                        contentStream.setFont(font2, 15);
+                        contentStream.setFont(font2, 12);
                         contentStream.showText("2023/2024");
-                        contentStream.setFont(font, 15);
+                        contentStream.setFont(font, 12);
                         contentStream.newLineAtOffset(0, -420);
                         contentStream.setNonStrokingColor(Color.DARK_GRAY);
                         contentStream.showText("Adresse : M'HANNECH || B.P.2222 Tétouan");
@@ -220,47 +222,47 @@ public class Dashbrd extends javax.swing.JFrame {
                                                         "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png",
                                                         doc);
                                         // resize the image 100 100
-                                        contentStream.drawImage(pdImage, 25, 625, 150, 150);
+                                        contentStream.drawImage(pdImage, 25, 625, 120, 120);
 
                                         // add the text
                                         contentStream.beginText();
-                                        contentStream.newLineAtOffset(150, 700);
+                                        contentStream.newLineAtOffset(120, 700);
                                         // use a old font
                                         PDType0Font font = PDType0Font.load(doc, new File(
                                                         "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
                                         PDType0Font font2 = PDType0Font.load(doc, new File(
                                                         "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
-                                        contentStream.setFont(font2, 15);
+                                        contentStream.setFont(font2, 12);
                                         // add the name to the center
                                         contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
                                         contentStream.newLineAtOffset(100, -50);
                                         contentStream.showText("Attestation de réussite");
                                         contentStream.newLineAtOffset(-200, -100);
-                                        contentStream.setFont(font, 15);
+                                        contentStream.setFont(font, 12);
                                         contentStream.showText(
                                                         "Le directeur de l'école national des sciences appliquées de tetouan atteste que :");
                                         contentStream.newLineAtOffset(10, -20);
                                         contentStream.showText("Nom : ");
                                         // add the name of the student en gras
-                                        contentStream.setFont(font2, 15);
+                                        contentStream.setFont(font2, 12);
                                         contentStream.showText(nom);
-                                        contentStream.setFont(font, 15);
+                                        contentStream.setFont(font, 12);
                                         contentStream.newLineAtOffset(0, -20);
                                         contentStream.showText("Apoogée : ");
-                                        contentStream.setFont(font2, 15);
+                                        contentStream.setFont(font2, 12);
                                         contentStream.showText(cne.toString());
                                         // a ete declare admis en :
-                                        contentStream.setFont(font, 15);
+                                        contentStream.setFont(font, 12);
                                         contentStream.newLineAtOffset(0, -20);
                                         contentStream.showText("A été déclaré admis en : ");
-                                        contentStream.setFont(font2, 15);
+                                        contentStream.setFont(font2, 12);
                                         contentStream.showText(niveau);
-                                        contentStream.setFont(font, 15);
+                                        contentStream.setFont(font, 12);
                                         contentStream.newLineAtOffset(0, -20);
                                         contentStream.showText("Pour l'année universitaire : ");
-                                        contentStream.setFont(font2, 15);
+                                        contentStream.setFont(font2, 12);
                                         contentStream.showText("2023/2024");
-                                        contentStream.setFont(font, 15);
+                                        contentStream.setFont(font, 12);
                                         contentStream.newLineAtOffset(0, -420);
                                         contentStream.setNonStrokingColor(Color.DARK_GRAY);
                                         contentStream.showText("Adresse : M'HANNECH || B.P.2222 Tétouan");
@@ -327,8 +329,365 @@ public class Dashbrd extends javax.swing.JFrame {
                 }
                 return nb_ReleveN + nb_AttestaionR;
         }
+
         // Creation de l'attestaion de stage
-        
+        /**
+         * @param id_d
+         */
+        public void Astage_gen(Integer id_d) {
+                Integer cne = null;
+                try {
+                        // get the data from the database using the id
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
+                        java.sql.Statement stmt = con.createStatement();
+                        // get the data for the attestation de stage from stage table and student table
+                        ResultSet rs = stmt.executeQuery(
+                                        "SELECT * FROM stage INNER JOIN student ON stage.user_id = student.CNE where stage.id = '"
+                                                        + id_d + "';");
+                        // get the data from the result set
+                        rs.next();
+                        String nom = rs.getString("Nom_complet");
+                        cne = rs.getInt("CNE");
+                        String entreprise = rs.getString("nom_entreprise");
+                        String date_debut = rs.getString("debut_stage");
+                        String date_fin = rs.getString("fin_stage");
+                        String major = rs.getString("major");
+                        // start writing the pdf
+                        try {
+                                PDDocument doc = new PDDocument();
+                                PDPage page = new PDPage();
+                                doc.addPage(page);
+
+                                PDPageContentStream contentStream = new PDPageContentStream(doc, page);
+                                // add the logo of the school in the top left
+                                PDImageXObject pdImage = PDImageXObject.createFromFile(
+                                                "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png",
+                                                doc);
+                                // resize the image 100 100
+                                contentStream.drawImage(pdImage, 25, 625, 150, 150);
+
+                                // add the text
+                                contentStream.beginText();
+                                contentStream.newLineAtOffset(150, 700);
+                                // use a old font
+                                PDType0Font font = PDType0Font.load(doc, new File(
+                                                "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
+                                PDType0Font font2 = PDType0Font.load(doc, new File(
+                                                "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
+                                contentStream.setFont(font2, 12);
+                                System.out.println("Started th epdf creation");
+                                // add the name to the center
+                                contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
+                                contentStream.newLineAtOffset(100, -50);
+                                contentStream.showText("convention de stage");
+                                contentStream.newLineAtOffset(-225, -50);
+                                contentStream.setFont(font, 15);
+                                contentStream.showText(
+                                                "L Ecole Nationale des Sciences Appliquées, Université Abdelmalek Essaâdi -");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("Tétouan B.P. 2222,Mhannech II, Tétouan, Maroc");
+                                contentStream.newLineAtOffset(10, -20);
+                                contentStream.showText(
+                                                "Tél. +212 5 39 68 80 27 ; Fax. +212 39 99 46 24. Web: ensa-tetouan.ac.ma ");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(" Représenté par le Professeur");
+                                // change to bold
+                                contentStream.setFont(font2, 15);
+                                contentStream.showText(" Kamal REKLAOUI");
+                                // change to normal
+                                contentStream.setFont(font, 12);
+                                contentStream.showText(",en qualité de Directeur");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("Ci-après, dénommé l'Etablissement");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("Et");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("La société : ");
+                                // change to bold
+                                contentStream.setFont(font2, 15);
+                                contentStream.showText(entreprise);
+                                // change to normal
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
+                                contentStream.showText("Adresse:");
+                                // change to bold
+                                contentStream.setFont(font2, 15);
+                                contentStream.showText(rs.getString("secteur"));
+                                // change to normal
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
+                                contentStream.showText("Telephone:");
+                                // change to bold
+                                contentStream.setFont(font2, 15);
+                                contentStream.showText(rs.getString("tel_entreprise"));
+                                // change to normal
+                                // make a tabulation after the telephone
+                                contentStream.showText("            ");
+                                contentStream.setFont(font, 12);
+                                contentStream.showText("Email:");
+                                // change to bold
+                                contentStream.setFont(font2, 15);
+                                contentStream.showText(rs.getString("email_entreprise"));
+                                // change to normal
+                                System.out.println("Representée par Monsieur :");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
+                                contentStream.showText("Représentée par Monsieur :");
+                                // change to bold
+                                contentStream.setFont(font2, 15);
+                                contentStream.showText(rs.getString("encadrant_entreprise"));
+                                // change to normal
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
+                                contentStream.showText("en qualité Fondateur");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("Ci-après, dénommée L'ENTREPRISE");
+                                contentStream.newLineAtOffset(0, -20);
+                                // change to bold
+                                contentStream.setFont(font2, 12);
+                                System.out.println("Article 1: Engagement");
+                                contentStream.showText("Article 1: Engagement ");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("L'ENTREPRISE");
+                                // change to normal
+                                contentStream.showText("accepte de recevoir à titre de stagiaire");
+                                // change to bold
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText(nom);
+                                // change to normal
+                                contentStream.showText(" étudiant de la filière du Cycle Ingénieur ");
+                                // change to bold
+                                // new line
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText(major);
+                                // change to normal
+                                contentStream.setFont(font, 12);
+                                contentStream.showText(
+                                                " de l'ENSA de Tétouan, Université Abdelmalek Essaâdi (Tétouan), pour une ");
+                                contentStream.newLineAtOffset(0, -20);
+                                // new line
+                                contentStream.showText("période allant du  ");
+                                // change to bold
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText(date_debut);
+                                // change to normal
+                                contentStream.setFont(font, 12);
+                                contentStream.showText(" au ");
+                                // change to bold
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText(date_fin);
+                                // new line in bold
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font2, 12);
+                                System.out.println("1");
+                                contentStream.showText(
+                                                "En aucun cas, cette convention ne pourra autoriser les étudiants à s'absenter durant la période des");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("contrôles ou des enseignements.");
+                                contentStream.newLineAtOffset(0, -20);
+                                System.out.println("Article2: Objet");
+                                contentStream.showText("Article2: Objet ");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
+                                contentStream.showText(
+                                                "Le stage aura pour objet essentiel d'assurer l'application pratique de l'enseignement donné par");
+                                contentStream.newLineAtOffset(0, -20);
+                                // bold
+                                System.out.println("2");
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText("L'etablissement");
+                                contentStream.setFont(font, 12);
+                                contentStream.showText(
+                                                ", et ce, en organisant des visites sur les installations et en réalisant des études ");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("proposées par ");
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText("L'ENTREPRISE");
+                                contentStream.newLineAtOffset(0, -20);
+                                System.out.println("Article 3: Encadrement et suivi");
+                                contentStream.showText("Article 3: Encadrement et suivi");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
+                                contentStream.showText(
+                                                "Pour accompagner le Stagiaire durant son stage, et ainsi instaurer une véritable collaboration");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "L'ENTREPRISE/Stagiaire/Etablissement, L'ENTREPRISE désigne Mme/Mr encadrant(e) et parrain(e),");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "pour superviser et assurer la qualité du travail fourni par le Stagiaire.");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("L'Etablissement désigne ");
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText(rs.getString("encadrant_ensa"));
+                                contentStream.setFont(font, 12);
+                                System.out.println("3");
+                                contentStream.showText("en tant que tuteur qui procurera une assistancepédagogique.");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font2, 12);
+                                System.out.println("Article 4: Programme:");
+                                contentStream.showText("Article 4: Programme:");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
+                                contentStream.showText("Le thème du stage est: << ");
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText(rs.getString("sujet_stage"));
+                                contentStream.setFont(font, 12);
+                                contentStream.showText(">>");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "Ce programme a été défini conjointement par l'Etablissement, L'ENTREPRISE et le Stagiaire.");
+                                // start a new page if the text is too long
+                                contentStream.endText();
+                                contentStream.close();
+                                PDPage secondPage = new PDPage();
+                                doc.addPage(secondPage);
+                                contentStream = new PDPageContentStream(doc, secondPage);
+                                contentStream.beginText();
+                                contentStream.setFont(font, 12);
+                                contentStream.newLineAtOffset(25, 750);
+
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "Le contenu de ce programme doit permettre au Stagiaire une réflexion en relation avec les enseignements");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "ou le projet de fin d'études qui s'inscrit dans le programme de formation de l'Etablissement");
+                                System.out.println("4");
+
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText("Article 5: Durée du stage");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
+                                contentStream.showText(
+                                                "Au cours du stage, l'étudiant ne pourra prétendre à aucun salaire de la part de L'ENTREPRISE.");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "Cependant, si l'ENTREPRISE et l'étudiant le conviennent, ce dernier pourra recevoir une indemnité");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "forfaitaire de la part de l'ENTREPRISE des frais occasionnés par la mission confiée à l'étudiant.");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText("Article 6: Règlement");
+                                contentStream.setFont(font, 12);
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
+                                contentStream.showText(
+                                                "Pendant la durée du stage, le Stagiaire reste placé sous la responsabilité de ");
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText("l'Etablissement.");
+                                contentStream.setFont(font, 12);
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "Cependant, l'étudiant est tenu d'informer l'école dans un délai de 24h sur toute modification portant");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "sur la convention déjà signée, sinon il en assumera toute sa responsabilité sur son non-respect de la");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "convention signée par l'école.");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText("Article 7: Confidentialité");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
+                                System.out.println("5");
+                                contentStream.showText(
+                                                "Le Stagiaire et l'ensemble des acteurs liés à son travail (l'administration de l'Etablissement, le parrain");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "pédagogique ...) sont tenus au secret professionnel. Ils s'engagent à ne pas diffuser les informations");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "recueillies à des fins de publications, conférences, communications, sans raccord préalable de");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "L'ENTREPRISE. Cette obligation demeure valable après l'expiration du stage");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText("Article 8: Assurance accident de travail");
+                                contentStream.setFont(font, 12);
+                                contentStream.newLineAtOffset(0, -20);
+                                System.out.println("6");
+                                contentStream.showText(
+                                                "Le stagiaire devra obligatoirement souscrire une assurance couvrant la Responsabilité Civile et Accident de");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "Travail, durant les stages et trajets effectués. En cas d'accident de travail survenant durant la période du");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "stage, L'ENTREPRISE s'engage à faire parvenir immédiatement à l'Etablissement toutes les informations");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("indispensables à la déclaration dudit accident.");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText("Article 9: Evaluation de L'ENTREPRISE");
+                                contentStream.setFont(font, 12);
+                                contentStream.newLineAtOffset(0, -20);
+                                System.out.println("7");
+                                contentStream.showText(
+                                                "Le stage accompli, le parrain établira un rapport d'appréciations générales sur le travail effectué et le");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "comportement du Stagiaire durant son séjour chez L'ENTREPRISE.");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "L'ENTREPRISE remettra au Stagiaire une attestation indiquant la nature et la durée des travaux");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "effectués.");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font2, 12);
+                                contentStream.showText("Article 10: Rapport de stage");
+                                contentStream.setFont(font, 12);
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "A l'issue de chaque stage, le Stagiaire rédigera un rapport de stage faisant état de ses travaux et de son vécu");
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText(
+                                                "au sein de L'ENTREPRISE. Ce rapport sera communiqué à L'ENTREPRISE et restera strictement confidentiel.");
+                                contentStream.newLineAtOffset(0, -20);
+                                System.out.println("8");
+                                contentStream.showText(
+                                                "                               Faite à Tétouan,. en deux exemplaires, le ");
+                                contentStream.setFont(font2, 12);
+                                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                                LocalDateTime now = LocalDateTime.now();
+                                contentStream.showText(dtf.format(now));
+                                contentStream.setFont(font, 12);
+                                contentStream.newLineAtOffset(0, -20);
+                                contentStream.showText("Nom et signature du Stagiaire");
+                                contentStream.showText(
+                                                "                                         Nom et signature du représentant de L'ENTREPRISE");
+                                contentStream.newLineAtOffset(0, -70);
+                                System.out.println("9");
+                                contentStream.showText("Signature et cachet de L'Etablissement");
+                                contentStream.showText(
+                                                "=                                        Signature et cachet de L'ENTREPRISE");
+                                contentStream.endText();
+                                System.out.println("10");
+                                contentStream.close();
+
+                                doc.save("C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation de stage "
+                                                + cne.toString() + ".pdf");
+                                doc.close();
+
+                                System.out.println("PDF created");
+
+                        } catch (Exception e) {
+                                // TODO: handle exception
+                                System.out.println("Error: " + e.getMessage());
+                        }
+
+                } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                }
+
+        }
 
         public void fill() {
                 try {
@@ -376,8 +735,29 @@ public class Dashbrd extends javax.swing.JFrame {
                         System.out.println("Table should be updated now.");
                 } catch (SQLException e) {
                         e.printStackTrace();
-                } catch (Exception e) {
-                        // TODO: handle exception
+                }
+                // Attestation de stage table
+                try {
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
+                        java.sql.Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(
+                                        "SELECT stage.id,student.Nom_complet,student.email,student.CNE FROM stage INNER JOIN student ON stage.user_id = student.CNE where traité = '0';");
+                        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+                        while (rs.next()) {
+                                System.out.println("Row from database: " + rs.getInt("id") + ", "
+                                                + rs.getString("Nom_complet") + ", "
+                                                + rs.getString("email") + ", Attestation de stage"); // Debug print
+                                model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
+                                                rs.getInt("student.CNE"),
+                                                rs.getString("email"), "Attestation de stage", "Date" });
+                        }
+                        jTable2.revalidate();
+                        jTable2.repaint();
+
+                        System.out.println("Table should be updated now.");
+                } catch (SQLException e) {
+                        e.printStackTrace();
                 }
         }
 
@@ -443,7 +823,7 @@ public class Dashbrd extends javax.swing.JFrame {
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-                jButton1.setBackground(new java.awt.Color(51, 153, 255));
+                jButton1.setBackground(new java.awt.Color(51, 123, 255));
                 jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
                 jButton1.setForeground(new java.awt.Color(255, 255, 255));
                 jButton1.setText("Rechercher");
@@ -489,7 +869,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                                                 .addComponent(jLabel5)
                                                                 .addGap(26, 26, 26)
                                                                 .addComponent(jLabel2)
-                                                                .addGap(15, 15, 15)));
+                                                                .addGap(12, 12, 12)));
 
                 jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -523,7 +903,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                                                 .addComponent(jLabel4)
                                                                 .addGap(16, 16, 16)));
 
-                jPanel4.setBackground(new java.awt.Color(51, 153, 255));
+                jPanel4.setBackground(new java.awt.Color(51, 123, 255));
 
                 jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
                 jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -566,7 +946,7 @@ public class Dashbrd extends javax.swing.JFrame {
                 jPanel6.setBackground(new java.awt.Color(245, 250, 255));
 
                 jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-                jLabel9.setForeground(new java.awt.Color(51, 153, 255));
+                jLabel9.setForeground(new java.awt.Color(51, 123, 255));
                 jLabel9.setText("Historique");
 
                 jButton6.setBackground(new java.awt.Color(245, 250, 255));
@@ -580,13 +960,13 @@ public class Dashbrd extends javax.swing.JFrame {
                         }
                 });
 
-                jSeparator1.setForeground(new java.awt.Color(51, 153, 255));
+                jSeparator1.setForeground(new java.awt.Color(51, 123, 255));
 
                 jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-                jLabel8.setForeground(new java.awt.Color(51, 153, 255));
+                jLabel8.setForeground(new java.awt.Color(51, 123, 255));
                 jLabel8.setText("Espace reclamations");
 
-                jSeparator5.setForeground(new java.awt.Color(51, 153, 255));
+                jSeparator5.setForeground(new java.awt.Color(51, 123, 255));
 
                 jButton7.setBackground(new java.awt.Color(245, 250, 255));
                 jButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -689,7 +1069,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                 } else {
                                         System.out.println("Row selected: " + viewRow);
                                         // get the type of the document
-                                        String type = jTable2.getModel().getValueAt(viewRow, 5).toString();
+                                        String type = jTable2.getModel().getValueAt(viewRow, 4).toString();
                                         Integer id_column = Integer
                                                         .parseInt(jTable2.getModel().getValueAt(viewRow, 0).toString());
                                         System.out.println("id_column = " + id_column);
@@ -713,6 +1093,10 @@ public class Dashbrd extends javax.swing.JFrame {
                                                         break;
                                                 case "Relevé de notes":
                                                         // call the function to accept the demand
+                                                        break;
+                                                case "Attestation de stage":
+                                                        // call the function to accept the demand
+                                                        Astage_gen(id_column);
                                                         break;
                                                 default:
                                                         JOptionPane.showMessageDialog(null, "Erreur");
