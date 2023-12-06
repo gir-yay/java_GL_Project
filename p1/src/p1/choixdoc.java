@@ -4,6 +4,7 @@
  */
 package p1;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 
@@ -194,6 +195,14 @@ public class choixdoc extends javax.swing.JFrame {
             stage.setVisible(true);
             
             break;
+        case "Attestation de scolarité":
+            Attesta_scolarite attestationScolarite = new Attesta_scolarite(CNE);
+            attestationScolarite.setVisible(true);
+            break;
+        default:
+            JOptionPane.showMessageDialog(null, "Veuillez choisir un document");
+            break;
+
         
     }
     }//GEN-LAST:event_jButton1ActionPerformed

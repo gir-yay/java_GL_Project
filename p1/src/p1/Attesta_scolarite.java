@@ -5,6 +5,7 @@
 package p1;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,8 +16,10 @@ public class Attesta_scolarite extends javax.swing.JFrame {
     /**
      * Creates new form Attesta_scolarite
      */
-    public Attesta_scolarite() {
+    public Integer id;
+    public Attesta_scolarite(Integer id) {
         initComponents();
+        this.id = id;
     }
 
     /**
@@ -106,7 +109,33 @@ public class Attesta_scolarite extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //Add the demande to the database using the id of the student demande_as table
+        //setup connection
+        String Surl, Suser, Spass;
+        Surl = "jdbc:mysql://localhost:3306/gl";
+        Suser = "root";
+        Spass = "";
+        String query;
+        try {
+            java.sql.Connection con = java.sql.DriverManager.getConnection(Surl, Suser, Spass);
+            java.sql.Statement st = con.createStatement();
+            // check if a demande is already sent and not yet accepted
+            query = "SELECT * FROM `demande_as` WHERE `user_id` = "+this.id+" AND `traite` = 0";
+            java.sql.ResultSet res = st.executeQuery(query);
+            if(res.next()){
+                JOptionPane.showMessageDialog(null, "Vous avez déjà envoyé une demande");
+                return;
+            }else{
+                query = "INSERT INTO `demande_as`(`user_id`) VALUES ("+this.id+")";
+                st.executeUpdate(query);
+                 JOptionPane.showMessageDialog(null, "Votre demande a été envoyée avec succès");
+            }
+            con.close();
+            this.setVisible(false);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -149,7 +178,7 @@ public class Attesta_scolarite extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Attesta_scolarite().setVisible(true);
+                new Attesta_scolarite(0).setVisible(true);
             }
         });
     }

@@ -58,11 +58,9 @@ public class Dashbrd extends javax.swing.JFrame {
                         ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM demande_rn");
                         rs.next();
                         nb_ReleveN = rs.getInt(1);
-                        System.out.println("nb_ReleveN = " + nb_ReleveN);
                         ResultSet rs2 = st.executeQuery("SELECT COUNT(*) FROM demande_ar ");
                         rs2.next();
                         nb_AttestaionR = rs2.getInt(1);
-                        System.out.println("nb_AttestaionR = " + nb_AttestaionR);
                         con.close();
                 } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
@@ -75,7 +73,6 @@ public class Dashbrd extends javax.swing.JFrame {
         public void AS_gen(Integer id_d) throws FileNotFoundException {
                 String nom = "", cin = "", email = "";
                 Integer cne = null;
-                System.out.println("id_d = " + id_d);
 
                 try {
                         // get the data from the database using the id
@@ -92,10 +89,6 @@ public class Dashbrd extends javax.swing.JFrame {
                         email = rs.getString("email");
                         // close the connection
                         con.close();
-                        System.out.println("nom = " + nom);
-                        System.out.println("cne = " + cne);
-                        System.out.println("cin = " + cin);
-                        System.out.println("email = " + email);
                 } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
                 }
@@ -181,8 +174,6 @@ public class Dashbrd extends javax.swing.JFrame {
         public void AR_gen(Integer id_d) {
                 String nom = "", cin = "", email = "", niveau = "", niveau_doc = "";
                 Integer cne = null;
-                System.out.println("id_d = " + id_d);
-
                 try {
                         // get the data from the database using the id
                         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
@@ -206,11 +197,6 @@ public class Dashbrd extends javax.swing.JFrame {
                         } else {
                                 // close the connection
                                 con.close();
-                                System.out.println("nom = " + nom);
-                                System.out.println("cne = " + cne);
-                                System.out.println("cin = " + cin);
-                                System.out.println("email = " + email);
-                                System.out.println("niveau = " + niveau);
                                 try {
                                         PDDocument doc = new PDDocument();
                                         PDPage page = new PDPage();
@@ -289,10 +275,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                         }
                                         // close the connection
                                         con.close();
-                                        System.out.println("nom = " + nom);
-                                        System.out.println("cne = " + cne);
-                                        System.out.println("cin = " + cin);
-                                        System.out.println("email = " + email);
                                 } catch (Exception e) {
                                         System.out.println("Error: " + e.getMessage());
                                 }
@@ -317,11 +299,9 @@ public class Dashbrd extends javax.swing.JFrame {
                         ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM demande_rn where traité = '0'");
                         rs.next();
                         nb_ReleveN = rs.getInt(1);
-                        System.out.println("nb_ReleveN = " + nb_ReleveN);
                         ResultSet rs2 = st.executeQuery("SELECT COUNT(*) FROM demande_ar where traité = '0'");
                         rs2.next();
                         nb_AttestaionR = rs2.getInt(1);
-                        System.out.println("nb_AttestaionR = " + nb_AttestaionR);
                         con.close();
                 } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
@@ -375,7 +355,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                 PDType0Font font2 = PDType0Font.load(doc, new File(
                                                 "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
                                 contentStream.setFont(font2, 12);
-                                System.out.println("Started th epdf creation");
                                 // add the name to the center
                                 contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
                                 contentStream.newLineAtOffset(100, -50);
@@ -429,7 +408,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.setFont(font2, 15);
                                 contentStream.showText(rs.getString("email_entreprise"));
                                 // change to normal
-                                System.out.println("Representée par Monsieur :");
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.setFont(font, 12);
                                 contentStream.showText("Représentée par Monsieur :");
@@ -445,7 +423,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.newLineAtOffset(0, -20);
                                 // change to bold
                                 contentStream.setFont(font2, 12);
-                                System.out.println("Article 1: Engagement");
                                 contentStream.showText("Article 1: Engagement ");
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.showText("L'ENTREPRISE");
@@ -480,13 +457,11 @@ public class Dashbrd extends javax.swing.JFrame {
                                 // new line in bold
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.setFont(font2, 12);
-                                System.out.println("1");
                                 contentStream.showText(
                                                 "En aucun cas, cette convention ne pourra autoriser les étudiants à s'absenter durant la période des");
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.showText("contrôles ou des enseignements.");
                                 contentStream.newLineAtOffset(0, -20);
-                                System.out.println("Article2: Objet");
                                 contentStream.showText("Article2: Objet ");
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.setFont(font, 12);
@@ -494,7 +469,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                                 "Le stage aura pour objet essentiel d'assurer l'application pratique de l'enseignement donné par");
                                 contentStream.newLineAtOffset(0, -20);
                                 // bold
-                                System.out.println("2");
                                 contentStream.setFont(font2, 12);
                                 contentStream.showText("L'etablissement");
                                 contentStream.setFont(font, 12);
@@ -505,7 +479,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.setFont(font2, 12);
                                 contentStream.showText("L'ENTREPRISE");
                                 contentStream.newLineAtOffset(0, -20);
-                                System.out.println("Article 3: Encadrement et suivi");
                                 contentStream.showText("Article 3: Encadrement et suivi");
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.setFont(font, 12);
@@ -522,11 +495,9 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.setFont(font2, 12);
                                 contentStream.showText(rs.getString("encadrant_ensa"));
                                 contentStream.setFont(font, 12);
-                                System.out.println("3");
                                 contentStream.showText("en tant que tuteur qui procurera une assistancepédagogique.");
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.setFont(font2, 12);
-                                System.out.println("Article 4: Programme:");
                                 contentStream.showText("Article 4: Programme:");
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.setFont(font, 12);
@@ -555,8 +526,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.showText(
                                                 "ou le projet de fin d'études qui s'inscrit dans le programme de formation de l'Etablissement");
-                                System.out.println("4");
-
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.setFont(font2, 12);
                                 contentStream.showText("Article 5: Durée du stage");
@@ -595,7 +564,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.showText("Article 7: Confidentialité");
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.setFont(font, 12);
-                                System.out.println("5");
                                 contentStream.showText(
                                                 "Le Stagiaire et l'ensemble des acteurs liés à son travail (l'administration de l'Etablissement, le parrain");
                                 contentStream.newLineAtOffset(0, -20);
@@ -612,7 +580,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.showText("Article 8: Assurance accident de travail");
                                 contentStream.setFont(font, 12);
                                 contentStream.newLineAtOffset(0, -20);
-                                System.out.println("6");
                                 contentStream.showText(
                                                 "Le stagiaire devra obligatoirement souscrire une assurance couvrant la Responsabilité Civile et Accident de");
                                 contentStream.newLineAtOffset(0, -20);
@@ -628,7 +595,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.showText("Article 9: Evaluation de L'ENTREPRISE");
                                 contentStream.setFont(font, 12);
                                 contentStream.newLineAtOffset(0, -20);
-                                System.out.println("7");
                                 contentStream.showText(
                                                 "Le stage accompli, le parrain établira un rapport d'appréciations générales sur le travail effectué et le");
                                 contentStream.newLineAtOffset(0, -20);
@@ -651,7 +617,6 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.showText(
                                                 "au sein de L'ENTREPRISE. Ce rapport sera communiqué à L'ENTREPRISE et restera strictement confidentiel.");
                                 contentStream.newLineAtOffset(0, -20);
-                                System.out.println("8");
                                 contentStream.showText(
                                                 "                               Faite à Tétouan,. en deux exemplaires, le ");
                                 contentStream.setFont(font2, 12);
@@ -664,12 +629,10 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.showText(
                                                 "                                         Nom et signature du représentant de L'ENTREPRISE");
                                 contentStream.newLineAtOffset(0, -70);
-                                System.out.println("9");
                                 contentStream.showText("Signature et cachet de L'Etablissement");
                                 contentStream.showText(
                                                 "=                                        Signature et cachet de L'ENTREPRISE");
                                 contentStream.endText();
-                                System.out.println("10");
                                 contentStream.close();
 
                                 doc.save("C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation de stage "
@@ -699,16 +662,12 @@ public class Dashbrd extends javax.swing.JFrame {
                         model.setRowCount(0); // Clear the table before adding rows
 
                         while (rs.next()) {
-                                System.out.println("Row from database: " + rs.getInt("id") + ", "
-                                                + rs.getString("Nom_complet") + ", "
-                                                + rs.getString("email") + ", Attestation de réussite"); // Debug print
                                 model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
                                                 rs.getInt("student.CNE"),
                                                 rs.getString("email"), "Date", "Attestation de réussite" });
                         }
                         jTable2.revalidate();
                         jTable2.repaint();
-
                         System.out.println("Table should be updated now.");
                 } catch (SQLException e) {
                         e.printStackTrace();
@@ -722,16 +681,12 @@ public class Dashbrd extends javax.swing.JFrame {
                         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
                         while (rs.next()) {
-                                System.out.println("Row from database: " + rs.getInt("id") + ", "
-                                                + rs.getString("Nom_complet") + ", "
-                                                + rs.getString("email") + ", Relevé de notes"); // Debug print
                                 model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
                                                 rs.getInt("student.CNE"),
                                                 rs.getString("email"), "Date", "Relevé de notes" });
                         }
                         jTable2.revalidate();
                         jTable2.repaint();
-
                         System.out.println("Table should be updated now.");
                 } catch (SQLException e) {
                         e.printStackTrace();
@@ -745,9 +700,6 @@ public class Dashbrd extends javax.swing.JFrame {
                         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
                         while (rs.next()) {
-                                System.out.println("Row from database: " + rs.getInt("id") + ", "
-                                                + rs.getString("Nom_complet") + ", "
-                                                + rs.getString("email") + ", Attestation de stage"); // Debug print
                                 model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
                                                 rs.getInt("student.CNE"),
                                                 rs.getString("email"), "Attestation de stage", "Date" });
@@ -1067,13 +1019,10 @@ public class Dashbrd extends javax.swing.JFrame {
                                 if (viewRow < 0) {
                                         System.out.println("No row selected");
                                 } else {
-                                        System.out.println("Row selected: " + viewRow);
                                         // get the type of the document
                                         String type = jTable2.getModel().getValueAt(viewRow, 4).toString();
                                         Integer id_column = Integer
                                                         .parseInt(jTable2.getModel().getValueAt(viewRow, 0).toString());
-                                        System.out.println("id_column = " + id_column);
-                                        System.out.println("type = " + type);
                                         // switch case to know which fonction to call
                                         switch (type) {
                                                 case "Attestation de scolarité":
