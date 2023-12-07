@@ -50,13 +50,14 @@ public class Loginstudent1 extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtapogee = new javax.swing.JTextField();
         txtcin = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -133,16 +134,16 @@ public class Loginstudent1 extends javax.swing.JFrame {
         jLabel9.setText("_________________________________________");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 290, 50));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(25, 118, 211));
-        jButton1.setText("Continuer");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(25, 118, 211));
+        jButton5.setText("Reclamation");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton5ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 341, 40));
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 341, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(199, 226, 255));
@@ -176,6 +177,17 @@ public class Loginstudent1 extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 40, 20));
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(25, 118, 211));
+        jButton2.setText("Continuer");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 341, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 420, 440));
 
@@ -306,7 +318,8 @@ public class Loginstudent1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

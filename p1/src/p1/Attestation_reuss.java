@@ -177,25 +177,27 @@ public class Attestation_reuss extends javax.swing.JFrame {
             // Put the demande in the db
             try {
                 Connection con = DriverManager.getConnection(Surl, Suser, Spass);
-                query = "INSERT INTO `demande_ar`(`user_id`, `niveau`) VALUES (?, ?)";
-                PreparedStatement ps = con.prepareStatement(query);
-                ps.setInt(1, CNE);
-                ps.setString(2, niveaus);
-                ps.executeUpdate();
-                System.out.println("working the CNE is:" + CNE);
-                System.out.println("working the niveau is:" + niveaus);
+                // check if a demande exist and is not traited yet
+                query = "SELECT * FROM demande_ar WHERE user_id = ? AND traité = 0 AND niveau = ?";
+                PreparedStatement pst = con.prepareStatement(query);
+                pst.setInt(1, CNE);
+                pst.setString(2, niveaus);
+                if(pst.execute()){  
+                    JOptionPane.showMessageDialog(null, "Vous avez déjà envoyé une demande");
+                }else{
+                    // insert the demande
+                    query = "INSERT INTO demande_ar (user_id, niveau) VALUES (?, ?)";
+                    pst = con.prepareStatement(query);
+                    pst.setInt(1, CNE);
+                    pst.setString(2, niveaus);
+                    pst.execute();
+                    JOptionPane.showMessageDialog(null, "Votre demande a été envoyée avec succès");
+                }
                 // con.close();
             } catch (Exception e) {
                 System.out.println("Error:" + e);
             }
-
-            // show success message
-            JOptionPane.showMessageDialog(null, "Votre demande a été envoyée avec succès");
-            // go to the home page after clicking ok in the message
-            choixdoc choicedoc = new choixdoc(CNE);
-            choicedoc.setVisible(true);
             this.dispose();
-            
         }
 
     }// GEN-LAST:event_jButton1ActionPerformed

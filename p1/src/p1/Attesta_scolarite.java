@@ -124,7 +124,6 @@ public class Attesta_scolarite extends javax.swing.JFrame {
             java.sql.ResultSet res = st.executeQuery(query);
             if(res.next()){
                 JOptionPane.showMessageDialog(null, "Vous avez déjà envoyé une demande");
-                return;
             }else{
                 query = "INSERT INTO `demande_as`(`user_id`) VALUES ("+this.id+")";
                 st.executeUpdate(query);
