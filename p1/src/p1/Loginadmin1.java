@@ -228,7 +228,6 @@ public class Loginadmin1 extends javax.swing.JFrame {
         Suser = "root";
         Spass = "";
         int notFound = 0;
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(Surl, Suser, Spass);
@@ -252,10 +251,10 @@ public class Loginadmin1 extends javax.swing.JFrame {
                     passdb = rs.getString("password");
                     notFound = 1;
                     if (password.equals(passdb)) {
-                       
                         Dashbrd admin = new Dashbrd();
-                        admin.show();
+                        admin.setVisible(true);
                         this.dispose();
+                        break;
                     } else {
                         JOptionPane.showMessageDialog(new JFrame(), "Password or email incorrect !!!", "Error",
                                 JOptionPane.ERROR_MESSAGE);
