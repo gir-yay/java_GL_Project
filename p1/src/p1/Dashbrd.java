@@ -43,6 +43,19 @@ public class Dashbrd extends javax.swing.JFrame {
                 initComponents();
                 this.setLocationRelativeTo(null);
         }
+        public void actualiser() {
+                //clear it first then fill()
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+                model.setRowCount(0); // Clear the table before adding rows
+                fill();
+                // update the number of demands
+                jLabel2.setText(countDemands().toString());
+                // update the number of demands non traitées
+                jLabel3.setText(countNtDemands().toString());
+                //update the number of demands traitées
+                Integer temp=countDemands()-countNtDemands();
+                jLabel4.setText(temp.toString());
+        }
 
         // add a function to count the number of demands
         public Integer countDemands() {
@@ -96,6 +109,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         con.close();
                 } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
+                        actualiser();
                 }
                 try {
                         PDDocument doc = new PDDocument();
@@ -105,7 +119,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         PDPageContentStream contentStream = new PDPageContentStream(doc, page);
                         // add the logo of the school in the top left
                         PDImageXObject pdImage = PDImageXObject.createFromFile(
-                                        "p1\\src\\icon\\logo.png",
+                                        "c:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png",
                                         doc);
                         // resize the image 100 100
                         contentStream.drawImage(pdImage, 25, 625, 120, 120);
@@ -115,9 +129,9 @@ public class Dashbrd extends javax.swing.JFrame {
                         contentStream.newLineAtOffset(120, 700);
                         // use a old font
                         PDType0Font font = PDType0Font.load(doc,
-                                        new File("Calibri.ttf"));
+                                        new File("c:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
                         PDType0Font font2 = PDType0Font.load(doc,
-                                        new File("calibrib.ttf"));
+                                        new File("c:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
                         contentStream.setFont(font2, 12);
                         // add the name to the center
                         contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
@@ -156,24 +170,28 @@ public class Dashbrd extends javax.swing.JFrame {
                         contentStream.endText();
 
                         contentStream.close();
-                        doc.save("output\\Attestation_de_scolarité " + cne.toString() + ".pdf");
+                        doc.save("c:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation_de_scolarité "
+                                        + cne.toString() + ".pdf");
                         doc.close();
-                        System.out.println("PDF created");
+                        System.out.println("Attestation de scolarité created");
                         // update table to set the traité to 1
                         try {
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root",
                                                 "");
                                 java.sql.Statement stmt = con.createStatement();
-                                stmt.executeUpdate("UPDATE demande_ar SET traité = '1' WHERE id = '" + id_d + "';");
+                                stmt.executeUpdate("UPDATE demande_as SET traite = '1' WHERE id = '" + id_d + "';");
                                 con.close();
-                                JOptionPane.showMessageDialog(null,
-                                                "Attestation de scolarité générée avec succès");
+                                //actualiser la table
+                                actualiser();
                         } catch (Exception e) {
                                 System.out.println("Error: " + e.getMessage());
+                                actualiser();
                         }
 
                 } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
+                        actualiser();
+
                 }
         }
 
@@ -186,7 +204,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
                         java.sql.Statement stmt = con.createStatement();
                         ResultSet rs = stmt.executeQuery(
-                                        "SELECT student.Nom_complet,student.CNE,student.CIN,student.email,student.niveau,demande_ar.niveau AS niveau_d FROM demande_ar INNER JOIN student ON demande_ar.user_id = student.CNE where demande_ar.id = '"
+                                        "SELECT student.Nom_complet,student.CNE,student.CIN,student.email,student.major,demande_ar.niveau AS niveau_d FROM demande_ar INNER JOIN student ON demande_ar.user_id = student.CNE where demande_ar.id = '"
                                                         + id_d + "';");
                         // get the data from the result set
                         rs.next();
@@ -194,13 +212,14 @@ public class Dashbrd extends javax.swing.JFrame {
                         cne = rs.getInt("CNE");
                         cin = rs.getString("CIN");
                         email = rs.getString("email");
-                        niveau = rs.getString("niveau");
+                        niveau = rs.getString("major");
                         niveau_doc = rs.getString("niveau_d");
 
                         // if the demanded niveau isnot the same as the niveau of the student
                         if (!niveau.equals(niveau_doc)) {
                                 JOptionPane.showMessageDialog(null,
                                                 "Erreur : Niveau de la demande n'est pas le même que le niveau de l'étudiant");
+                                actualiser();
                         } else {
                                 // close the connection
                                 con.close();
@@ -212,7 +231,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                         PDPageContentStream contentStream = new PDPageContentStream(doc, page);
                                         // add the logo of the school in the top left
                                         PDImageXObject pdImage = PDImageXObject.createFromFile(
-                                                        "p1\\src\\icon\\logo.png",
+                                                        "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png",
                                                         doc);
                                         // resize the image 100 100
                                         contentStream.drawImage(pdImage, 25, 625, 120, 120);
@@ -222,9 +241,9 @@ public class Dashbrd extends javax.swing.JFrame {
                                         contentStream.newLineAtOffset(120, 700);
                                         // use a old font
                                         PDType0Font font = PDType0Font.load(doc, new File(
-                                                        "Calibri.ttf"));
+                                                        "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
                                         PDType0Font font2 = PDType0Font.load(doc, new File(
-                                                        "Calibrib.ttf"));
+                                                        "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
                                         contentStream.setFont(font2, 12);
                                         // add the name to the center
                                         contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
@@ -265,10 +284,10 @@ public class Dashbrd extends javax.swing.JFrame {
 
                                         contentStream.close();
 
-                                        doc.save("output\\Attestation_de_réussite "
+                                        doc.save("C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation_de_réussite "
                                                         + cne.toString() + ".pdf");
                                         doc.close();
-                                        System.out.println("PDF created");
+                                        System.out.println("Attetatation de réussite created");
                                         // update table to set the traité to 1
                                         try {
                                                 Connection con2 = DriverManager.getConnection(
@@ -277,20 +296,20 @@ public class Dashbrd extends javax.swing.JFrame {
                                                 stmt2.executeUpdate("UPDATE demande_ar SET traité = '1' WHERE id = '"
                                                                 + id_d + "';");
                                                 con2.close();
-                                                JOptionPane.showMessageDialog(null,
-                                                                "Attestation de réussite générée avec succès");
-
                                         } catch (Exception e) {
                                                 System.out.println("Error: " + e.getMessage());
                                         }
                                         // close the connection
                                         con.close();
+                                        System.out.println("Attestation de réussite created");
+                                        actualiser();
                                 } catch (Exception e) {
                                         System.out.println("Error: " + e.getMessage());
                                 }
                         }
                 } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
+                        actualiser();
                 }
 
         }
@@ -356,7 +375,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                 PDPageContentStream contentStream = new PDPageContentStream(doc, page);
                                 // add the logo of the school in the top left
                                 PDImageXObject pdImage = PDImageXObject.createFromFile(
-                                                "p1\\src\\icon\\logo.png",
+                                                "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png",
                                                 doc);
                                 // resize the image 100 100
                                 contentStream.drawImage(pdImage, 25, 625, 150, 150);
@@ -366,9 +385,9 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.newLineAtOffset(150, 700);
                                 // use a old font
                                 PDType0Font font = PDType0Font.load(doc, new File(
-                                                "Calibri.ttf"));
+                                                "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
                                 PDType0Font font2 = PDType0Font.load(doc, new File(
-                                                "Calibrib.ttf"));
+                                                "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
                                 contentStream.setFont(font2, 12);
                                 // add the name to the center
                                 contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
@@ -650,11 +669,11 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.endText();
                                 contentStream.close();
 
-                                doc.save("output\\Attestation de stage "
+                                doc.save("C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation de stage "
                                                 + cne.toString() + ".pdf");
                                 doc.close();
 
-                                //update the table to set the traité to 1
+                               //update table to set the traité to 1
                                 try {
                                         Connection con2 = DriverManager.getConnection(
                                                         "jdbc:mysql://localhost:3306/gl", "root", "");
@@ -662,20 +681,23 @@ public class Dashbrd extends javax.swing.JFrame {
                                         stmt2.executeUpdate("UPDATE stage SET traité = '1' WHERE id = '"
                                                         + id_d + "';");
                                         con2.close();
-                                        JOptionPane.showMessageDialog(null,
-                                                        "Attestation de stage générée avec succès");
-
                                 } catch (Exception e) {
                                         System.out.println("Error: " + e.getMessage());
                                 }
+                                // close the connection
+                                con.close();
+                                System.out.println("Attestation de stage created");
+                                actualiser();
 
                         } catch (Exception e) {
                                 // TODO: handle exception
                                 System.out.println("Error: " + e.getMessage());
+                                actualiser();
                         }
 
                 } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
+                        actualiser();
                 }
 
         }
