@@ -61,13 +61,13 @@ public class Dashbrd extends javax.swing.JFrame {
                 DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
                 model.setRowCount(0); // Clear the table before adding rows
                 fill();
-                // update the number of demands
-                jLabel2.setText(countDemands().toString());
-                // update the number of demands non traitées
-                jLabel3.setText(countNtDemands().toString());
-                // update the number of demands traitées
-                Integer temp = countDemands() - countNtDemands();
-                jLabel4.setText(temp.toString());
+                //update the number of demands
+                jLabel5.setText(countDemands().toString());
+                //update the number of demands non traitées
+                jLabel7.setText(countNtDemands().toString());
+                //update the number of demands traitées
+                Integer tmp=countDemands()-countNtDemands();
+                jLabel6.setText(tmp.toString());
         }
 
         // add a function to count the number of demands
