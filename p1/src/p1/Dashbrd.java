@@ -1307,6 +1307,18 @@ public class Dashbrd extends javax.swing.JFrame {
 
         private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
                 //Refuser la demande 
+                //ask the user for motif de refus as a pop up 
+                String motifDeRefus = JOptionPane.showInputDialog(this, "Please enter the reason for refusal:");
+                //get the mail of the student from the selected row
+                int viewRow = jTable2.getSelectedRow();
+                if(viewRow < 0){
+                        System.out.println("No row selected");
+                }else{
+                        String email = jTable2.getModel().getValueAt(viewRow, 3).toString();
+                        //send the mail to the student
+                        SendMail.send_email(email, motifDeRefus, "Refus de demande", "Refus de demande");
+                }
+
 
         }// GEN-LAST:event_jButton3ActionPerformed
 
