@@ -39,14 +39,14 @@ public class ReclamAdmin extends javax.swing.JFrame {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
             // check the number of rows in the table
             java.sql.Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM reclamation");
+            ResultSet rs = stmt.executeQuery("SELECT id,user_id ,dctype,msg ,nom_complet,email FROM reclamation INNER JOIN student ON reclamation.user_id = student.CNE");
             Integer rowCount = 0;
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
             model.setRowCount(0); // Clear the table before adding rows
 
             while (rs.next()) {
                 rowCount++;
-                model.addRow(new Object[] { rs.getString("ID"), rs.getString("user_id"), rs.getString("dctype"),
+                model.addRow(new Object[] { rs.getString("id"), rs.getString("nom_complet"), rs.getString("email"),rs.getString("dctype"),
                         rs.getString("msg") });
                 jTable2.repaint();
             }
@@ -99,9 +99,11 @@ public class ReclamAdmin extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nom Prenom", "Email", "Type de document", "Date", "Motif"
+                "ID", "Nom Prenom", "Email", "Type de document",  "Motif"
             }
         ));
+        //fill the table
+        fillTable();
         jScrollPane2.setViewportView(jTable2);
 
         jPanel6.setBackground(new java.awt.Color(245, 250, 255));

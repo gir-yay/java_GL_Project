@@ -1339,6 +1339,10 @@ public class Dashbrd extends javax.swing.JFrame {
                 // go the reclamations page
                 this.setVisible(false);
                 new ReclamAdmin().setVisible(true);
+                //set position to default 
+                this.setLocationRelativeTo(null);
+                
+
         }// GEN-LAST:event_jButton6ActionPerformed
 
         private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton7ActionPerformed
