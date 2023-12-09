@@ -103,6 +103,7 @@ public class Dashbrd extends javax.swing.JFrame {
         public void AS_gen(Integer id_d) throws FileNotFoundException {
                 String nom = "", cin = "", email = "";
                 Integer cne = null;
+                String file_path;
                 try {
                         // get the data from the database using the id
                         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
@@ -116,6 +117,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         cne = rs.getInt("CNE");
                         cin = rs.getString("CIN");
                         email = rs.getString("email");
+                        
                         // close the connection
                         con.close();
                 } catch (Exception e) {
@@ -130,7 +132,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         PDPageContentStream contentStream = new PDPageContentStream(doc, page);
                         // add the logo of the school in the top left
                         PDImageXObject pdImage = PDImageXObject.createFromFile(
-                                        "c:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png",
+                                        "img/logo.png",
                                         doc);
                         // resize the image 100 100
                         contentStream.drawImage(pdImage, 25, 625, 120, 120);
@@ -140,9 +142,9 @@ public class Dashbrd extends javax.swing.JFrame {
                         contentStream.newLineAtOffset(120, 700);
                         // use a old font
                         PDType0Font font = PDType0Font.load(doc,
-                                        new File("c:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
+                                        new File("fonts/Calibri.ttf"));
                         PDType0Font font2 = PDType0Font.load(doc,
-                                        new File("c:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
+                                        new File("fonts/Calibrib.ttf"));
                         contentStream.setFont(font2, 12);
                         // add the name to the center
                         contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
@@ -181,10 +183,13 @@ public class Dashbrd extends javax.swing.JFrame {
                         contentStream.endText();
 
                         contentStream.close();
-                        doc.save("c:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation_de_scolarité "
+                        doc.save("pdf/Attestation_de_scolarité "
                                         + cne.toString() + ".pdf");
                         doc.close();
+                        
                         System.out.println("Attestation de scolarité created");
+                        file_path = "pdf/Attestation_de_scolarité " + cne.toString() + ".pdf";
+                        SendMail.send_email(email,file_path , "envoi d'Attestation_de_scolarité", "Attestation_de_scolarité");
                         // update table to set the traité to 1
                         try {
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root",
@@ -209,6 +214,7 @@ public class Dashbrd extends javax.swing.JFrame {
         // Attestation de réussite
         public void AR_gen(Integer id_d) {
                 String nom = "", cin = "", email = "", niveau = "", niveau_doc = "";
+                String file_path;
                 Integer cne = null;
                 try {
                         // get the data from the database using the id
@@ -242,7 +248,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                         PDPageContentStream contentStream = new PDPageContentStream(doc, page);
                                         // add the logo of the school in the top left
                                         PDImageXObject pdImage = PDImageXObject.createFromFile(
-                                                        "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png",
+                                                        "img/logo.png",
                                                         doc);
                                         // resize the image 100 100
                                         contentStream.drawImage(pdImage, 25, 625, 120, 120);
@@ -252,9 +258,9 @@ public class Dashbrd extends javax.swing.JFrame {
                                         contentStream.newLineAtOffset(120, 700);
                                         // use a old font
                                         PDType0Font font = PDType0Font.load(doc, new File(
-                                                        "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
+                                                        "fonts/Calibri.ttf"));
                                         PDType0Font font2 = PDType0Font.load(doc, new File(
-                                                        "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
+                                                        "fonts/Calibrib.ttf"));
                                         contentStream.setFont(font2, 12);
                                         // add the name to the center
                                         contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
@@ -295,10 +301,14 @@ public class Dashbrd extends javax.swing.JFrame {
 
                                         contentStream.close();
 
-                                        doc.save("C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation_de_réussite "
+                                        doc.save("pdf/Attestation_de_réussite "
                                                         + cne.toString() + ".pdf");
                                         doc.close();
                                         System.out.println("Attetatation de réussite created");
+                                        
+                                        file_path = "pdf/Attestation_de_réussite " + cne.toString() + ".pdf";
+                                        SendMail.send_email(email,file_path , "envoi d'Attestation de réussite", "Attestation de réussite");
+                                        
                                         // update table to set the traité to 1
                                         try {
                                                 Connection con2 = DriverManager.getConnection(
@@ -314,6 +324,8 @@ public class Dashbrd extends javax.swing.JFrame {
                                         con.close();
                                         System.out.println("Attestation de réussite created");
                                         actualiser();
+                                       
+
                                 } catch (Exception e) {
                                         System.out.println("Error: " + e.getMessage());
                                 }
@@ -377,6 +389,10 @@ public class Dashbrd extends javax.swing.JFrame {
                         String date_debut = rs.getString("debut_stage");
                         String date_fin = rs.getString("fin_stage");
                         String major = rs.getString("major");
+                        String email = rs.getString("email");
+                        
+                        String file_path;
+
                         // start writing the pdf
                         try {
                                 PDDocument doc = new PDDocument();
@@ -386,7 +402,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                 PDPageContentStream contentStream = new PDPageContentStream(doc, page);
                                 // add the logo of the school in the top left
                                 PDImageXObject pdImage = PDImageXObject.createFromFile(
-                                                "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\p1\\src\\icon\\logo.png",
+                                                "img/logo.png",
                                                 doc);
                                 // resize the image 100 100
                                 contentStream.drawImage(pdImage, 25, 625, 150, 150);
@@ -396,9 +412,9 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.newLineAtOffset(150, 700);
                                 // use a old font
                                 PDType0Font font = PDType0Font.load(doc, new File(
-                                                "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibri.ttf"));
+                                                "fonts/Calibri.ttf"));
                                 PDType0Font font2 = PDType0Font.load(doc, new File(
-                                                "C:\\Users\\ezzou\\OneDrive\\Desktop\\java_GL_Project\\Calibrib.ttf"));
+                                                "fonts/Calibrib.ttf"));
                                 contentStream.setFont(font2, 12);
                                 // add the name to the center
                                 contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
@@ -680,9 +696,14 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.endText();
                                 contentStream.close();
 
-                                doc.save("C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation de stage "
+                                doc.save("pdf/Attestation de stage "
                                                 + cne.toString() + ".pdf");
                                 doc.close();
+                                
+                                file_path = "pdf/Attestation de stage " + cne.toString() + ".pdf";
+                                SendMail.send_email(email,file_path , "envoi d'Attestation de stage", "Attestation de stage");
+
+                                
 
                                //update table to set the traité to 1
                                 try {

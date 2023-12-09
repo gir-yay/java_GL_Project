@@ -52,11 +52,16 @@ public class Loginstudent1 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtapogee = new javax.swing.JTextField();
         txtcin = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        txtdoc = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -102,59 +107,60 @@ public class Loginstudent1 extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("CONNEXION");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 47, 420, 41));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 420, 41));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Remplissez les champs avec vos informations personnelles");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 94, 420, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 420, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(199, 226, 255));
         jLabel5.setText("CIN");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 123, 341, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 40, 20));
 
         txtemailstudent.setFont(txtemailstudent.getFont().deriveFont(txtemailstudent.getFont().getSize()+2f));
         txtemailstudent.setForeground(new java.awt.Color(255, 255, 255));
         txtemailstudent.setBorder(null);
-        jPanel2.add(txtemailstudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 240, 30));
+        txtemailstudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtemailstudentActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtemailstudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 240, 30));
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("_________________________________________");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 147, 290, 39));
+        jLabel6.setText("____________________");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 100, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(199, 226, 255));
         jLabel8.setText("Email institutionnelle");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 341, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 140, -1));
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("_________________________________________");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 290, 50));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 290, 50));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(199, 226, 255));
         jLabel10.setText("Numéro apogée");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 192, 341, -1));
-
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("_________________________________________");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 147, 290, 39));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 100, -1));
 
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("_________________________________________");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 216, 290, 40));
+        jLabel11.setText("________________________________");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 170, 30));
 
         txtapogee.setFont(txtapogee.getFont().deriveFont(txtapogee.getFont().getSize()+2f));
         txtapogee.setForeground(new java.awt.Color(255, 255, 255));
         txtapogee.setBorder(null);
-        jPanel2.add(txtapogee, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 240, 30));
+        jPanel2.add(txtapogee, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 140, 30));
 
         txtcin.setFont(txtcin.getFont().deriveFont(txtcin.getFont().getSize()+2f));
         txtcin.setForeground(new java.awt.Color(255, 255, 255));
         txtcin.setBorder(null);
-        jPanel2.add(txtcin, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 140, 240, 30));
+        jPanel2.add(txtcin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, 30));
 
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -165,6 +171,55 @@ public class Loginstudent1 extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 40, 20));
+
+        jLabel7.setForeground(new java.awt.Color(199, 226, 255));
+        jLabel7.setText("Document");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 220, 80, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Attestation de scolarité", "Relevé de notes", "Attestation de réussite", "Convention de stage" }));
+        jComboBox1.setSelectedIndex(-1);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 240, 30));
+
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Le document choisit :");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 280, 130, -1));
+
+        txtdoc.setBackground(new java.awt.Color(25, 118, 211));
+        txtdoc.setForeground(new java.awt.Color(255, 255, 255));
+        txtdoc.setBorder(null);
+        txtdoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdocActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtdoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 250, 20));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(25, 118, 211));
+        jButton1.setText("Réclamer");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 100, 40));
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(25, 118, 211));
+        jButton2.setText("Continuer");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 360, 100, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 420, 440));
 
@@ -203,8 +258,34 @@ public class Loginstudent1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // espace reclamation
+         
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         // TODO add your handling code here:
-        //Sur click du bouton continuer on va vérifier si les champs sont vides ou pas
+         this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_jLabel14MouseClicked
+
+    private void txtemailstudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtemailstudentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtemailstudentActionPerformed
+
+    private void txtdocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdocActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdocActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+         String selectedValue = jComboBox1.getSelectedItem().toString();
+
+        // set this selected value into textfiled
+        txtdoc.setText(selectedValue);
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         //Sur click du bouton continuer on va vérifier si les champs sont vides ou pas
         String email, CIN, query, CINdb = null;
         String emaildb=null;
         Integer CNE = null;
@@ -214,6 +295,24 @@ public class Loginstudent1 extends javax.swing.JFrame {
         Suser = "root";
         Spass = "";
         int notFound = 0;
+         String selectedItem = jComboBox1.getSelectedItem().toString();
+       switch (selectedItem) {
+        case "Attestation de réussite":
+            Attestation_reuss attestationReussite = new Attestation_reuss(CNE);
+            attestationReussite.setVisible(true);
+            break;
+        
+        case "Relevé de notes":
+            releve_note  ReleveNotes= new releve_note(CNE);
+            ReleveNotes.setVisible(true);
+            break;
+        case "Convention de stage":
+            stageDoc stage = new stageDoc(CNE);
+            stage.setVisible(true);
+            
+            break;
+        
+    }
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             java.sql.Connection con = DriverManager.getConnection(Surl, Suser, Spass);
@@ -248,15 +347,12 @@ public class Loginstudent1 extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Veuillez vérifier vos informations");
                 }
             }
-        } catch (Exception e) {
+        } 
+       
+        catch (Exception e) {
             System.out.println("Erreur de connexion" + e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-        // TODO add your handling code here:
-         this.setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_jLabel14MouseClicked
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,10 +391,14 @@ public class Loginstudent1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -312,6 +412,7 @@ public class Loginstudent1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtapogee;
     private javax.swing.JTextField txtcin;
+    private javax.swing.JTextField txtdoc;
     private javax.swing.JTextField txtemailstudent;
     // End of variables declaration//GEN-END:variables
 }
