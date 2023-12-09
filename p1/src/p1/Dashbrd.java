@@ -1068,15 +1068,12 @@ public class Dashbrd extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
             },
             new String [] {
                 "ID", "Nom Prenom", "CNE", "Email", "Type de document"
             }
         ));
+        fill();
         jScrollPane2.setViewportView(jTable2);
 
         jButton2.setBackground(new java.awt.Color(0, 153, 0));
