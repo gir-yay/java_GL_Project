@@ -75,4 +75,54 @@ public class SendMail {
 		} 
     }
     
+    
+    
+    public static void send_refus(String toEmail,String Entete,String Sujet){
+		//authentication info	
+		 final String username = "fireherehere@gmail.com";
+		final String password = "xylsraisuhhjfezc";
+		String fromEmail = "fireherehere@gmail.com";
+		
+		
+		Properties properties = new Properties();
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+		
+		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+                        @Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username,password);
+			}
+		});
+		//Start our mail message
+		MimeMessage msg = new MimeMessage(session);
+		try {
+			msg.setFrom(new InternetAddress(fromEmail));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+			msg.setSubject(Sujet);
+			
+			Multipart emailContent = new MimeMultipart();
+			
+			//Text body part
+			MimeBodyPart textBodyPart = new MimeBodyPart();
+			textBodyPart.setText(Entete);
+			
+			//Attachment body part.
+			
+			//Attach body parts
+			emailContent.addBodyPart(textBodyPart);
+			
+			
+			//Attach multipart to message
+			msg.setContent(emailContent);
+			
+			Transport.send(msg);
+			System.out.println("Sent message");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		} 
+	}
+    
 }

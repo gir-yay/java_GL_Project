@@ -1316,7 +1316,7 @@ public class Dashbrd extends javax.swing.JFrame {
                 }else{
                         String email = jTable2.getModel().getValueAt(viewRow, 3).toString();
                         //send the mail to the student
-                        SendMail.send_email(email, motifDeRefus, "Refus de demande", "Refus de demande");
+                        SendMail.send_refus(email, "Refus de demande", motifDeRefus);
                 }
 
 
