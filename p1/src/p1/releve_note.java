@@ -181,7 +181,7 @@ public class releve_note extends javax.swing.JFrame {
             // Demande has accepted 
             JOptionPane.showMessageDialog(null, "Demande acceptée ");
             // go to the home page after clicking ok in the message
-            Loginstudent1 choicedoc = new Loginstudent1();
+            Loginstudent1 choicedoc = new Loginstudent1(CNE);
             choicedoc.setVisible(true);
             this.dispose();
         }

@@ -166,7 +166,7 @@ public class Reclamation extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // close the current instance and go back to the choice of document
-        Loginstudent1 choicedoc = new Loginstudent1();
+        Loginstudent1 choicedoc = new Loginstudent1(CNE);
         choicedoc.setVisible(true);
         this.dispose();
 

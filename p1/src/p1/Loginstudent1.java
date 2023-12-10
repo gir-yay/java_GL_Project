@@ -23,6 +23,11 @@ public class Loginstudent1 extends javax.swing.JFrame {
     /**
      * Creates new form login
      */
+   public Loginstudent1(Integer CNE) {
+        this.CNE = CNE;
+        initComponents();
+        System.out.println("This : " + CNE);
+    }
     public Loginstudent1() {
         initComponents();
         txtcin.setBackground(new java.awt.Color(0, 0, 0, 1));
