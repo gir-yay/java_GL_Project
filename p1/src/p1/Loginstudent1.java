@@ -19,7 +19,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author ME1
  */
 public class Loginstudent1 extends javax.swing.JFrame {
-
+ public Integer CNE;
     /**
      * Creates new form login
      */
@@ -285,17 +285,8 @@ public class Loginstudent1 extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-         //Sur click du bouton continuer on va vérifier si les champs sont vides ou pas
-        String email, CIN, query, CINdb = null;
-        String emaildb=null;
-        Integer CNE = null;
-        Integer CNEdb = null;
-        String Surl, Suser, Spass;
-        Surl = "jdbc:mysql://localhost:3306/gl";
-        Suser = "root";
-        Spass = "";
-        int notFound = 0;
-         String selectedItem = jComboBox1.getSelectedItem().toString();
+     
+        String selectedItem = jComboBox1.getSelectedItem().toString();
        switch (selectedItem) {
         case "Attestation de réussite":
             Attestation_reuss attestationReussite = new Attestation_reuss(CNE);
@@ -311,47 +302,16 @@ public class Loginstudent1 extends javax.swing.JFrame {
             stage.setVisible(true);
             
             break;
+        case "Attestation de scolarité":
+            Attesta_scolarite attestationScolarite = new Attesta_scolarite(CNE);
+            attestationScolarite.setVisible(true);
+            break;
+        default:
+            JOptionPane.showMessageDialog(null, "Veuillez choisir un document");
+            break;
+
         
     }
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection(Surl, Suser, Spass);
-            Statement st = con.createStatement();
-            //check if the fields are empty
-            if ("".equals(txtcin.getText())) {
-                JOptionPane.showMessageDialog(null, "Veuillez remplir le champ CIN");
-            } else if ("".equals(txtapogee.getText())) {
-                JOptionPane.showMessageDialog(null, "Veuillez remplir le champ Numéro apogée");
-            } else if ("".equals(txtemailstudent.getText())) {
-                JOptionPane.showMessageDialog(null, "Veuillez remplir le champ Email institutionnelle");
-            } else {
-                CIN = txtcin.getText();
-                email = txtemailstudent.getText();
-                CNE = Integer.parseInt(txtapogee.getText());
-                query = "SELECT * FROM student WHERE CIN='" + CIN + "';";
-                ResultSet rs = st.executeQuery(query);
-
-                while (rs.next()) {
-                    CINdb = rs.getString("CIN");
-                    CNEdb = rs.getInt("CNE");
-                    emaildb = rs.getString("email");
-                }
-                if (CIN.equals(CINdb) && CNE.equals(CNEdb)&& email.equals(emaildb)) {
-                    notFound = 1;
-                    //switch to choixdoc.java and send the CNE with it 
-                    choixdoc jf4 = new choixdoc(CNE);
-                    jf4.show();
-                    dispose();
-                } else {
-                    notFound = 0;
-                    JOptionPane.showMessageDialog(null, "Veuillez vérifier vos informations");
-                }
-            }
-        } 
-       
-        catch (Exception e) {
-            System.out.println("Erreur de connexion" + e.getMessage());
-        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

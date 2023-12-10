@@ -140,7 +140,7 @@ public class Attestation_reuss extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton2MouseClicked
-        choixdoc choicedoc = new choixdoc(CNE);
+        Loginstudent1 choicedoc = new Loginstudent1();
         choicedoc.setVisible(true);
         this.dispose();
     }// GEN-LAST:event_jButton2MouseClicked
