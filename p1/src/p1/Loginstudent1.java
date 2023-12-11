@@ -264,6 +264,10 @@ public class Loginstudent1 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // espace reclamation
+       this.setVisible(false);
+                new Reclamation(CNE).setVisible(true);
+                //set position to default 
+                this.setLocationRelativeTo(null);
          
        
     }//GEN-LAST:event_jButton1ActionPerformed
