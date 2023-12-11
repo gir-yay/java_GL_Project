@@ -263,13 +263,37 @@ public class Loginstudent1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // espace reclamation
-       this.setVisible(false);
-                new Reclamation(CNE).setVisible(true);
-                //set position to default 
+                //check if the fields are empty
+        if (txtcin.getText().equals("") || txtapogee.getText().equals("") || txtemailstudent.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+        }else{
+        //setup connection
+        String Surl, Suser, Spass;
+        Surl = "jdbc:mysql://localhost:3306/gl";
+        Suser = "root";
+        Spass = "";
+        String query;
+        try{
+            // check if the student exists and the infos are correct
+            Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+            Statement st = con.createStatement();
+            query = "SELECT * FROM `student` WHERE `CIN` = '" + txtcin.getText() + "' AND `CNE` = '" + txtapogee.getText() + "' AND `email` = '" + txtemailstudent.getText() + "'";
+            ResultSet res = st.executeQuery(query);
+            if(res.next()){
+                // get the id of the student
+                this.CNE = res.getInt("CNE");
+                //go the reclamations page
+                this.setVisible(false);
+                new Reclamation(CNE,txtdoc.getText()).setVisible(true);
+                //set position to default
                 this.setLocationRelativeTo(null);
-         
-       
+            }else{
+                JOptionPane.showMessageDialog(null, "Veuillez vérifier vos informations");
+            }
+        }catch(Exception e){
+            System.out.println("Error db " + e.getMessage());
+        }
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
@@ -293,34 +317,62 @@ public class Loginstudent1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-     
-        String selectedItem = jComboBox1.getSelectedItem().toString();
-       switch (selectedItem) {
-        case "Attestation de réussite":
-            Attestation_reuss attestationReussite = new Attestation_reuss(CNE);
-            attestationReussite.setVisible(true);
-            break;
-        
-        case "Relevé de notes":
-            releve_note  ReleveNotes= new releve_note(CNE);
-            ReleveNotes.setVisible(true);
-            break;
-        case "Convention de stage":
-            stageDoc stage = new stageDoc(CNE);
-            stage.setVisible(true);
-            
-            break;
-        case "Attestation de scolarité":
-            Attesta_scolarite attestationScolarite = new Attesta_scolarite(CNE);
-            attestationScolarite.setVisible(true);
-            break;
-        default:
-            JOptionPane.showMessageDialog(null, "Veuillez choisir un document");
-            break;
-
-        
-    }
+        //check if the fields are empty
+        if (txtcin.getText().equals("") || txtapogee.getText().equals("") || txtemailstudent.getText().equals("") || txtdoc.getText().equals("")) {
+            showMessageDialog(null, "Veuillez remplir tous les champs");
+        } else {
+            //setup connection
+            String Surl, Suser, Spass;
+            Surl = "jdbc:mysql://localhost:3306/gl";
+            Suser = "root";
+            Spass = "";
+            String query;
+            try {
+                Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+                Statement st = con.createStatement();
+                // check if the student exists
+                query = "SELECT * FROM `student` WHERE `CIN` = '" + txtcin.getText() + "' AND `CNE` = '" + txtapogee.getText() + "' AND `email` = '" + txtemailstudent.getText() + "'";
+                ResultSet res = st.executeQuery(query);
+                if (res.next()) {
+                    // get the id of the student
+                    this.CNE = res.getInt("CNE");
+                    //switch case to check the document type
+                    switch (txtdoc.getText()) {
+                        case "Attestation de scolarité":
+                            this.setVisible(false);
+                            new Attesta_scolarite(CNE).setVisible(true);
+                            //set position to default 
+                            this.setLocationRelativeTo(null);
+                            break;
+                        case "Relevé de notes":
+                            this.setVisible(false);
+                            new releve_note(CNE).setVisible(true);
+                            //set position to default
+                            this.setLocationRelativeTo(null);
+                            break;
+                        case "Attestation de réussite":
+                            this.setVisible(false);
+                            new Attestation_reuss(CNE).setVisible(true);
+                            //set position to default
+                            this.setLocationRelativeTo(null);
+                            break;
+                        case "Convention de stage":
+                            this.setVisible(false);
+                            new stageDoc(CNE).setVisible(true);
+                            //set position to default
+                            this.setLocationRelativeTo(null);
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "Veuillez choisir un document");
+                    } 
+                } else {
+                    showMessageDialog(null, "Veuillez vérifier vos informations");
+                }
+                con.close();
+            } catch (Exception e) {
+                System.out.println("Error db " + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

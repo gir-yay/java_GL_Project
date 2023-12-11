@@ -132,9 +132,8 @@ public class Attesta_scolarite extends javax.swing.JFrame {
             con.close();
             this.setVisible(false);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Error db " +e.getMessage());
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked

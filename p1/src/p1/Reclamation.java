@@ -22,10 +22,11 @@ public class Reclamation extends javax.swing.JFrame {
      * Creates new form Reclamation
      */
     private Integer CNE;
-    public Reclamation(Integer CNE) {
+    public Reclamation(Integer CNE, String dctype) {
         initComponents();
         this.CNE = CNE;
         System.out.println("This : " + CNE);
+        this.dctype.setText(dctype);
         this.setLocationRelativeTo(null);
         msgre.addKeyListener(new java.awt.event.KeyAdapter() {
         public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -35,6 +36,7 @@ public class Reclamation extends javax.swing.JFrame {
                 evt.consume(); // Consommez l'événement pour éviter que le "Enter" ne soit ajouté au texte
             }
         }
+        
     });
        
       
@@ -209,15 +211,7 @@ public class Reclamation extends javax.swing.JFrame {
                 first firstScreen = new first();
                 firstScreen.setVisible(true);
                 this.dispose();
-                
-
-
-
-
             }
-            
-            
-            
         } catch (Exception e ) {
             System.out.println("Erreur de connexion" + e.getMessage());
         }
