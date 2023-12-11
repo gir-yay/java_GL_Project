@@ -65,7 +65,7 @@ public class releve_note extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 55, 463, 57));
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "     1°année préparatoire", "     2°année préparatoire", "     1°année du cycle d'ingénieur", "     2°année du cycle d'ingénieur", "     3°année du cycle d'ingénieur" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2ap1", "2ap2", "GI1", "SCM1", "GC1", "GM1", "GSTR1", "GI2", "SCM2", "GC2", "GM2", "GSTR2", "GI3", "SCM3", "GC3", "GM3", "GSTR3", " ", "     " }));
         jComboBox1.setBorder(null);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

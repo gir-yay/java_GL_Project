@@ -68,7 +68,7 @@ public class Attestation_reuss extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2AP1", "2AP2", "GI1", "SCM1", "GSTR1", "GM1", "GC1", "GI2", "SCM2", "GSTR2", "GM2", "GC2", "GI3", "SCM3", "GSTR3", "GM3", "GC3" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2ap1", "2ap2", "GI1", "SCM1", "GSTR1", "GM1", "GC1", "GI2", "SCM2", "GSTR2", "GM2", "GC2", "GI3", "SCM3", "GSTR3", "GM3", "GC3" }));
         jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

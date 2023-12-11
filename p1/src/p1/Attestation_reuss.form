@@ -63,8 +63,8 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="17">
-                <StringItem index="0" value="2AP1"/>
-                <StringItem index="1" value="2AP2"/>
+                <StringItem index="0" value="2ap1"/>
+                <StringItem index="1" value="2ap2"/>
                 <StringItem index="2" value="GI1"/>
                 <StringItem index="3" value="SCM1"/>
                 <StringItem index="4" value="GSTR1"/>
