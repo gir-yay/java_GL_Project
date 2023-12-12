@@ -40,7 +40,7 @@ public class Historique extends javax.swing.JFrame {
     public void setDashboardInstance(Dashbrd DashboardInstance) {
         this.DashboardInstance = DashboardInstance;
     }
-    
+
     public void actualiser() {
         // clear it first then fill()
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
@@ -54,17 +54,25 @@ public class Historique extends javax.swing.JFrame {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
             java.sql.Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(
-                    "SELECT demande_ar.id,student.Nom_complet,student.email,student.CNE FROM demande_ar INNER JOIN student ON demande_ar.user_id = student.CNE where traité = '1';");
+                    "SELECT demande_ar.id,student.Nom_complet,student.email,student.CNE,demande_ar.statuts FROM demande_ar INNER JOIN student ON demande_ar.user_id = student.CNE where traité = '1';");
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
             model.setRowCount(0); // Clear the table before adding rows
             while (rs.next()) {
+                if(rs.getString("statuts").equals("1")){
+                    //then status = Accepter 
+                    model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
+                        rs.getInt("student.CNE"),
+                        rs.getString("email"), "Attestation de réussite","Accepter" });
+                }else{
                 model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
                         rs.getInt("student.CNE"),
-                        rs.getString("email"), "Attestation de réussite" });
+                        rs.getString("email"), "Attestation de réussite","Refuser" });
             }
             jTable2.revalidate();
             jTable2.repaint();
+        }
             System.out.println("Added Attestation de réussite to the table.");
+        
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,13 +81,20 @@ public class Historique extends javax.swing.JFrame {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
             java.sql.Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(
-                    "SELECT demande_rn.id,student.Nom_complet,student.email,student.CNE FROM demande_rn INNER JOIN student ON demande_rn.user_id = student.CNE where traité = '1';");
+                    "SELECT demande_rn.id,student.Nom_complet,student.email,student.CNE,demande_rn.statuts FROM demande_rn INNER JOIN student ON demande_rn.user_id = student.CNE where traité = '1';");
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
             while (rs.next()) {
-                model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
-                        rs.getInt("student.CNE"),
-                        rs.getString("email"), "Relevé de notes" });
+                if (rs.getString("statuts").equals("1")) {
+                    // then status = Accepter
+                    model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
+                            rs.getInt("student.CNE"),
+                            rs.getString("email"), "Relevé de notes", "Accepter" });
+                } else {
+                    model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
+                            rs.getInt("student.CNE"),
+                            rs.getString("email"), "Relevé de notes", "Refuser" });
+                }
             }
             jTable2.revalidate();
             jTable2.repaint();
@@ -92,17 +107,23 @@ public class Historique extends javax.swing.JFrame {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
             java.sql.Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(
-                    "SELECT stage.id,student.Nom_complet,student.email,student.CNE FROM stage INNER JOIN student ON stage.user_id = student.CNE where traité = '1';");
+                    "SELECT stage.id,student.Nom_complet,student.email,student.CNE,stage.status FROM stage INNER JOIN student ON stage.user_id = student.CNE where traité = '1';");
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            String status="";
 
             while (rs.next()) {
+                if (rs.getString("status").equals("1")) {
+                        //then status = Accepter 
+                        status="Accepter";
+                    } else {
+                        status="Refuser";
+                }
                 model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
                         rs.getInt("student.CNE"),
-                        rs.getString("email"), "Attestation de stage", });
+                        rs.getString("email"), "Attestation de stage",status });
             }
             jTable2.revalidate();
             jTable2.repaint();
-
             System.out.println("Added Attestation de stage to the table.");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -112,22 +133,29 @@ public class Historique extends javax.swing.JFrame {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
             java.sql.Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(
-                    "SELECT demande_as.id,student.Nom_complet,student.email,student.CNE FROM demande_as INNER JOIN student ON demande_as.user_id = student.CNE where traite = '1';");
+                    "SELECT demande_as.id,student.Nom_complet,student.email,student.CNE,demande_as.statuts FROM demande_as INNER JOIN student ON demande_as.user_id = student.CNE where traite = '1';");
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
             while (rs.next()) {
+                if(rs.getString("statuts").equals("1")){
+                    //then status = Accepter 
+                    model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
+                        rs.getInt("student.CNE"),
+                        rs.getString("email"), "Attestation de scolarité","Accepter" });
+                }else{
                 model.addRow(new Object[] { rs.getString("id"), rs.getString("Nom_complet"),
                         rs.getInt("student.CNE"),
-                        rs.getString("email"), "Attestation de scolarité" });
+                        rs.getString("email"), "Attestation de scolarité" ,"Refuser"});
             }
             jTable2.revalidate();
-            jTable2.repaint();
-
+            jTable2.repaint(); 
+            }
             System.out.println("Added Attestation de scolarité to the table.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,7 +164,8 @@ public class Historique extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -168,16 +197,12 @@ public class Historique extends javax.swing.JFrame {
         });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Nom Prenom", "Email", "Type de document", "Date"
-            }
-        ));
+                new Object[][] {
+                },
+                new String[] {
+                        "ID", "Nom Prenom","CNE", "Email", "Type de document", "Status"
+                }));
+        fill();
         jScrollPane2.setViewportView(jTable2);
 
         jButton3.setBackground(new java.awt.Color(51, 51, 255));
@@ -227,34 +252,40 @@ public class Historique extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(32, Short.MAX_VALUE))))
-        );
+                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel6Layout.createSequentialGroup()
+                                                .addGroup(jPanel6Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel8))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGroup(jPanel6Layout.createSequentialGroup()
+                                                .addGroup(jPanel6Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jSeparator2,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 176,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addContainerGap(32, Short.MAX_VALUE)))));
         jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel12)
-                .addGap(57, 57, 57)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel12)
+                                .addGap(57, 57, 57)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         jButton2.setBackground(new java.awt.Color(0, 153, 51));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -274,114 +305,138 @@ public class Historique extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton1)))
-                .addGap(46, 46, 46))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(29, 29, 29)
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                                .addComponent(jButton3)
+                                                                .addPreferredGap(
+                                                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addComponent(jButton2,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 91,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jScrollPane2,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 676,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(43, 43, 43)
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 238,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(28, 28, 28)
+                                                .addComponent(jButton1)))
+                                .addGap(46, 46, 46)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jScrollPane3,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 32,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel2))
+                                                .addGap(43, 43, 43)
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        //get the type of doc from the table
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton3MouseClicked
+        // get the type of doc from the table
         String type = jTable2.getValueAt(jTable2.getSelectedRow(), 4).toString();
-        //get the cne from the table
+        // get the cne from the table
         Integer cne = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString());
-        //depend on the type of doc
+        // depend on the type of doc
         switch (type) {
             case "Attestation de réussite":
-                if(Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_réussite "+ cne.toString() + ".pdf"))){
-                    //open the filein the output folder Attestation_de_réussite + cne.toString() + .pdf
+                if (Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_réussite " + cne.toString() + ".pdf"))) {
+                    // open the filein the output folder Attestation_de_réussite + cne.toString() +
+                    // .pdf
                     try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_réussite "+ cne.toString() + ".pdf");
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                                + "p1\\pdf\\Attestation_de_réussite " + cne.toString() + ".pdf");
                     } catch (Exception e) {
                         System.out.println("Error opening the file");
                     }
-                }else{
-                    //generate the fill 
+                } else {
+                    // generate the fill
                     // get the id of the demande
                     Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
                     Dashbrd dash = new Dashbrd();
                     dash.AR_gen(id);
-                    //open the filein the output folder Attestation_de_réussite + cne.toString() + .pdf
+                    // open the filein the output folder Attestation_de_réussite + cne.toString() +
+                    // .pdf
                     try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_réussite "+ cne.toString() + ".pdf");
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                                + "p1\\pdf\\Attestation_de_réussite " + cne.toString() + ".pdf");
                     } catch (Exception e) {
                         System.out.println("Error opening the file");
                     }
                 }
                 break;
             case "Relevé de notes":
-                if(Files.exists(Paths.get(null, "p1\\pdf\\Relevé_de_notes "+ cne.toString() + ".pdf"))){
-                    //open the filein the output folder Relevé_de_notes + cne.toString() + .pdf
+                if (Files.exists(Paths.get(null, "p1\\pdf\\Relevé_de_notes " + cne.toString() + ".pdf"))) {
+                    // open the filein the output folder Relevé_de_notes + cne.toString() + .pdf
                     try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Relevé_de_notes "+ cne.toString() + ".pdf");
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Relevé_de_notes "
+                                + cne.toString() + ".pdf");
                     } catch (Exception e) {
                         System.out.println("Error opening the file");
                     }
-                }else{
-                    //generate the fill 
+                } else {
+                    // generate the fill
                     // get the id of the demande
                     Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
                     Dashbrd dash = new Dashbrd();
-                    //dash.RN_gen(id);
-                    //open the filein the output folder Relevé_de_notes + cne.toString() + .pdf
+                    // dash.RN_gen(id);
+                    // open the filein the output folder Relevé_de_notes + cne.toString() + .pdf
                     try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Relevé_de_notes "+ cne.toString() + ".pdf");
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Relevé_de_notes "
+                                + cne.toString() + ".pdf");
                     } catch (Exception e) {
                         System.out.println("Error opening the file");
                     }
                 }
                 break;
             case "Attestaion de scolarité":
-               if(Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_scolarité "+ cne.toString() + ".pdf"))){
-                    //open the filein the output folder Attestation_de_scolarité + cne.toString() + .pdf
+                if (Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_scolarité " + cne.toString() + ".pdf"))) {
+                    // open the filein the output folder Attestation_de_scolarité + cne.toString() +
+                    // .pdf
                     try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_scolarité "+ cne.toString() + ".pdf");
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                                + "p1\\pdf\\Attestation_de_scolarité " + cne.toString() + ".pdf");
                     } catch (Exception e) {
                         System.out.println("Error opening the file");
                     }
-                }else{
-                    //generate the fill 
+                } else {
+                    // generate the fill
                     // get the id of the demande
                     Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
                     Dashbrd dash = new Dashbrd();
@@ -391,43 +446,49 @@ public class Historique extends javax.swing.JFrame {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    //open the filein the output folder Attestation_de_scolarité + cne.toString() + .pdf
+                    // open the filein the output folder Attestation_de_scolarité + cne.toString() +
+                    // .pdf
                     try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_scolarité "+ cne.toString() + ".pdf");
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                                + "p1\\pdf\\Attestation_de_scolarité " + cne.toString() + ".pdf");
                     } catch (Exception e) {
                         System.out.println("Error opening the file");
                     }
                 }
                 break;
             case "Attestation de stage":
-                if(Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_stage "+ cne.toString() + ".pdf"))){
-                    //open the filein the output folder Attestation_de_stage + cne.toString() + .pdf
+                if (Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_stage " + cne.toString() + ".pdf"))) {
+                    // open the filein the output folder Attestation_de_stage + cne.toString() +
+                    // .pdf
                     try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_stage "+ cne.toString() + ".pdf");
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                                + "p1\\pdf\\Attestation_de_stage " + cne.toString() + ".pdf");
                     } catch (Exception e) {
                         System.out.println("Error opening the file");
                     }
-                }else{
-                    //generate the fill 
+                } else {
+                    // generate the fill
                     // get the id of the demande
                     Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
                     Dashbrd dash = new Dashbrd();
                     dash.Astage_gen(id);
-                    //open the filein the output folder Attestation_de_stage + cne.toString() + .pdf
+                    // open the filein the output folder Attestation_de_stage + cne.toString() +
+                    // .pdf
                     try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_stage "+ cne.toString() + ".pdf");
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                                + "p1\\pdf\\Attestation_de_stage " + cne.toString() + ".pdf");
                     } catch (Exception e) {
                         System.out.println("Error opening the file");
                     }
                 }
-        
+
             default:
                 JOptionPane.showMessageDialog(null, "Error opening the file");
         }
 
-    }//GEN-LAST:event_jButton3MouseClicked
+    }// GEN-LAST:event_jButton3MouseClicked
 
-    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel12MouseClicked
         Dashbrd firstScreen = new Dashbrd();
 
         // Set the reference to the current instance (Loginstudent1)
@@ -438,64 +499,56 @@ public class Historique extends javax.swing.JFrame {
 
         // Close the current instance (Loginstudent1)
         this.dispose();
-    }//GEN-LAST:event_jLabel12MouseClicked
+    }// GEN-LAST:event_jLabel12MouseClicked
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-                new ReclamAdmin().setVisible(true);
-                //set position to default 
-                this.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jButton5ActionPerformed
+        new ReclamAdmin().setVisible(true);
+        // set position to default
+        this.setLocationRelativeTo(null);
+    }// GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        //renvoyer le document 
-        //get the type of doc from the table
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton2MouseClicked
+        // renvoyer le document
+        // get the type of doc from the table
         String type = jTable2.getValueAt(jTable2.getSelectedRow(), 4).toString();
-        //get the mail from the table
+        // get the mail from the table
         String mail = jTable2.getValueAt(jTable2.getSelectedRow(), 3).toString();
-        
+
         String file_path;
-        //get the cne from the table
+        // get the cne from the table
         Integer cne = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString());
-        
+
         switch (type) {
-                                case "Attestation de scolarité":
-                                       
-                                file_path = "pdf/Attestation_de_scolarité" + cne.toString() + ".pdf";
-                                 SendMail.send_email(mail,file_path , "renvoi d'attestation de scolarité", "Attestation de scolarité");
+            case "Attestation de scolarité":
 
-                                        break;
-                                case "Attestation de réussite":
-                                       
-                                file_path = "pdf/Attestation_de_réussite " + cne.toString() + ".pdf";
-                                SendMail.send_email(mail,file_path , "renvoi d'attestation de réussite", "Attestation de réussite");
+                file_path = "pdf/Attestation_de_scolarité" + cne.toString() + ".pdf";
+                SendMail.send_email(mail, file_path, "renvoi d'attestation de scolarité", "Attestation de scolarité");
 
-                                
+                break;
+            case "Attestation de réussite":
 
-                                        break;
-                                case "Relevé de notes":
-                                    
-                                file_path = "pdf/Relevé_de_notes " + cne.toString() + ".pdf";
-                                SendMail.send_email(mail,file_path , "renvoi de relevé de notes", "Relevé de notes");
+                file_path = "pdf/Attestation_de_réussite " + cne.toString() + ".pdf";
+                SendMail.send_email(mail, file_path, "renvoi d'attestation de réussite", "Attestation de réussite");
 
+                break;
+            case "Relevé de notes":
 
-                                       
-                                        break;
-                                case "Attestation de stage":
-                                file_path = "pdf/Attestation de stage " + cne.toString() + ".pdf";
-                                SendMail.send_email(mail,file_path , "renvoi d'attestation de stage", "Attestation de stage");
+                file_path = "pdf/Relevé_de_notes " + cne.toString() + ".pdf";
+                SendMail.send_email(mail, file_path, "renvoi de relevé de notes", "Relevé de notes");
 
+                break;
+            case "Attestation de stage":
+                file_path = "pdf/Attestation de stage " + cne.toString() + ".pdf";
+                SendMail.send_email(mail, file_path, "renvoi d'attestation de stage", "Attestation de stage");
 
-                                
-                                        break;
-                                default:
-                                        JOptionPane.showMessageDialog(null, "Erreur");
-                        }
-                
-      
-       
-    }//GEN-LAST:event_jButton2MouseClicked
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Erreur");
+        }
+
+    }// GEN-LAST:event_jButton2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -503,10 +556,10 @@ public class Historique extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         String recherche = jTextPane1.getText();
-                TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(jTable2.getModel());
-                jTable2.setRowSorter(rowSorter);
-                rowSorter.setRowFilter(RowFilter.regexFilter(recherche));
-        //if the field is empty call actualiser()
+        TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(jTable2.getModel());
+        jTable2.setRowSorter(rowSorter);
+        rowSorter.setRowFilter(RowFilter.regexFilter(recherche));
+        // if the field is empty call actualiser()
         if (recherche.equals("")) {
             actualiser();
         }
