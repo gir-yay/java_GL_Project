@@ -413,7 +413,7 @@ public class Dashbrd extends javax.swing.JFrame {
 
                 // Générer le document PDF
                 Document doc = new Document();
-                PdfWriter.getInstance(doc, new FileOutputStream("pdf/Relevé_De_Notes_" + cne + ".pdf"));
+                PdfWriter.getInstance(doc, new FileOutputStream("pdf/Relevé_de_notes " + cne + ".pdf"));
                 doc.open();
 
                 // Ajouter le logo

@@ -454,9 +454,47 @@ public class Historique extends javax.swing.JFrame {
         String type = jTable2.getValueAt(jTable2.getSelectedRow(), 4).toString();
         //get the mail from the table
         String mail = jTable2.getValueAt(jTable2.getSelectedRow(), 3).toString();
+        
+        String file_path;
         //get the cne from the table
         Integer cne = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString());
-        //add ur code here 
+        
+        switch (type) {
+                                case "Attestation de scolarité":
+                                       
+                                file_path = "pdf/Attestation_de_scolarité" + cne.toString() + ".pdf";
+                                 SendMail.send_email(mail,file_path , "renvoi d'attestation de scolarité", "Attestation de scolarité");
+
+                                        break;
+                                case "Attestation de réussite":
+                                       
+                                file_path = "pdf/Attestation_de_réussite " + cne.toString() + ".pdf";
+                                SendMail.send_email(mail,file_path , "renvoi d'attestation de réussite", "Attestation de réussite");
+
+                                
+
+                                        break;
+                                case "Relevé de notes":
+                                    
+                                file_path = "pdf/Relevé_de_notes " + cne.toString() + ".pdf";
+                                SendMail.send_email(mail,file_path , "renvoi de relevé de notes", "Relevé de notes");
+
+
+                                       
+                                        break;
+                                case "Attestation de stage":
+                                file_path = "pdf/Attestation de stage " + cne.toString() + ".pdf";
+                                SendMail.send_email(mail,file_path , "renvoi d'attestation de stage", "Attestation de stage");
+
+
+                                
+                                        break;
+                                default:
+                                        JOptionPane.showMessageDialog(null, "Erreur");
+                        }
+                
+      
+       
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
