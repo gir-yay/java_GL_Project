@@ -24,6 +24,7 @@ public class Reclamation extends javax.swing.JFrame {
     private Integer CNE;
     public Reclamation(Integer CNE, String dctype) {
         initComponents();
+        setTitle("Réclamations");
         this.CNE = CNE;
         System.out.println("This : " + CNE);
         this.dctype.setText(dctype);

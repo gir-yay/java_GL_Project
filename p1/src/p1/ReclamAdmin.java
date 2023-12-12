@@ -31,6 +31,7 @@ public class ReclamAdmin extends javax.swing.JFrame {
      */
     public ReclamAdmin() {
         initComponents();
+        setTitle("Réclamations des étudiants");
         this.setLocationRelativeTo(null);
     }
 

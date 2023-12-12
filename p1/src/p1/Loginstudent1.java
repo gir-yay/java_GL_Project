@@ -33,6 +33,7 @@ public class Loginstudent1 extends javax.swing.JFrame {
 
     public Loginstudent1() {
         initComponents();
+        setTitle("Acceuil étudiant");
         txtcin.setBackground(new java.awt.Color(0, 0, 0, 1));
         txtapogee.setBackground(new java.awt.Color(0, 0, 0, 1));
         txtemailstudent.setBackground(new java.awt.Color(0, 0, 0, 1));
@@ -45,7 +46,7 @@ public class Loginstudent1 extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -129,7 +130,8 @@ public class Loginstudent1 extends javax.swing.JFrame {
         jLabel5.setText("CIN");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 40, 20));
 
-        txtemailstudent.setFont(txtemailstudent.getFont().deriveFont(txtemailstudent.getFont().getSize() + 2f));
+        txtemailstudent.setBackground(new java.awt.Color(25, 118, 211));
+        txtemailstudent.setFont(txtemailstudent.getFont().deriveFont(txtemailstudent.getFont().getSize()+2f));
         txtemailstudent.setForeground(new java.awt.Color(255, 255, 255));
         txtemailstudent.setBorder(null);
         txtemailstudent.addActionListener(new java.awt.event.ActionListener() {
@@ -157,16 +159,19 @@ public class Loginstudent1 extends javax.swing.JFrame {
         jLabel10.setText("Numéro apogée");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 100, -1));
 
+        jLabel11.setBackground(new java.awt.Color(25, 118, 211));
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("________________________________");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 170, 30));
 
-        txtapogee.setFont(txtapogee.getFont().deriveFont(txtapogee.getFont().getSize() + 2f));
+        txtapogee.setBackground(new java.awt.Color(25, 118, 211));
+        txtapogee.setFont(txtapogee.getFont().deriveFont(txtapogee.getFont().getSize()+2f));
         txtapogee.setForeground(new java.awt.Color(255, 255, 255));
         txtapogee.setBorder(null);
         jPanel2.add(txtapogee, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 140, 30));
 
-        txtcin.setFont(txtcin.getFont().deriveFont(txtcin.getFont().getSize() + 2f));
+        txtcin.setBackground(new java.awt.Color(25, 118, 211));
+        txtcin.setFont(txtcin.getFont().deriveFont(txtcin.getFont().getSize()+2f));
         txtcin.setForeground(new java.awt.Color(255, 255, 255));
         txtcin.setBorder(null);
         jPanel2.add(txtcin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, 30));
@@ -185,8 +190,7 @@ public class Loginstudent1 extends javax.swing.JFrame {
         jLabel7.setText("Document");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 220, 80, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Attestation de scolarité",
-                "Relevé de notes", "Attestation de réussite", "Convention de stage" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Attestation de scolarité", "Relevé de notes", "Attestation de réussite", "Convention de stage" }));
         jComboBox1.setSelectedIndex(-1);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -72,6 +72,7 @@ public class Dashbrd extends javax.swing.JFrame {
          */
         public Dashbrd() {
                 initComponents();
+                setTitle("Acceuil de scolarité");
                 this.setLocationRelativeTo(null);
         }
 

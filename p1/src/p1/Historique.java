@@ -32,6 +32,7 @@ public class Historique extends javax.swing.JFrame {
 
     public Historique() {
         initComponents();
+        setTitle("Historique");
         this.setLocationRelativeTo(null);
     }
 
