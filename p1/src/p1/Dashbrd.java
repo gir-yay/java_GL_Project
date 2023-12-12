@@ -4,6 +4,21 @@
  */
 package p1;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,14 +34,16 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
+
+
 
 /**
  *
@@ -369,6 +386,104 @@ public class Dashbrd extends javax.swing.JFrame {
                 }
 
         }
+        // Creation du relevé de notes
+        
+        /**
+         * @param id_d
+         */
+        /*
+        public void ReleveNotesGenerator(Integer id_d) {
+         double sommeNotes = 0;
+          int nombreDeModules = 0; 
+        String nom = "", major = "";
+        Integer cne = null;
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
+            Statement stmt = conn.createStatement();
+            Statement stmt1 = conn.createStatement();
+
+            // Récupérer les informations de l'étudiant à partir de la table demande_rn
+            ResultSet rsStudent = stmt.executeQuery("SELECT student.Nom_complet, student.CNE, student.major FROM demande_rn INNER JOIN student ON demande_rn.user_id = student.CNE WHERE demande_rn.id = " 
+                         + id_d + " AND demande_rn.traité = '0' LIMIT 1");
+
+            if (rsStudent.next()) {
+                nom = rsStudent.getString("Nom_complet");
+                cne = rsStudent.getInt("CNE");
+                major = rsStudent.getString("major");
+
+                // Générer le document PDF
+                Document doc = new Document();
+                PdfWriter.getInstance(doc, new FileOutputStream("pdf/Relevé_De_Notes_" + cne + ".pdf"));
+                doc.open();
+
+                // Ajouter le logo
+                Image logoEnsa = Image.getInstance("C:\\wamp64\\java_GL_Project_final\\p1\\src\\icon\\logo.png");
+                logoEnsa.scaleAbsolute(150, 150);
+                doc.add(logoEnsa);
+
+                // Ajouter les informations de l'étudiant
+                doc.add(new Paragraph("\n\n----------------------------------------------------------- Relevé de notes ------------------------------------------------\n\n"));
+                doc.add(new Paragraph("Nom : " + nom));
+                doc.add(new Paragraph("Apoogée : " + cne));
+                doc.add(new Paragraph("Inscrit en :  " + major));
+                doc.add(new Paragraph(" a obtenu les notes suivantes : "));
+                doc.add(new Paragraph("\n\n\n"));
+
+                // Créer le tableau PDF
+                PdfPTable pdfTable = new PdfPTable(4);
+                pdfTable.setWidthPercentage(100);
+
+                // Ajouter les en-têtes du tableau
+                String[] headers = {"Module", "Note", "Résultat", "pts jury"};
+                for (String header : headers) {
+                    PdfPCell cell = new PdfPCell(new Phrase(header, FontFactory.getFont("Times New Roman", 12)));
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell.setBackgroundColor(BaseColor.GRAY);
+                    pdfTable.addCell(cell);
+                }
+
+                // Remplir le tableau avec les données de la base de données
+                ResultSet rsNotes = stmt1.executeQuery("SELECT * FROM notes_" + major + " WHERE user_id = " + cne);
+                while (rsNotes.next()) {
+                    String module = rsNotes.getString("module");
+                    String note = rsNotes.getString("note");
+                    String resultat = rsNotes.getString("Résultat");
+                    String ptsJury = rsNotes.getString("pts jury");
+
+                    pdfTable.addCell(module);
+                    pdfTable.addCell(note);
+                    pdfTable.addCell(resultat);
+                    pdfTable.addCell(ptsJury);
+                    
+                    //calculer la somme des notes et incrémenter le compteur
+                    double noteModule = Double.parseDouble(note);
+                   sommeNotes += noteModule;
+                   nombreDeModules++;
+                }
+
+                // Ajouter le tableau au document
+                doc.add(pdfTable);
+                // Calculer la moyenne
+                    double moyenne = (nombreDeModules > 0) ? sommeNotes / nombreDeModules : 0;
+                    
+
+                // Ajouter la moyenne au document
+                doc.add(new Paragraph("\nRésultat d'admission : " + moyenne));
+
+                doc.close();
+
+                // Mettre à jour la table demande_rn pour marquer la demande comme traitée
+                stmt.executeUpdate("UPDATE demande_rn SET traité = '1' WHERE id = " + id_d);
+            } else {
+                System.out.println("Aucun enregistrement trouvé pour l'ID de demande fourni.");
+            }
+        } catch (Exception e) {
+            System.out.println("Une erreur s'est produite : " + e.getMessage());
+        }
+    }
+
+    */
+
 
         // Creation de l'attestaion de stage
         /**
@@ -382,8 +497,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         java.sql.Statement stmt = con.createStatement();
                         // get the data for the attestation de stage from stage table and student table
                         ResultSet rs = stmt.executeQuery(
-                                        "SELECT * FROM stage INNER JOIN student ON stage.user_id = student.CNE where stage.id = '"
-                                                        + id_d + "';");
+                                        "SELECT * FROM stage INNER JOIN student ON stage.user_id = student.CNE where stage.id = '"+ id_d + "';");
                         // get the data from the result set
                         rs.next();
                         String nom = rs.getString("Nom_complet");
@@ -1381,6 +1495,8 @@ public class Dashbrd extends javax.swing.JFrame {
                                         break;
                                 case "Relevé de notes":
                                         // call the function to accept the demand
+                                       // ReleveNotesGenerator(id_column);
+                                        //System.out.println("Relevé de notes crée");
                                         break;
                                 case "Attestation de stage":
                                         // call the function to accept the demand
