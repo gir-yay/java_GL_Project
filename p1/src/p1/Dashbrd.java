@@ -223,7 +223,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         contentStream.setFont(font, 12);
                         contentStream.showText("Est regulierement inscrit pour l'année : ");
                         contentStream.setFont(font2, 12);
-
+                        contentStream.showText("2023/2024");
                         contentStream.setFont(font, 12);
                         contentStream.newLineAtOffset(0, -420);
                         contentStream.setNonStrokingColor(Color.DARK_GRAY);
