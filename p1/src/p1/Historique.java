@@ -4,6 +4,9 @@
  */
 package p1;
 
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -226,20 +229,18 @@ public class Historique extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(32, Short.MAX_VALUE))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,6 +260,11 @@ public class Historique extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Renvoyer");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -323,37 +329,97 @@ public class Historique extends javax.swing.JFrame {
         //depend on the type of doc
         switch (type) {
             case "Attestation de réussite":
-                //open the filein the output folder Attestation_de_réussite + cne.toString() + .pdf
-                try {
-                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation_de_réussite "+ cne.toString() + ".pdf");
-                } catch (Exception e) {
-                    System.out.println("Error opening the file");
+                if(Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_réussite "+ cne.toString() + ".pdf"))){
+                    //open the filein the output folder Attestation_de_réussite + cne.toString() + .pdf
+                    try {
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_réussite "+ cne.toString() + ".pdf");
+                    } catch (Exception e) {
+                        System.out.println("Error opening the file");
+                    }
+                }else{
+                    //generate the fill 
+                    // get the id of the demande
+                    Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
+                    Dashbrd dash = new Dashbrd();
+                    dash.AR_gen(id);
+                    //open the filein the output folder Attestation_de_réussite + cne.toString() + .pdf
+                    try {
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_réussite "+ cne.toString() + ".pdf");
+                    } catch (Exception e) {
+                        System.out.println("Error opening the file");
+                    }
                 }
                 break;
             case "Relevé de notes":
-                //open the filein the output folder Relevé_de_notes + cne.toString() + .pdf
-                try {
-                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Relevé_de_notes "+ cne.toString() + ".pdf");
-                } catch (Exception e) {
-                    System.out.println("Error opening the file");
+                if(Files.exists(Paths.get(null, "p1\\pdf\\Relevé_de_notes "+ cne.toString() + ".pdf"))){
+                    //open the filein the output folder Relevé_de_notes + cne.toString() + .pdf
+                    try {
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Relevé_de_notes "+ cne.toString() + ".pdf");
+                    } catch (Exception e) {
+                        System.out.println("Error opening the file");
+                    }
+                }else{
+                    //generate the fill 
+                    // get the id of the demande
+                    Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
+                    Dashbrd dash = new Dashbrd();
+                    //dash.RN_gen(id);
+                    //open the filein the output folder Relevé_de_notes + cne.toString() + .pdf
+                    try {
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Relevé_de_notes "+ cne.toString() + ".pdf");
+                    } catch (Exception e) {
+                        System.out.println("Error opening the file");
+                    }
                 }
                 break;
             case "Attestaion de scolarité":
-                //open the filein the output folder Attestaion_de_scolarité + cne.toString() + .pdf
-                try {
-                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestaion_de_scolarité "+ cne.toString() + ".pdf");
-                } catch (Exception e) {
-                    System.out.println("Error opening the file");
+               if(Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_scolarité "+ cne.toString() + ".pdf"))){
+                    //open the filein the output folder Attestation_de_scolarité + cne.toString() + .pdf
+                    try {
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_scolarité "+ cne.toString() + ".pdf");
+                    } catch (Exception e) {
+                        System.out.println("Error opening the file");
+                    }
+                }else{
+                    //generate the fill 
+                    // get the id of the demande
+                    Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
+                    Dashbrd dash = new Dashbrd();
+                    try {
+                        dash.AS_gen(id);
+                    } catch (FileNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    //open the filein the output folder Attestation_de_scolarité + cne.toString() + .pdf
+                    try {
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_scolarité "+ cne.toString() + ".pdf");
+                    } catch (Exception e) {
+                        System.out.println("Error opening the file");
+                    }
                 }
                 break;
             case "Attestation de stage":
-                //open the filein the output folder Attestation_de_stage + cne.toString() + .pdf
-                try {
-                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "C:\\Users\\ezzou\\OneDrive\\Desktop\\output\\Attestation_de_stage "+ cne.toString() + ".pdf");
-                } catch (Exception e) {
-                    System.out.println("Error opening the file");
+                if(Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_stage "+ cne.toString() + ".pdf"))){
+                    //open the filein the output folder Attestation_de_stage + cne.toString() + .pdf
+                    try {
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_stage "+ cne.toString() + ".pdf");
+                    } catch (Exception e) {
+                        System.out.println("Error opening the file");
+                    }
+                }else{
+                    //generate the fill 
+                    // get the id of the demande
+                    Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
+                    Dashbrd dash = new Dashbrd();
+                    dash.Astage_gen(id);
+                    //open the filein the output folder Attestation_de_stage + cne.toString() + .pdf
+                    try {
+                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Attestation_de_stage "+ cne.toString() + ".pdf");
+                    } catch (Exception e) {
+                        System.out.println("Error opening the file");
+                    }
                 }
-                break;
         
             default:
                 JOptionPane.showMessageDialog(null, "Error opening the file");
@@ -381,6 +447,17 @@ public class Historique extends javax.swing.JFrame {
                 //set position to default 
                 this.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        //renvoyer le document 
+        //get the type of doc from the table
+        String type = jTable2.getValueAt(jTable2.getSelectedRow(), 4).toString();
+        //get the mail from the table
+        String mail = jTable2.getValueAt(jTable2.getSelectedRow(), 3).toString();
+        //get the cne from the table
+        Integer cne = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString());
+        //add ur code here 
+    }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:

@@ -526,7 +526,7 @@ public class Dashbrd extends javax.swing.JFrame {
 
                                 // add the text
                                 contentStream.beginText();
-                                contentStream.newLineAtOffset(150, 700);
+                                contentStream.newLineAtOffset(150, 720);
                                 // use a old font
                                 PDType0Font font = PDType0Font.load(doc, new File(
                                                 "fonts/Calibri.ttf"));
@@ -535,9 +535,9 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.setFont(font2, 12);
                                 // add the name to the center
                                 contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
-                                contentStream.newLineAtOffset(100, -50);
+                                contentStream.newLineAtOffset(100, -40);
                                 contentStream.showText("convention de stage");
-                                contentStream.newLineAtOffset(-225, -50);
+                                contentStream.newLineAtOffset(-225, -40);
                                 contentStream.setFont(font, 15);
                                 contentStream.showText(
                                                 "L Ecole Nationale des Sciences Appliquées, Université Abdelmalek Essaâdi -");
