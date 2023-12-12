@@ -397,7 +397,7 @@ public class Dashbrd extends javax.swing.JFrame {
         public void ReleveNotesGenerator(Integer id_d) {
         double sommeNotes = 0;
         int nombreDeModules = 0; 
-        String nom = "", major = "" , niveau="";
+        String nom = "" , niveau="", email="";
         Integer cne = null;
         float cellHeight = 50f;
         
@@ -409,18 +409,18 @@ public class Dashbrd extends javax.swing.JFrame {
             Statement stmt1 = conn.createStatement();
 
             // Récupérer les informations de l'étudiant à partir de la table demande_rn
-            ResultSet rsStudent = stmt.executeQuery("SELECT student.Nom_complet, student.CNE, student.major , demande_rn.niveau FROM demande_rn INNER JOIN student ON demande_rn.user_id = student.CNE WHERE demande_rn.id = " 
+            ResultSet rsStudent = stmt.executeQuery("SELECT student.Nom_complet, student.CNE ,student.email, demande_rn.niveau FROM demande_rn INNER JOIN student ON demande_rn.user_id = student.CNE WHERE demande_rn.id = " 
                          + id_d + " AND demande_rn.traité = '0' LIMIT 1");
 
             if (rsStudent.next()) {
                 nom = rsStudent.getString("Nom_complet");
                 cne = rsStudent.getInt("CNE");
-                major = rsStudent.getString("major");
                 niveau = rsStudent.getString("niveau");
+                email = rsStudent.getString("email");
 
                 // Générer le document PDF
                 Document doc = new Document();
-                PdfWriter.getInstance(doc, new FileOutputStream("pdf/Relevé_de_notes_" + cne + ".pdf"));
+                PdfWriter.getInstance(doc, new FileOutputStream("pdf/Relevé_de_notes_" + cne.toString() + ".pdf"));
                 doc.open();
                PdfPTable titleTable = new PdfPTable(1);
                titleTable.setWidthPercentage(100);
@@ -455,7 +455,7 @@ public class Dashbrd extends javax.swing.JFrame {
                 // Ajouter les informations de l'étudiant
                 doc.add(new Paragraph(nom));
                 doc.add(new Paragraph("N° Etudiant : " + cne));
-                doc.add(new Paragraph("inscrit en :  " + major));
+                doc.add(new Paragraph("inscrit en :  " + niveau));
                 doc.add(new Paragraph(" a obtenu les notes suivantes : "));
                 doc.add(new Paragraph("\n"));
 
@@ -521,11 +521,12 @@ public class Dashbrd extends javax.swing.JFrame {
                 doc.add(new Paragraph("\nRésultat d'admission : " + moyenneFormatee ,FontFactory.getFont("Times New Roman", 16, Font.BOLD)));
 
                 doc.close();
-                /*
+                
                 if (rsNotes.next()) {
-                                                            String email = rsNotes.getString("email");
-                                                            SendMail.send_email(email, "pdf/Relevé_de_notes_"+ cne, "envoi du relevé de notes", "Relevé de notes");
-                }*/
+                                                            
+                       SendMail.send_email(email,"pdf/Relevé_de_notes_" + cne.toString() + ".pdf" , "envoi du relevé de notes", "Relevé de notes");
+                }
+
                 // Mettre à jour la table demande_rn pour marquer la demande comme traitée
                 stmt.executeUpdate("UPDATE demande_rn SET traité = '1' WHERE id = " + id_d);
             } else {
