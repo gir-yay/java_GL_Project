@@ -4,15 +4,15 @@
  */
 package p1;
 
-import com.itextpdf.text.BadElementException;
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -34,9 +34,11 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -391,70 +393,114 @@ public class Dashbrd extends javax.swing.JFrame {
         /**
          * @param id_d
          */
-        /*
+        
         public void ReleveNotesGenerator(Integer id_d) {
-         double sommeNotes = 0;
-          int nombreDeModules = 0; 
-        String nom = "", major = "";
+        double sommeNotes = 0;
+        int nombreDeModules = 0; 
+        String nom = "", major = "" , niveau="";
         Integer cne = null;
+        float cellHeight = 50f;
+        
+        
+        
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
             Statement stmt = conn.createStatement();
             Statement stmt1 = conn.createStatement();
 
             // Récupérer les informations de l'étudiant à partir de la table demande_rn
-            ResultSet rsStudent = stmt.executeQuery("SELECT student.Nom_complet, student.CNE, student.major FROM demande_rn INNER JOIN student ON demande_rn.user_id = student.CNE WHERE demande_rn.id = " 
+            ResultSet rsStudent = stmt.executeQuery("SELECT student.Nom_complet, student.CNE, student.major , demande_rn.niveau FROM demande_rn INNER JOIN student ON demande_rn.user_id = student.CNE WHERE demande_rn.id = " 
                          + id_d + " AND demande_rn.traité = '0' LIMIT 1");
 
             if (rsStudent.next()) {
                 nom = rsStudent.getString("Nom_complet");
                 cne = rsStudent.getInt("CNE");
                 major = rsStudent.getString("major");
+                niveau = rsStudent.getString("niveau");
 
                 // Générer le document PDF
                 Document doc = new Document();
-                PdfWriter.getInstance(doc, new FileOutputStream("pdf/Relevé_de_notes " + cne + ".pdf"));
+                PdfWriter.getInstance(doc, new FileOutputStream("pdf/Relevé_de_notes_" + cne + ".pdf"));
                 doc.open();
+               PdfPTable titleTable = new PdfPTable(1);
+               titleTable.setWidthPercentage(100);
 
-                // Ajouter le logo
-                Image logoEnsa = Image.getInstance("C:\\wamp64\\java_GL_Project_final\\p1\\src\\icon\\logo.png");
-                logoEnsa.scaleAbsolute(150, 150);
-                doc.add(logoEnsa);
+               PdfPCell titleCell = new PdfPCell();
 
+               PdfPTable innerTable = new PdfPTable(1);
+               PdfPCell cell1 = new PdfPCell(new Phrase("Université Abdelmalek Essaadi"));
+               cell1.setBorder(Rectangle.NO_BORDER);
+               innerTable.addCell(cell1);
+               titleCell.addElement(innerTable);
+               titleCell.setBorder(Rectangle.BOX);
+               titleTable.addCell(titleCell);
+               doc.add(titleTable);
+
+             
+                
+                Paragraph title2 = new Paragraph("Ecole Nationale des Sciences Appliquéées Tétouan   ");
+                title2.setAlignment(Element.ALIGN_LEFT);
+                doc.add(title2);
+                doc.add(new Paragraph("\n\n"));
+                PdfPTable titreTable = new PdfPTable(1);
+                                titleTable.setWidthPercentage(100);
+                                PdfPCell titreCell = new PdfPCell(new Phrase("RELEVE DE NOTES ET RESULTATS", FontFactory.getFont("Times New Roman", 14,Font.BOLD)));
+                                titreCell.setBorder(Rectangle.LEFT | Rectangle.TOP | Rectangle.RIGHT | Rectangle.BOTTOM);
+                                titreCell.setBackgroundColor(BaseColor.LIGHT_GRAY);  
+                                titreCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                                titreCell.setFixedHeight(30f);
+                                titreTable.addCell(titreCell);
+                                doc.add(titreTable);
+                
                 // Ajouter les informations de l'étudiant
-                doc.add(new Paragraph("\n\n----------------------------------------------------------- Relevé de notes ------------------------------------------------\n\n"));
-                doc.add(new Paragraph("Nom : " + nom));
-                doc.add(new Paragraph("Apoogée : " + cne));
-                doc.add(new Paragraph("Inscrit en :  " + major));
+                doc.add(new Paragraph(nom));
+                doc.add(new Paragraph("N° Etudiant : " + cne));
+                doc.add(new Paragraph("inscrit en :  " + major));
                 doc.add(new Paragraph(" a obtenu les notes suivantes : "));
-                doc.add(new Paragraph("\n\n\n"));
+                doc.add(new Paragraph("\n"));
 
                 // Créer le tableau PDF
                 PdfPTable pdfTable = new PdfPTable(4);
                 pdfTable.setWidthPercentage(100);
 
                 // Ajouter les en-têtes du tableau
-                String[] headers = {"Module", "Note", "Résultat", "pts jury"};
+                String[] headers = {"Module", "Note", "Résultat", "Pts jury"};
                 for (String header : headers) {
                     PdfPCell cell = new PdfPCell(new Phrase(header, FontFactory.getFont("Times New Roman", 12)));
                     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    cell.setBackgroundColor(BaseColor.GRAY);
+                    cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                    cell.setFixedHeight(30f);
                     pdfTable.addCell(cell);
                 }
 
                 // Remplir le tableau avec les données de la base de données
-                ResultSet rsNotes = stmt1.executeQuery("SELECT * FROM notes_" + major + " WHERE user_id = " + cne);
+                ResultSet rsNotes = stmt1.executeQuery("SELECT * FROM notes_" + niveau + " WHERE user_id = " + cne);
                 while (rsNotes.next()) {
                     String module = rsNotes.getString("module");
                     String note = rsNotes.getString("note");
                     String resultat = rsNotes.getString("Résultat");
                     String ptsJury = rsNotes.getString("pts jury");
 
-                    pdfTable.addCell(module);
-                    pdfTable.addCell(note);
-                    pdfTable.addCell(resultat);
-                    pdfTable.addCell(ptsJury);
-                    
+                    PdfPCell cellModule = new PdfPCell(new Phrase(module));
+                    cellModule.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+                    cellModule.setFixedHeight(30f);
+                    pdfTable.addCell(cellModule);
+
+                    PdfPCell cellNote = new PdfPCell(new Phrase(note));
+                    cellNote.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+                    cellNote.setFixedHeight(30f);
+                    pdfTable.addCell(cellNote);
+
+                    PdfPCell cellResultat = new PdfPCell(new Phrase(resultat));
+                    cellResultat.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+                    cellResultat.setFixedHeight(30f);
+                    pdfTable.addCell(cellResultat);
+
+                    PdfPCell cellPtsJury = new PdfPCell(new Phrase(ptsJury));
+                    cellPtsJury.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+                    cellPtsJury.setFixedHeight(30f);
+                    pdfTable.addCell(cellPtsJury);
+    
                     //calculer la somme des notes et incrémenter le compteur
                     double noteModule = Double.parseDouble(note);
                    sommeNotes += noteModule;
@@ -465,13 +511,21 @@ public class Dashbrd extends javax.swing.JFrame {
                 doc.add(pdfTable);
                 // Calculer la moyenne
                     double moyenne = (nombreDeModules > 0) ? sommeNotes / nombreDeModules : 0;
-                    
+                    // Créez un objet DecimalFormat avec le modèle spécifiant deux chiffres après la virgule
+                    DecimalFormat df = new DecimalFormat("#.####");
+
+                   // Utilisez la méthode format pour formater le nombre
+                        String moyenneFormatee = df.format(moyenne);
 
                 // Ajouter la moyenne au document
-                doc.add(new Paragraph("\nRésultat d'admission : " + moyenne));
+                doc.add(new Paragraph("\nRésultat d'admission : " + moyenneFormatee ,FontFactory.getFont("Times New Roman", 16, Font.BOLD)));
 
                 doc.close();
-
+                /*
+                if (rsNotes.next()) {
+                                                            String email = rsNotes.getString("email");
+                                                            SendMail.send_email(email, "pdf/Relevé_de_notes_"+ cne, "envoi du relevé de notes", "Relevé de notes");
+                }*/
                 // Mettre à jour la table demande_rn pour marquer la demande comme traitée
                 stmt.executeUpdate("UPDATE demande_rn SET traité = '1' WHERE id = " + id_d);
             } else {
@@ -482,7 +536,7 @@ public class Dashbrd extends javax.swing.JFrame {
         }
     }
 
-    */
+    
 
 
         // Creation de l'attestaion de stage
@@ -1494,9 +1548,9 @@ public class Dashbrd extends javax.swing.JFrame {
                                         System.out.println("Attestation de réussite");
                                         break;
                                 case "Relevé de notes":
-                                        // call the function to accept the demand
-                                       // ReleveNotesGenerator(id_column);
-                                        //System.out.println("Relevé de notes crée");
+                                        //call the function to accept the demand
+                                       ReleveNotesGenerator(id_column);
+                                        System.out.println("Relevé de notes crée");
                                         break;
                                 case "Attestation de stage":
                                         // call the function to accept the demand
