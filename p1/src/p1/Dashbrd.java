@@ -239,7 +239,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         
                         System.out.println("Attestation de scolarité created");
                         file_path = "pdf/Attestation_de_scolarité " + cne.toString() + ".pdf";
-                        SendMail.send_email(email,file_path , "envoi d'Attestation_de_scolarité", "Attestation_de_scolarité");
+                        SendMail.send_email(email,file_path , "envoi d'Attestation de scolarité", "Attestation_de_scolarité");
                         // update table to set the traité to 1
                         try {
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root",
@@ -1430,7 +1430,7 @@ public class Dashbrd extends javax.swing.JFrame {
                 }else{
                         String email = jTable2.getModel().getValueAt(viewRow, 3).toString();
                         //send the mail to the student
-                        SendMail.send_refus(email, "Refus de demande", motifDeRefus);
+                        SendMail.send_refus(email,  motifDeRefus , "Refus de demande");
                 }
 
 
