@@ -211,6 +211,8 @@ public class Historique extends javax.swing.JFrame {
                 }));
         fill();
         jScrollPane2.setViewportView(jTable2);
+        
+        jTable2.setAutoCreateRowSorter(true);
 
         jButton3.setBackground(new java.awt.Color(51, 51, 255));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -415,7 +417,7 @@ public class Historique extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Erreur");
             }
         } else if (type.equals("Relevé de notes")) {
-            file_path = "pdf/Relevé_de_notes " + cne.toString() + ".pdf";
+            file_path = "pdf/Relevé_de_notes_" + cne.toString() + ".pdf";
             try {
                 if (Files.exists(Paths.get(file_path))) {
                     // open the file
@@ -501,7 +503,7 @@ public class Historique extends javax.swing.JFrame {
                 break;
             case "Relevé de notes":
 
-                file_path = "pdf/Relevé_de_notes " + cne.toString() + ".pdf";
+                file_path = "pdf/Relevé_de_notes_" + cne.toString() + ".pdf";
                 if(Files.exists(Paths.get(file_path))){
                 SendMail.send_email(mail, file_path, "renvoi de relevé de notes", "Relevé de notes");
                 }else{

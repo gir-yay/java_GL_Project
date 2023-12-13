@@ -34,10 +34,13 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -75,6 +78,14 @@ public class Dashbrd extends javax.swing.JFrame {
                 setTitle("Acceuil de scolarité");
                 this.setLocationRelativeTo(null);
         }
+        public void open(String path){
+                try {
+                    File file = new File(path);
+                    Desktop.getDesktop().open(file);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Erreur");
+                }
+            }
 
         public void actualiser() {
                 // clear it first then fill()
@@ -248,7 +259,8 @@ public class Dashbrd extends javax.swing.JFrame {
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root",
                                                 "");
                                 java.sql.Statement stmt = con.createStatement();
-                                stmt.executeUpdate("UPDATE demande_as SET traite = '1' WHERE id = '" + id_d + "';");
+                                stmt.executeUpdate("UPDATE demande_as SET traite = '1',statuts='1' WHERE id = '"
+                                                + id_d + "';");
                                 con.close();
                                 // actualiser la table
                                 actualiser();
@@ -367,7 +379,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                                 Connection con2 = DriverManager.getConnection(
                                                                 "jdbc:mysql://localhost:3306/gl", "root", "");
                                                 java.sql.Statement stmt2 = con2.createStatement();
-                                                stmt2.executeUpdate("UPDATE demande_ar SET traité = '1' WHERE id = '"
+                                                stmt2.executeUpdate("UPDATE demande_ar SET traité = '1' ,statuts='1' WHERE id = '"
                                                                 + id_d + "';");
                                                 con2.close();
                                         } catch (Exception e) {
@@ -529,7 +541,7 @@ public class Dashbrd extends javax.swing.JFrame {
                 }
 
                 // Mettre à jour la table demande_rn pour marquer la demande comme traitée
-                stmt.executeUpdate("UPDATE demande_rn SET traité = '1' WHERE id = " + id_d);
+                stmt.executeUpdate("UPDATE demande_rn SET traité = '1' ,statuts='1' WHERE id = " + id_d);
             } else {
                 System.out.println("Aucun enregistrement trouvé pour l'ID de demande fourni.");
             }
@@ -578,7 +590,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                                 "img/logo.png",
                                                 doc);
                                 // resize the image 100 100
-                                contentStream.drawImage(pdImage, 25, 625, 150, 150);
+                                contentStream.drawImage(pdImage, 25, 650, 150, 150);
 
                                 // add the text
                                 contentStream.beginText();
@@ -883,7 +895,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                         Connection con2 = DriverManager.getConnection(
                                                         "jdbc:mysql://localhost:3306/gl", "root", "");
                                         java.sql.Statement stmt2 = con2.createStatement();
-                                        stmt2.executeUpdate("UPDATE stage SET traité = '1' WHERE id = '"
+                                        stmt2.executeUpdate("UPDATE stage SET traité = '1' ,statuts = '1' WHERE id = '"
                                                         + id_d + "';");
                                         con2.close();
                                 } catch (Exception e) {
@@ -1288,6 +1300,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                 }));
                 fill();
                 jScrollPane2.setViewportView(jTable2);
+                jTable2.setAutoCreateRowSorter(true);
 
                 jButton2.setBackground(new java.awt.Color(0, 153, 0));
                 jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -1478,22 +1491,124 @@ public class Dashbrd extends javax.swing.JFrame {
         private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
                 //Refuser la demande 
                 //ask the user for motif de refus as a pop up 
+                
                 String motifDeRefus = JOptionPane.showInputDialog(this, "Please enter the reason for refusal:");
                 //get the mail of the student from the selected row
                 int viewRow = jTable2.getSelectedRow();
+                String type= jTable2.getModel().getValueAt(viewRow, 4).toString();
+                Integer id_d = Integer.parseInt(jTable2.getModel().getValueAt(viewRow, 0).toString());
                 if(viewRow < 0){
                         System.out.println("No row selected");
                 }else{
                         String email = jTable2.getModel().getValueAt(viewRow, 3).toString();
                         //send the mail to the student
                         SendMail.send_refus(email,  motifDeRefus , "Refus de demande");
+                        
                 }
+                //update the table to set the traité to 1 and statuts to 0 
+                try {
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
+                        java.sql.Statement stmt = con.createStatement();
+                        switch (type) {
+                                case "Attestation de scolarité":
+                                        stmt.executeUpdate("UPDATE demande_as SET traite = '1', statuts = '0' WHERE id = '"
+                                                        + id_d + "';");
+                                        break;
+                                case "Attestation de réussite":
+                                        stmt.executeUpdate("UPDATE demande_ar SET traité = '1', statuts = '0' WHERE id = '"
+                                                        + id_d + "';");
+                                        break;
+                                case "Relevé de notes":
+                                        stmt.executeUpdate("UPDATE demande_rn SET traité = '1', statuts = '0' WHERE id = '"
+                                                        + id_d + "';");
+                                        break;
+                                case "Attestation de stage":
+                                        stmt.executeUpdate("UPDATE stage SET traité = '1', statuts = '0' WHERE id = '"
+                                                        + id_d + "';");
+                                        break;
+                                default:
+                                        JOptionPane.showMessageDialog(null, "Erreur doc type");
+                        }
+
+                        con.close();
+                } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                }
+                // actualiser the table
+                actualiser();
 
 
         }// GEN-LAST:event_jButton3ActionPerformed
 
         private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
                 //Telecharger le document
+                // get the type of doc from the table
+        String type = jTable2.getValueAt(jTable2.getSelectedRow(), 4).toString();
+        // get the cne from the table
+        Integer cne = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString());
+        Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
+        String file_path;
+        Dashbrd dash= new Dashbrd();
+        if (type.equals("Attestation de scolarité")) {
+            file_path = "pdf/Attestation_de_scolarité" + cne.toString() + ".pdf";
+            try {
+                if (Files.exists(Paths.get(file_path))) {
+                    // open the file
+                    open(file_path);
+                } else {
+                    //create it then open it 
+                    dash.AS_gen(id);
+                    open(file_path);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erreur");
+            }
+        } else if (type.equals("Attestation de réussite")) {
+            file_path = "pdf/Attestation_de_réussite " + cne.toString() + ".pdf";
+            try {
+                if (Files.exists(Paths.get(file_path))) {
+                    // open the file
+                    open(file_path);
+                } else {
+                    //create it then open it
+                    dash.AR_gen(id);
+                    open(file_path);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erreur");
+            }
+        } else if (type.equals("Relevé de notes")) {
+            file_path = "pdf/Relevé_de_notes_" + cne.toString() + ".pdf";
+            try {
+                if (Files.exists(Paths.get(file_path))) {
+                    // open the file
+                    open(file_path);
+                } else {
+                    //create it then open it
+                    dash.ReleveNotesGenerator(id);
+                    open(file_path);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erreur");
+            }
+        } else if (type.equals("Attestation de stage")) {
+            file_path = "pdf/Attestation_de_stage" + cne.toString() + ".pdf";
+            try {
+                if (Files.exists(Paths.get(file_path))) {
+                    open(file_path);
+                } else {
+                    //create it then open it
+                    dash.Astage_gen(id);
+                    open(file_path);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erreur");
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Erreur de type de document");
+        }
+
 
         }// GEN-LAST:event_jButton4ActionPerformed
 
