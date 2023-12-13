@@ -479,30 +479,42 @@ public class Historique extends javax.swing.JFrame {
         String file_path;
         // get the cne from the table
         Integer cne = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString());
-
+        // check if file exists
         switch (type) {
             case "Attestation de scolarité":
 
                 file_path = "pdf/Attestation_de_scolarité" + cne.toString() + ".pdf";
-                SendMail.send_email(mail, file_path, "renvoi d'attestation de scolarité", "Attestation de scolarité");
-
+                if (Files.exists(Paths.get(file_path))) {
+                      SendMail.send_email(mail, file_path, "renvoi d'attestation de scolarité", "Attestation de scolarité");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Erreur File not found,Generate it first");
+                }
                 break;
             case "Attestation de réussite":
 
                 file_path = "pdf/Attestation_de_réussite " + cne.toString() + ".pdf";
+                if(Files.exists(Paths.get(file_path))){
                 SendMail.send_email(mail, file_path, "renvoi d'attestation de réussite", "Attestation de réussite");
-
+                }else{
+                    JOptionPane.showMessageDialog(null, "Erreur File not found,Generate it first");
+                }
                 break;
             case "Relevé de notes":
 
                 file_path = "pdf/Relevé_de_notes " + cne.toString() + ".pdf";
+                if(Files.exists(Paths.get(file_path))){
                 SendMail.send_email(mail, file_path, "renvoi de relevé de notes", "Relevé de notes");
-
+                }else{
+                    JOptionPane.showMessageDialog(null, "Erreur File not found,Generate it first");
+                }
                 break;
             case "Attestation de stage":
-                file_path = "pdf/Attestation de stage " + cne.toString() + ".pdf";
+                file_path = "pdf/Attestation_de_stage" + cne.toString() + ".pdf";
+                if(Files.exists(Paths.get(file_path))){
                 SendMail.send_email(mail, file_path, "renvoi d'attestation de stage", "Attestation de stage");
-
+                }else{
+                    JOptionPane.showMessageDialog(null, "Erreur File not found,Generate it first");
+                }
                 break;
             default:
                 JOptionPane.showMessageDialog(null, "Erreur");
