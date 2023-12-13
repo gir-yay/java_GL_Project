@@ -333,6 +333,10 @@ public class stageDoc extends javax.swing.JFrame {
                     ps.executeUpdate();
                     System.out.println("done");
                     JOptionPane.showMessageDialog(null, "Stage ajouté avec succés");
+                    
+                    Loginstudent1 choicedoc = new Loginstudent1(CNE);
+                    choicedoc.setVisible(true);
+                    this.dispose();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e);
                 }

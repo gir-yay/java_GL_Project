@@ -173,7 +173,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
                         java.sql.Statement stmt = con.createStatement();
                         ResultSet rs = stmt.executeQuery(
-                                        "SELECT student.Nom_complet,student.CNE,student.CIN,student.email FROM demande_ar INNER JOIN student ON demande_ar.user_id = student.CNE where demande_ar.id = '"
+                                        "SELECT student.Nom_complet,student.CNE,student.CIN,student.email FROM demande_as INNER JOIN student ON demande_as.user_id = student.CNE where demande_as.id = '"
                                                         + id_d + "';");
                         // get the data from the result set
                         rs.next();
@@ -259,7 +259,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root",
                                                 "");
                                 java.sql.Statement stmt = con.createStatement();
-                                stmt.executeUpdate("UPDATE demande_as SET traite = '1',statuts='1' WHERE id = '"
+                                stmt.executeUpdate("UPDATE demande_as SET traite = 1, statuts= 1 WHERE id = '"
                                                 + id_d + "';");
                                 con.close();
                                 // actualiser la table
@@ -535,10 +535,10 @@ public class Dashbrd extends javax.swing.JFrame {
 
                 doc.close();
                 
-                if (rsNotes.next()) {
+               
                                                             
                        SendMail.send_email(email,"pdf/Relevé_de_notes_" + cne.toString() + ".pdf" , "envoi du relevé de notes", "Relevé de notes");
-                }
+               
 
                 // Mettre à jour la table demande_rn pour marquer la demande comme traitée
                 stmt.executeUpdate("UPDATE demande_rn SET traité = '1' ,statuts='1' WHERE id = " + id_d);
@@ -1511,7 +1511,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         java.sql.Statement stmt = con.createStatement();
                         switch (type) {
                                 case "Attestation de scolarité":
-                                        stmt.executeUpdate("UPDATE demande_as SET traite = '1', statuts = '0' WHERE id = '"
+                                        stmt.executeUpdate("UPDATE demande_as SET traite = 1 , statuts = 0 WHERE id = '"
                                                         + id_d + "';");
                                         break;
                                 case "Attestation de réussite":

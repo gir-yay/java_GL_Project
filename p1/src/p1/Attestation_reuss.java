@@ -177,27 +177,39 @@ public class Attestation_reuss extends javax.swing.JFrame {
             // Put the demande in the db
             try {
                 Connection con = DriverManager.getConnection(Surl, Suser, Spass);
+                    Statement st = con.createStatement();
+
                 // check if a demande exist and is not traited yet
-                query = "SELECT * FROM demande_ar WHERE user_id = ? AND traité = 0 AND niveau = ?";
-                PreparedStatement pst = con.prepareStatement(query);
-                pst.setInt(1, CNE);
-                pst.setString(2, niveaus);
-                if(pst.execute()){  
+                query = "SELECT * FROM demande_ar WHERE (user_id = '" + CNE + "' AND traité = 0 AND niveau = '" + niveaus +"');";
+                //PreparedStatement pst = con.prepareStatement(query);
+                //pst.setInt(1, CNE);
+                //pst.setString(2, niveaus);
+                
+                
+                ResultSet res = st.executeQuery(query);
+
+                if(res.next()){  
                     JOptionPane.showMessageDialog(null, "Vous avez déjà envoyé une demande");
                 }else{
                     // insert the demande
-                    query = "INSERT INTO demande_ar (user_id, niveau) VALUES (?, ?)";
-                    pst = con.prepareStatement(query);
-                    pst.setInt(1, CNE);
-                    pst.setString(2, niveaus);
-                    pst.execute();
+                    query = "INSERT INTO demande_ar (user_id, niveau) VALUES ('" + CNE + "', '" + niveaus + "');";
+                    //pst = con.prepareStatement(query);
+                    //pst.setInt(1, CNE);
+                    //pst.setString(2, niveaus);
+                    //pst.execute();
+                     st.executeUpdate(query);
+
                     JOptionPane.showMessageDialog(null, "Votre demande a été envoyée avec succès");
+                     Loginstudent1 choicedoc = new Loginstudent1(CNE);
+                    choicedoc.setVisible(true);
+                    this.dispose();
                 }
                 // con.close();
             } catch (Exception e) {
                 System.out.println("Error:" + e);
             }
-            this.dispose();
+            
+            
         }
 
     }// GEN-LAST:event_jButton1ActionPerformed

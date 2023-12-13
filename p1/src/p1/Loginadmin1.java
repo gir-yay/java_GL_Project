@@ -249,16 +249,14 @@ public class Loginadmin1 extends javax.swing.JFrame {
                 ResultSet rs = st.executeQuery(query);
                 while (rs.next()) {
                     passdb = rs.getString("password");
-                    notFound = 1;
+                   
                     if (password.equals(passdb)) {
+                         notFound = 1;
                         Dashbrd admin = new Dashbrd();
                         admin.setVisible(true);
                         this.dispose();
                         break;
-                    } else {
-                        JOptionPane.showMessageDialog(new JFrame(), "Password or email incorrect !!!", "Error",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
+                    } 
                 }
                 if (notFound == 0) {
                     JOptionPane.showMessageDialog(new JFrame(), " Password or email incorrect !!!", "Error",

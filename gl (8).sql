@@ -47,19 +47,19 @@ INSERT INTO `admins` (`email`, `password`) VALUES
 --
 
 CREATE TABLE `demande_ar` (
-  `id` int(11) NOT NULL,
+  `id` int(11) PRIMARY key NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `niveau` varchar(255) NOT NULL,
   `traité` tinyint(1) NOT NULL DEFAULT 0,
-  `statuts` tinyint(1) DEFAULT NULL
+  `statuts` tinyint(1) DEFAULT NULL default 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `demande_ar`
 --
 
-INSERT INTO `demande_ar` (`id`, `user_id`, `niveau`, `traité`, `statuts`) VALUES
-(1, 123, 'GC3', 1, 0);
+INSERT INTO `demande_ar` ( `user_id`, `niveau`, `traité`, `statuts`) VALUES
+( 123, 'GC3', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -68,21 +68,21 @@ INSERT INTO `demande_ar` (`id`, `user_id`, `niveau`, `traité`, `statuts`) VALUE
 --
 
 CREATE TABLE `demande_as` (
-  `id` int(11) NOT NULL,
+  `id` int(11) PRIMARY key NOT NULL AUTO_INCREMENT,
   `user_id` int(16) NOT NULL,
   `date` date NOT NULL DEFAULT current_timestamp(),
   `traite` tinyint(1) NOT NULL DEFAULT 0,
-  `statuts` tinyint(1) DEFAULT NULL
+  `statuts` tinyint(1) DEFAULT NULL default 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `demande_as`
 --
 
-INSERT INTO `demande_as` (`id`, `user_id`, `date`, `traite`, `statuts`) VALUES
-(1, 123, '2023-12-06', 1, 1),
-(7, 5533, '2023-12-11', 1, 0),
-(8, 123, '2023-12-12', 0, NULL);
+INSERT INTO `demande_as` ( `user_id`, `date`, `traite`, `statuts`) VALUES
+( 123, '2023-12-06', 1, 1),
+( 5533, '2023-12-11', 1, 0),
+( 123, '2023-12-12', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -91,22 +91,22 @@ INSERT INTO `demande_as` (`id`, `user_id`, `date`, `traite`, `statuts`) VALUES
 --
 
 CREATE TABLE `demande_rn` (
-  `id` int(11) NOT NULL,
+  `id` int(11) primary key NOT NULL AUTO_INCREMENT,
   `user_id` int(15) NOT NULL,
   `niveau` varchar(255) NOT NULL,
   `traité` tinyint(1) NOT NULL DEFAULT 0,
-  `statuts` tinyint(1) DEFAULT NULL
+  `statuts` tinyint(1) DEFAULT NULL default 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `demande_rn`
 --
 
-INSERT INTO `demande_rn` (`id`, `user_id`, `niveau`, `traité`, `statuts`) VALUES
-(1, 123, '2ap1 ', 0, NULL),
-(2, 1232, 'GM1', 1, 1),
-(3, 1231, '2ap2', 1, 0),
-(4, 1233, 'GI2', 1, 1);
+INSERT INTO `demande_rn` (`user_id`, `niveau`, `traité`, `statuts`) VALUES
+( 123, '2ap1 ', 0, NULL),
+( 1232, 'GM1', 1, 1),
+( 1231, '2ap2', 1, 0),
+( 1233, 'GI2', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -115,7 +115,7 @@ INSERT INTO `demande_rn` (`id`, `user_id`, `niveau`, `traité`, `statuts`) VALUE
 --
 
 CREATE TABLE `notes_2ap1` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL ,
   `user_id` int(11) DEFAULT NULL,
   `module` varchar(255) NOT NULL,
   `note` int(10) NOT NULL,
@@ -394,7 +394,7 @@ CREATE TABLE `notes_scm1` (
 --
 
 CREATE TABLE `notes_scm2` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL ,
   `user_id` int(11) DEFAULT NULL,
   `module` varchar(255) NOT NULL,
   `note` int(10) NOT NULL,
@@ -409,7 +409,7 @@ CREATE TABLE `notes_scm2` (
 --
 
 CREATE TABLE `reclamation` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL primary key AUTO_INCREMENT,
   `user_id` int(15) NOT NULL,
   `dctype` varchar(255) NOT NULL,
   `msg` text NOT NULL
@@ -419,9 +419,9 @@ CREATE TABLE `reclamation` (
 -- Déchargement des données de la table `reclamation`
 --
 
-INSERT INTO `reclamation` (`id`, `user_id`, `dctype`, `msg`) VALUES
-(1, 123, 'hhhhhhhhhhhh', 'Intellectum est enim mihi quidem in multis, et maxime in me ipso, sed paulo ante in omnibus, cum M. Marcellum senatui reique publicae concessisti, commemoratis praesertim offensionibus, te auctoritatem huius ordinis dignitatemque rei publicae tuis vel doloribus vel suspicionibus anteferre. Ille quidem fructum omnis ante actae vitae hodierno die maximum cepit, cum summo consensu senatus, tum iudicio tuo gravissimo et maximo. Ex quo profecto intellegis quanta in dato beneficio sit laus, cum in accepto sit tanta gloria.\r\n'),
-(2, 123, 'Relevé de notes', 'test final');
+INSERT INTO `reclamation` ( `user_id`, `dctype`, `msg`) VALUES
+( 123, 'hhhhhhhhhhhh', 'Intellectum est enim mihi quidem in multis, et maxime in me ipso, sed paulo ante in omnibus, cum M. Marcellum senatui reique publicae concessisti, commemoratis praesertim offensionibus, te auctoritatem huius ordinis dignitatemque rei publicae tuis vel doloribus vel suspicionibus anteferre. Ille quidem fructum omnis ante actae vitae hodierno die maximum cepit, cum summo consensu senatus, tum iudicio tuo gravissimo et maximo. Ex quo profecto intellegis quanta in dato beneficio sit laus, cum in accepto sit tanta gloria.\r\n'),
+( 123, 'Relevé de notes', 'test final');
 
 -- --------------------------------------------------------
 
@@ -430,7 +430,7 @@ INSERT INTO `reclamation` (`id`, `user_id`, `dctype`, `msg`) VALUES
 --
 
 CREATE TABLE `stage` (
-  `id` int(11) NOT NULL,
+  `id` int(11) primary key NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `nom_entreprise` varchar(255) DEFAULT NULL,
   `secteur` varchar(255) DEFAULT NULL,
@@ -443,17 +443,17 @@ CREATE TABLE `stage` (
   `fin_stage` date DEFAULT NULL,
   `sujet_stage` varchar(255) DEFAULT NULL,
   `traité` tinyint(1) NOT NULL DEFAULT 0,
-  `statuts` tinyint(1) DEFAULT NULL
+  `statuts` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `stage`
 --
 
-INSERT INTO `stage` (`id`, `user_id`, `nom_entreprise`, `secteur`, `email_entreprise`, `tel_entreprise`, `encadrant_entreprise`, `email_encadrant`, `encadrant_ensa`, `debut_stage`, `fin_stage`, `sujet_stage`, `traité`, `statuts`) VALUES
-(1, 123, 'test', 'test', 'test@', '060000000', 'test', 'test', 'lmao', '2001-08-22', '2005-09-23', 'txt txt ', 1, 0),
-(2, 123, 'SARL', 'lmao', 'test@gmail.com', '060000', 'lmao tes ', 'test encade@@ ', 'mr prof', '2022-02-22', '2022-07-22', 'chi la3ba dartha ymkn', 1, 1),
-(3, 123, 'SARL', 'repo', 'testent@', '06000000', 'pr mr ', 'pr@', 'pr mr ensa', '2001-08-22', '2002-09-05', 'chi la3ba	', 0, NULL);
+INSERT INTO `stage` ( `user_id`, `nom_entreprise`, `secteur`, `email_entreprise`, `tel_entreprise`, `encadrant_entreprise`, `email_encadrant`, `encadrant_ensa`, `debut_stage`, `fin_stage`, `sujet_stage`, `traité`, `statuts`) VALUES
+( 123, 'test', 'test', 'test@', '060000000', 'test', 'test', 'lmao', '2001-08-22', '2005-09-23', 'txt txt ', 1, 0),
+( 123, 'SARL', 'lmao', 'test@gmail.com', '060000', 'lmao tes ', 'test encade@@ ', 'mr prof', '2022-02-22', '2022-07-22', 'chi la3ba dartha ymkn', 1, 1),
+( 123, 'SARL', 'repo', 'testent@', '06000000', 'pr mr ', 'pr@', 'pr mr ensa', '2001-08-22', '2002-09-05', 'chi la3ba	', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -462,7 +462,7 @@ INSERT INTO `stage` (`id`, `user_id`, `nom_entreprise`, `secteur`, `email_entrep
 --
 
 CREATE TABLE `student` (
-  `CNE` int(10) NOT NULL,
+  `CNE` int(10) NOT NULL primary key,
   `CIN` varchar(255) NOT NULL,
   `Nom_complet` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -476,9 +476,9 @@ CREATE TABLE `student` (
 INSERT INTO `student` (`CNE`, `CIN`, `Nom_complet`, `email`, `major`) VALUES
 (123, 'D12', 'Ezzouak Mohammed', 'ezzouak2001@gmail.com', 'SCM1'),
 (1134, 'D31', 'Biha Oumaima', 'oumaima.biha@etu.uae.ac.ma', '2ap2'),
-(1231, 'D19', ' Zaoioui Salma', 'salma.zaoioui@etu.uae.ac.ma', 'GI2'),
+(1231, 'D99', ' Zaoioui Salma', 'salma.zaoioui@etu.uae.ac.ma', 'GI2'),
 (1232, 'D19', ' Risy Maryem', 'maryem.risy@etu.uae.ac.ma', 'GM2'),
-(1233, 'D19', ' Rahmouni Ghizlane', 'ghizlane.rahmouni@etu.uae.ac.ma', 'GI3'),
+(1233, 'LC34', ' Rahmouni Ghizlane', 'ghizlane.rahmouni@etu.uae.ac.ma', 'GI3'),
 (1235, 'D20', 'Elidrissi Salma', 'salma1.elidrissi@etu.uae.ac.ma', 'SCM1'),
 (1933, 'D32', 'NIM Tassnim', 'tassnim.nim@etu.uae.ac.ma', 'GI1'),
 (2233, 'D34', 'NOON Nawar', 'nawar.noon@etu.uae.ac.ma', '2ap1'),
@@ -490,58 +490,4 @@ INSERT INTO `student` (`CNE`, `CIN`, `Nom_complet`, `email`, `major`) VALUES
 (6709, 'D88', 'KOULI Nour', 'nour.kouli@etu.uae.ac.ma', 'GC3'),
 (8345, 'D79', 'ASAAD Mohamed', 'mohamed.asaad@etu.uae.ac.ma', 'SCM3');
 
---
--- Index pour les tables déchargées
---
 
---
--- Index pour la table `demande_ar`
---
-ALTER TABLE `demande_ar`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `demande_as`
---
-ALTER TABLE `demande_as`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `demande_rn`
---
-ALTER TABLE `demande_rn`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `reclamation`
---
-ALTER TABLE `reclamation`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `stage`
---
-ALTER TABLE `stage`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Index pour la table `student`
---
-ALTER TABLE `student`
-  ADD PRIMARY KEY (`CNE`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `demande_ar`
---
-ALTER TABLE `demande_ar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
