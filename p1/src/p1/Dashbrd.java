@@ -167,7 +167,6 @@ public class Dashbrd extends javax.swing.JFrame {
         public void AS_gen(Integer id_d) throws FileNotFoundException {
                 String nom = "", cin = "", email = "";
                 Integer cne = null;
-                String file_path;
                 try {
                         // get the data from the database using the id
                         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
@@ -252,8 +251,7 @@ public class Dashbrd extends javax.swing.JFrame {
                         doc.close();
                         
                         System.out.println("Attestation de scolarité created");
-                        file_path = "pdf/Attestation_de_scolarité " + cne.toString() + ".pdf";
-                        SendMail.send_email(email,file_path , "envoi d'Attestation de scolarité", "Attestation_de_scolarité");
+                        
                         // update table to set the traité to 1
                         try {
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root",
@@ -279,7 +277,6 @@ public class Dashbrd extends javax.swing.JFrame {
         // Attestation de réussite
         public void AR_gen(Integer id_d) {
                 String nom = "", cin = "", email = "", niveau = "", niveau_doc = "";
-                String file_path;
                 Integer cne = null;
                 try {
                         // get the data from the database using the id
@@ -371,8 +368,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                         doc.close();
                                         System.out.println("Attetatation de réussite created");
                                         
-                                        file_path = "pdf/Attestation_de_réussite " + cne.toString() + ".pdf";
-                                        SendMail.send_email(email,file_path , "envoi d'Attestation de réussite", "Attestation de réussite");
+                                        
                                         
                                         // update table to set the traité to 1
                                         try {
@@ -537,7 +533,6 @@ public class Dashbrd extends javax.swing.JFrame {
                 
                
                                                             
-                       SendMail.send_email(email,"pdf/Relevé_de_notes_" + cne.toString() + ".pdf" , "envoi du relevé de notes", "Relevé de notes");
                
 
                 // Mettre à jour la table demande_rn pour marquer la demande comme traitée
@@ -885,8 +880,7 @@ public class Dashbrd extends javax.swing.JFrame {
                                                 + cne.toString() + ".pdf");
                                 doc.close();
                                 
-                                file_path = "pdf/Attestation_de_stage" + cne.toString() + ".pdf";
-                                SendMail.send_email(email,file_path , "envoi d'Attestation de stage", "Attestation de stage");
+                               
 
                                 
 
@@ -1549,8 +1543,8 @@ public class Dashbrd extends javax.swing.JFrame {
         Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
         String file_path;
         Dashbrd dash= new Dashbrd();
-        if (type.equals("Attestation de scolarité")) {
-            file_path = "pdf/Attestation_de_scolarité" + cne.toString() + ".pdf";
+        if (type.equals("Attestation de scolarité ")) {
+            file_path = "pdf/Attestation_de_scolarité " + cne.toString() + ".pdf";
             try {
                 if (Files.exists(Paths.get(file_path))) {
                     // open the file
@@ -1647,6 +1641,11 @@ public class Dashbrd extends javax.swing.JFrame {
                         String type = jTable2.getModel().getValueAt(viewRow, 4).toString();
                         Integer id_column = Integer
                                         .parseInt(jTable2.getModel().getValueAt(viewRow, 0).toString());
+                         String email = jTable2.getModel().getValueAt(viewRow, 3).toString();
+                        Integer cne = Integer.parseInt(jTable2.getModel().getValueAt(viewRow, 2).toString());
+                        
+                        String file_path;
+
                         // switch case to know which fonction to call
                         switch (type) {
                                 case "Attestation de scolarité":
@@ -1654,6 +1653,9 @@ public class Dashbrd extends javax.swing.JFrame {
                                         System.out.println("Attestation de scolarité");
                                         try {
                                                 AS_gen(id_column);
+                        file_path = "pdf/Attestation_de_scolarité " + cne.toString() + ".pdf";
+     SendMail.send_email(email,file_path , "envoi d'Attestation de scolarité", "Attestation_de_scolarité");
+                                       
                                         } catch (FileNotFoundException e) {
                                                 // TODO Auto-generated catch block
                                                 e.printStackTrace();
@@ -1663,20 +1665,29 @@ public class Dashbrd extends javax.swing.JFrame {
                                         // call the function to accept the demand
                                         AR_gen(id_column);
                                         System.out.println("Attestation de réussite");
+                                        file_path = "pdf/Attestation_de_réussite " + cne.toString() + ".pdf";
+                                        SendMail.send_email(email,file_path , "envoi d'Attestation de réussite", "Attestation de réussite");
                                         break;
                                 case "Relevé de notes":
                                         //call the function to accept the demand
                                        ReleveNotesGenerator(id_column);
                                         System.out.println("Relevé de notes crée");
+               SendMail.send_email(email,"pdf/Relevé_de_notes_" + cne.toString() + ".pdf" , "envoi du relevé de notes", "Relevé de notes");
+
+                                        
+                                        
                                         break;
                                 case "Attestation de stage":
                                         // call the function to accept the demand
                                         Astage_gen(id_column);
+                                         file_path = "pdf/Attestation_de_stage" + cne.toString() + ".pdf";
+                                SendMail.send_email(email,file_path , "envoi d'Attestation de stage", "Attestation de stage");
                                         break;
                                 default:
                                         JOptionPane.showMessageDialog(null, "Erreur");
                         }
                 }
+                                    actualiser();
 
         }// GEN-LAST:event_jButton2ActionPerformed
 
