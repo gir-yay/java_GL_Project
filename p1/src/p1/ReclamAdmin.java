@@ -128,10 +128,6 @@ public class ReclamAdmin extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
             },
             new String [] {
                 "ID", "Nom Prenom", "Email", "Type de document", "Motif"
@@ -139,6 +135,7 @@ public class ReclamAdmin extends javax.swing.JFrame {
         ));
         // fillTable();
         fillTable();
+        jTable2.setAutoCreateRowSorter(true);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable2MouseClicked(evt);
@@ -273,7 +270,6 @@ public class ReclamAdmin extends javax.swing.JFrame {
     }// GEN-LAST:event_jLabel12MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         String recherche = jTextPane1.getText();
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(jTable2.getModel());
         jTable2.setRowSorter(rowSorter);
