@@ -869,11 +869,11 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.endText();
                                 contentStream.close();
 
-                                doc.save("pdf/Attestation de stage "
+                                doc.save("pdf/Attestation_de_stage"
                                                 + cne.toString() + ".pdf");
                                 doc.close();
                                 
-                                file_path = "pdf/Attestation de stage " + cne.toString() + ".pdf";
+                                file_path = "pdf/Attestation_de_stage" + cne.toString() + ".pdf";
                                 SendMail.send_email(email,file_path , "envoi d'Attestation de stage", "Attestation de stage");
 
                                 

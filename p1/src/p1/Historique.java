@@ -4,6 +4,8 @@
  */
 package p1;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -48,6 +50,14 @@ public class Historique extends javax.swing.JFrame {
         model.setRowCount(0); // Clear the table before adding rows
         fill();
     }
+    public void open(String path){
+        try {
+            File file = new File(path);
+            Desktop.getDesktop().open(file);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erreur");
+        }
+    }
 
     // used to fill the table
     public void fill() {
@@ -72,7 +82,6 @@ public class Historique extends javax.swing.JFrame {
             jTable2.revalidate();
             jTable2.repaint();
         }
-            System.out.println("Added Attestation de réussite to the table.");
         
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,7 +108,6 @@ public class Historique extends javax.swing.JFrame {
             }
             jTable2.revalidate();
             jTable2.repaint();
-            System.out.println("Added Relevé de notes to the table.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -108,12 +116,12 @@ public class Historique extends javax.swing.JFrame {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gl", "root", "");
             java.sql.Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(
-                    "SELECT stage.id,student.Nom_complet,student.email,student.CNE,stage.status FROM stage INNER JOIN student ON stage.user_id = student.CNE where traité = '1';");
+                    "SELECT stage.id,student.Nom_complet,student.email,student.CNE,stage.statuts FROM stage INNER JOIN student ON stage.user_id = student.CNE where traité = '1';");
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
             String status="";
 
             while (rs.next()) {
-                if (rs.getString("status").equals("1")) {
+                if (rs.getString("statuts").equals("1")) {
                         //then status = Accepter 
                         status="Accepter";
                     } else {
@@ -125,7 +133,6 @@ public class Historique extends javax.swing.JFrame {
             }
             jTable2.revalidate();
             jTable2.repaint();
-            System.out.println("Added Attestation de stage to the table.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -151,7 +158,6 @@ public class Historique extends javax.swing.JFrame {
             jTable2.revalidate();
             jTable2.repaint(); 
             }
-            System.out.println("Added Attestation de scolarité to the table.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -369,122 +375,75 @@ public class Historique extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param evt
+     */
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton3MouseClicked
         // get the type of doc from the table
         String type = jTable2.getValueAt(jTable2.getSelectedRow(), 4).toString();
         // get the cne from the table
         Integer cne = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString());
-        // depend on the type of doc
-        switch (type) {
-            case "Attestation de réussite":
-                if (Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_réussite " + cne.toString() + ".pdf"))) {
-                    // open the filein the output folder Attestation_de_réussite + cne.toString() +
-                    // .pdf
-                    try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
-                                + "p1\\pdf\\Attestation_de_réussite " + cne.toString() + ".pdf");
-                    } catch (Exception e) {
-                        System.out.println("Error opening the file");
-                    }
+        Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
+        String file_path;
+        Dashbrd dash= new Dashbrd();
+        if (type.equals("Attestation de scolarité")) {
+            file_path = "pdf/Attestation_de_scolarité" + cne.toString() + ".pdf";
+            try {
+                if (Files.exists(Paths.get(file_path))) {
+                    // open the file
+                    open(file_path);
                 } else {
-                    // generate the fill
-                    // get the id of the demande
-                    Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
-                    Dashbrd dash = new Dashbrd();
+                    //create it then open it 
+                    dash.AS_gen(id);
+                    open(file_path);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erreur");
+            }
+        } else if (type.equals("Attestation de réussite")) {
+            file_path = "pdf/Attestation_de_réussite " + cne.toString() + ".pdf";
+            try {
+                if (Files.exists(Paths.get(file_path))) {
+                    // open the file
+                    open(file_path);
+                } else {
+                    //create it then open it
                     dash.AR_gen(id);
-                    // open the filein the output folder Attestation_de_réussite + cne.toString() +
-                    // .pdf
-                    try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
-                                + "p1\\pdf\\Attestation_de_réussite " + cne.toString() + ".pdf");
-                    } catch (Exception e) {
-                        System.out.println("Error opening the file");
-                    }
+                    open(file_path);
                 }
-                break;
-            case "Relevé de notes":
-                if (Files.exists(Paths.get(null, "p1\\pdf\\Relevé_de_notes " + cne.toString() + ".pdf"))) {
-                    // open the filein the output folder Relevé_de_notes + cne.toString() + .pdf
-                    try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Relevé_de_notes "
-                                + cne.toString() + ".pdf");
-                    } catch (Exception e) {
-                        System.out.println("Error opening the file");
-                    }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erreur");
+            }
+        } else if (type.equals("Relevé de notes")) {
+            file_path = "pdf/Relevé_de_notes " + cne.toString() + ".pdf";
+            try {
+                if (Files.exists(Paths.get(file_path))) {
+                    // open the file
+                    open(file_path);
                 } else {
-                    // generate the fill
-                    // get the id of the demande
-                    Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
-                    Dashbrd dash = new Dashbrd();
-                    // dash.RN_gen(id);
-                    // open the filein the output folder Relevé_de_notes + cne.toString() + .pdf
-                    try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "p1\\pdf\\Relevé_de_notes "
-                                + cne.toString() + ".pdf");
-                    } catch (Exception e) {
-                        System.out.println("Error opening the file");
-                    }
+                    //create it then open it
+                    dash.ReleveNotesGenerator(id);
+                    open(file_path);
                 }
-                break;
-            case "Attestaion de scolarité":
-                if (Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_scolarité " + cne.toString() + ".pdf"))) {
-                    // open the filein the output folder Attestation_de_scolarité + cne.toString() +
-                    // .pdf
-                    try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
-                                + "p1\\pdf\\Attestation_de_scolarité " + cne.toString() + ".pdf");
-                    } catch (Exception e) {
-                        System.out.println("Error opening the file");
-                    }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erreur");
+            }
+        } else if (type.equals("Attestation de stage")) {
+            file_path = "pdf/Attestation_de_stage" + cne.toString() + ".pdf";
+            try {
+                if (Files.exists(Paths.get(file_path))) {
+                    open(file_path);
                 } else {
-                    // generate the fill
-                    // get the id of the demande
-                    Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
-                    Dashbrd dash = new Dashbrd();
-                    try {
-                        dash.AS_gen(id);
-                    } catch (FileNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    // open the filein the output folder Attestation_de_scolarité + cne.toString() +
-                    // .pdf
-                    try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
-                                + "p1\\pdf\\Attestation_de_scolarité " + cne.toString() + ".pdf");
-                    } catch (Exception e) {
-                        System.out.println("Error opening the file");
-                    }
-                }
-                break;
-            case "Attestation de stage":
-                if (Files.exists(Paths.get(null, "p1\\pdf\\Attestation_de_stage " + cne.toString() + ".pdf"))) {
-                    // open the filein the output folder Attestation_de_stage + cne.toString() +
-                    // .pdf
-                    try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
-                                + "p1\\pdf\\Attestation_de_stage " + cne.toString() + ".pdf");
-                    } catch (Exception e) {
-                        System.out.println("Error opening the file");
-                    }
-                } else {
-                    // generate the fill
-                    // get the id of the demande
-                    Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
-                    Dashbrd dash = new Dashbrd();
+                    //create it then open it
                     dash.Astage_gen(id);
-                    // open the filein the output folder Attestation_de_stage + cne.toString() +
-                    // .pdf
-                    try {
-                        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
-                                + "p1\\pdf\\Attestation_de_stage " + cne.toString() + ".pdf");
-                    } catch (Exception e) {
-                        System.out.println("Error opening the file");
-                    }
+                    open(file_path);
                 }
-
-            default:
-                JOptionPane.showMessageDialog(null, "Error opening the file");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erreur");
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Erreur de type de document");
         }
 
     }// GEN-LAST:event_jButton3MouseClicked
