@@ -1543,7 +1543,7 @@ public class Dashbrd extends javax.swing.JFrame {
         Integer id = Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
         String file_path;
         Dashbrd dash= new Dashbrd();
-        if (type.equals("Attestation de scolarité ")) {
+        if (type.equals("Attestation de scolarité")) {
             file_path = "pdf/Attestation_de_scolarité " + cne.toString() + ".pdf";
             try {
                 if (Files.exists(Paths.get(file_path))) {
