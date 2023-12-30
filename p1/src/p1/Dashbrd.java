@@ -612,7 +612,9 @@ public class Dashbrd extends javax.swing.JFrame {
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.showText(" Représenté par le Professeur");
                                 // change to bold
-                                contentStream.setFont(font2, 15);
+                                contentStream.setFont(font2, 15);git checkout old-main
+                                git pull origin main
+                                
                                 contentStream.showText(" Kamal REKLAOUI");
                                 // change to normal
                                 contentStream.setFont(font, 12);
