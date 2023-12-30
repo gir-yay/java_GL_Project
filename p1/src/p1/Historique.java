@@ -389,7 +389,7 @@ public class Historique extends javax.swing.JFrame {
         String file_path;
         Dashbrd dash= new Dashbrd();
         if (type.equals("Attestation de scolarité")) {
-            file_path = "pdf/Attestation_de_scolarité" + cne.toString() + ".pdf";
+            file_path = "pdf/Attestation_de_scolarité " + cne.toString() + ".pdf";
             try {
                 if (Files.exists(Paths.get(file_path))) {
                     // open the file
@@ -485,7 +485,7 @@ public class Historique extends javax.swing.JFrame {
         switch (type) {
             case "Attestation de scolarité":
 
-                file_path = "pdf/Attestation_de_scolarité" + cne.toString() + ".pdf";
+                file_path = "pdf/Attestation_de_scolarité " + cne.toString() + ".pdf";
                 if (Files.exists(Paths.get(file_path))) {
                       SendMail.send_email(mail, file_path, "renvoi d'attestation de scolarité", "Attestation de scolarité");
                 }else{
