@@ -595,26 +595,25 @@ public class Dashbrd extends javax.swing.JFrame {
                                                 "fonts/Calibri.ttf"));
                                 PDType0Font font2 = PDType0Font.load(doc, new File(
                                                 "fonts/Calibrib.ttf"));
-                                contentStream.setFont(font2, 12);
+                                contentStream.setFont(font2, 15);
                                 // add the name to the center
                                 contentStream.showText("Ecole Nationale des Sciences Appliquées de Tétouan");
                                 contentStream.newLineAtOffset(100, -40);
-                                contentStream.showText("convention de stage");
+                                contentStream.showText("Convention de stage");
                                 contentStream.newLineAtOffset(-225, -40);
-                                contentStream.setFont(font, 15);
+                                contentStream.setFont(font, 12);
                                 contentStream.showText(
                                                 "L Ecole Nationale des Sciences Appliquées, Université Abdelmalek Essaâdi -");
                                 contentStream.newLineAtOffset(0, -20);
                                 contentStream.showText("Tétouan B.P. 2222,Mhannech II, Tétouan, Maroc");
-                                contentStream.newLineAtOffset(10, -20);
+                                contentStream.newLineAtOffset(0, -20);
                                 contentStream.showText(
                                                 "Tél. +212 5 39 68 80 27 ; Fax. +212 39 99 46 24. Web: ensa-tetouan.ac.ma ");
                                 contentStream.newLineAtOffset(0, -20);
+                                contentStream.setFont(font, 12);
                                 contentStream.showText(" Représenté par le Professeur");
                                 // change to bold
-                                contentStream.setFont(font2, 15);git checkout old-main
-                                git pull origin main
-                                
+                                contentStream.setFont(font2, 15);
                                 contentStream.showText(" Kamal REKLAOUI");
                                 // change to normal
                                 contentStream.setFont(font, 12);
