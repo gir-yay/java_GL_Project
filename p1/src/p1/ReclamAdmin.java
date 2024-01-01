@@ -254,6 +254,11 @@ public class ReclamAdmin extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        //Go to the history page 
+        Historique firstScreen = new Historique();
+        firstScreen.setVisible(true);
+        this.dispose();
+
     }// GEN-LAST:event_jButton6ActionPerformed
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel12MouseClicked
